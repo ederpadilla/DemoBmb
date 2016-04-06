@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">Red Habitat 2.0</string>
+    <string name="pregunta_uno">¿Cubre el inmueble sus requerimientos?</string>
+    <string name="pregunta_dos">¿Por qué cubre o no cubre sus requerimientos?</string>
+    <string name="pregunta_tres">¿Se encuentra dentro de su presupuesto?</string>
+    <string name="pregunta_cuatro">¿Considerasrías el inmueble dentro e sus opciones de compra o renta?</string>
+    <string name="pregunta_cinco">Recibío la información que requería respecto a la propiedad y aclaró sus dudas</string>
+    <string name="pregunta_seis">El asesor acudió de manera puntual a la cita:</string>
+    <string name="pregunta_siete">La atención que recibió por parte del asesor fue:</string>
+    <string name="pregunta_ocho">¿Encuentra alguna objeción por la cual descartaría el inmueble de sus opciones?</string>
+    <string name="pregunta_nueve">Desea dejar un comentario.</string>
+    <string name="Aceptar">Si</string>
+    <string name="Negar">No</string>
+    <string name="siguiente">Siguiente</string>
+    <string name="buena">BUENA</string>
+    <string name="regular">REGULAR</string>
+    <string name="mala">MALA</string>
+    <string name="indice"> de 9</string>
+
+</resources>

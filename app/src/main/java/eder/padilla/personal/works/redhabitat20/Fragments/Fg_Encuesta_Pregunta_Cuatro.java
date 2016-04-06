@@ -34,6 +34,7 @@ public class Fg_Encuesta_Pregunta_Cuatro extends Fragment implements View.OnClic
         btnNegar = (Button) view.findViewById(R.id.negar);
     }
 
+    //sadjasdjkakjas
     @Override
     public void onClick(View v) {
         switch (v.getId()) {

@@ -1,4 +1,4 @@
-package eder.padilla.personal.works.redhabitat20.Fragments;
+package eder.padilla.personal.works.redhabitat20.fragments.fragmentsPreguntas;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -7,7 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-import eder.padilla.personal.works.redhabitat20.Activitys.MainActivity;
+import eder.padilla.personal.works.redhabitat20.activitys.MainActivity;
 import eder.padilla.personal.works.redhabitat20.R;
 
 
@@ -15,18 +15,21 @@ import eder.padilla.personal.works.redhabitat20.R;
  * Created by Eder on 15/03/2016.
  */
 public class Fg_Encuesta_Pregunta_Cuatro extends Fragment implements View.OnClickListener {
-    Button btnAceptar, btnNegar;
+    private Button btnAceptar;
+    private Button btnNegar;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_encuesta_pregunta_cuatro, container, false);
         objectInitialization(view);
-
-        btnAceptar.setOnClickListener(this);
-        btnNegar.setOnClickListener(this);
+        setListeners();
         System.out.println("Repuesta cuatro es " + ((MainActivity) getActivity()).encuesta.isConsideraselinmuebledentrodesusopcionesdecompraorenta());
 
         return view;
+    }
+    public void setListeners(){
+        btnAceptar.setOnClickListener(this);
+        btnNegar.setOnClickListener(this);
     }
 
     public void objectInitialization(View view) {
@@ -34,15 +37,18 @@ public class Fg_Encuesta_Pregunta_Cuatro extends Fragment implements View.OnClic
         btnNegar = (Button) view.findViewById(R.id.negar);
     }
 
-    //sadjasdjkakjas
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.aceptar:
+                  /*Casteamos nuestro objeto y asignamos valor al campo del modelo y llamamos a
+                    * la proxima pagina del viewpager*/
                 ((MainActivity) getActivity()).encuesta.setConsideraselinmuebledentrodesusopcionesdecompraorenta(true);
                 ((MainActivity) getActivity()).viewpager.setCurrentItem(4);
                 break;
             case R.id.negar:
+                  /*Casteamos nuestro objeto y asignamos valor al campo del modelo y llamamos a
+                    * la proxima pagina del viewpager*/
                 ((MainActivity) getActivity()).encuesta.setConsideraselinmuebledentrodesusopcionesdecompraorenta(false);
                 ((MainActivity) getActivity()).viewpager.setCurrentItem(4);
                 break;

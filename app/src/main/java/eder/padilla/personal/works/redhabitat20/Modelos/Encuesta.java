@@ -1,4 +1,4 @@
-package eder.padilla.personal.works.redhabitat20.Modelos;
+package eder.padilla.personal.works.redhabitat20.modelos;
 
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
@@ -6,21 +6,31 @@ import io.realm.annotations.PrimaryKey;
 /**
  * Created by Eder on 31/03/2016.
  */
+/**
+ * Clase sobre que se guardara y que se enviara
+ */
 public class Encuesta extends RealmObject {
 
 
 
     private String contraseña;
-    private boolean cubrerequerimientos;
-    private String elporquecubreono;
+    private String elpPorQueCubreoNo;
+    private String atencion;
+    private String objecionPorLaCulDescartariaelInmueble;
+    private String comentarioFinal;
+    private String correo;
+
+
+    private String comentarioHaciaElPropietario;
+    private boolean cubreRequerimientos;
+
     private boolean dentrodelpresupuesto;
     private boolean consideraselinmuebledentrodesusopcionesdecompraorenta;
     private boolean recibiolainformacionquerequeria;
     private boolean elasesoracudiodemanerapuntual;
-    private String atencion;
-    private String objecionporlaculdescartariaelinmueble;
-    private String comentariofinal;
-    private String correo;
+
+
+    private byte[]bytes;
     @PrimaryKey
     private int idd;
 
@@ -41,20 +51,20 @@ public class Encuesta extends RealmObject {
 
 
 
-    public boolean isCubrerequerimientos() {
-        return cubrerequerimientos;
+    public boolean isCubreRequerimientos() {
+        return cubreRequerimientos;
     }
 
-    public void setCubrerequerimientos(boolean cubrerequerimientos) {
-        this.cubrerequerimientos = cubrerequerimientos;
+    public void setCubreRequerimientos(boolean cubreRequerimientos) {
+        this.cubreRequerimientos = cubreRequerimientos;
     }
 
-    public String getElporquecubreono() {
-        return elporquecubreono;
+    public String getElpPorQueCubreoNo() {
+        return elpPorQueCubreoNo;
     }
 
-    public void setElporquecubreono(String elporquecubreono) {
-        this.elporquecubreono = elporquecubreono;
+    public void setElpPorQueCubreoNo(String elpPorQueCubreoNo) {
+        this.elpPorQueCubreoNo = elpPorQueCubreoNo;
     }
 
     public boolean isDentrodelpresupuesto() {
@@ -97,20 +107,20 @@ public class Encuesta extends RealmObject {
         this.atencion = atencion;
     }
 
-    public String getObjecionporlaculdescartariaelinmueble() {
-        return objecionporlaculdescartariaelinmueble;
+    public String getObjecionPorLaCulDescartariaelInmueble() {
+        return objecionPorLaCulDescartariaelInmueble;
     }
 
-    public void setObjecionporlaculdescartariaelinmueble(String objecionporlaculdescartariaelinmueble) {
-        this.objecionporlaculdescartariaelinmueble = objecionporlaculdescartariaelinmueble;
+    public void setObjecionPorLaCulDescartariaelInmueble(String objecionPorLaCulDescartariaelInmueble) {
+        this.objecionPorLaCulDescartariaelInmueble = objecionPorLaCulDescartariaelInmueble;
     }
 
-    public String getComentariofinal() {
-        return comentariofinal;
+    public String getComentarioFinal() {
+        return comentarioFinal;
     }
 
-    public void setComentariofinal(String comentariofinal) {
-        this.comentariofinal = comentariofinal;
+    public void setComentarioFinal(String comentarioFinal) {
+        this.comentarioFinal = comentarioFinal;
     }
 
     public String getCorreo() {
@@ -120,4 +130,19 @@ public class Encuesta extends RealmObject {
     public void setCorreo(String correo) {
         this.correo = correo;
     }
+    public byte[] getBytes() {
+        return bytes;
+    }
+
+    public void setBytes(byte[] bytes) {
+        this.bytes = bytes;
+    }
+    public String getComentarioHaciaElPropietario() {
+        return comentarioHaciaElPropietario;
+    }
+
+    public void setComentarioHaciaElPropietario(String comentarioHaciaElPropietario) {
+        this.comentarioHaciaElPropietario = comentarioHaciaElPropietario;
+    }
+
 }

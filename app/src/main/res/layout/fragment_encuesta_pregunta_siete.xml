@@ -1,55 +1,90 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"
-    >
+    android:weightSum="3">
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        >
-
-
-    </LinearLayout>
-    <LinearLayout
-        android:layout_marginTop="50dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        >
+        android:layout_height="match_parent"
+        android:layout_weight="1.2">
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/pregunta_siete"
+            android:textStyle="bold"
             android:textSize="@dimen/questions_size"
             android:textAlignment="center"
             />
-
     </LinearLayout>
     <LinearLayout
-        android:layout_marginTop="200dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_weight=".9"
         android:orientation="horizontal">
-        <Button
+        <de.hdodenhof.circleimageview.CircleImageView
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/buena"
+            android:layout_weight=".8"
+            android:src="@drawable/boton_redondo"
+            android:layout_width="150dp"
+            android:layout_height="200dp"
+            android:layout_marginTop="20dp"
+            app:civ_border_color="#FF000000"
+            app:civ_border_width="2dp" />
+        <de.hdodenhof.circleimageview.CircleImageView
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/regular"
+            android:layout_weight="1"
+            android:src="@drawable/boton_redondo"
+            android:layout_width="55dp"
+            android:layout_height="200dp"
+            android:layout_marginTop="20dp"
+            app:civ_border_color="#FF000000"
+            app:civ_border_width="2dp" />
+        <de.hdodenhof.circleimageview.CircleImageView
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/mala"
+            android:layout_weight="1"
+            android:src="@drawable/boton_redondo"
+            android:layout_width="55dp"
+            android:layout_height="200dp"
+            android:layout_marginTop="20dp"
+            app:civ_border_color="#FF000000"
+            app:civ_border_width="2dp" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:weightSum="3"
+        android:layout_weight="1.3">
+        <TextView
+            android:layout_weight="1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="40dp"
-            android:text="@string/buena"
-            android:id="@+id/buena"/>
-        <Button
+            android:textAlignment="center"
+            android:textSize="@dimen/questions_size"
+            android:text="@string/buena"/>
+        <TextView
+            android:layout_weight="1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:text="@string/regular"
-            android:id="@+id/regular"/>
-        <Button
+            android:textAlignment="center"
+            android:textSize="@dimen/questions_size"
+            android:text="@string/regular"/>
+        <TextView
+            android:layout_weight="1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:text="@string/mala"
-            android:id="@+id/mala"/>
+            android:textSize="@dimen/questions_size"
+            android:textAlignment="center"
+            android:text="@string/mala"/>
 
     </LinearLayout>
 
-</RelativeLayout>
+
+
+</LinearLayout>

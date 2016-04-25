@@ -17,7 +17,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:src="@drawable/manos"
-        android:layout_weight=".8">
+        android:layout_weight="1">
 
     </ImageView>
     <LinearLayout

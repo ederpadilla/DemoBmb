@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center">
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="500dp"
+        android:layout_height="200dp"
+        android:orientation="vertical"
+        android:gravity="right"
+        android:weightSum="2">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1.1"
+            android:gravity="left|bottom">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/pregunta_realizar_cuestionaro"
+                android:textAlignment="center"
+                android:textSize="@dimen/questions_size"
+                android:textColor="@color/nombre.asesor"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1.1"
+            android:orientation="horizontal"
+            android:gravity="center">
+            <Button
+                android:layout_width="160dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="35dp"
+                android:id="@+id/bt__dialogo_cancelar_encuesta"
+                android:text="@string/bt_cancelar_dialogos"
+                android:background="@color/titulo.asesor"
+
+                />
+            <Button
+                android:layout_width="160dp"
+                android:layout_height="wrap_content"
+                android:text="@string/bt_aceptar_dialogos"
+                android:id="@+id/bt_dialogo_aceptar_encuesta"
+                android:background="@color/titulo.asesor"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

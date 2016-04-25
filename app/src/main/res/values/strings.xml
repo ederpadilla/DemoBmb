@@ -1,20 +1,92 @@
 <resources>
     <string name="app_name">Red Habitat 2.0</string>
+    <!--Actividad Calendario-->
+    <string name="visitas">Visitas</string>
+    <string name="visitas_programadas">Visitas programadas</string>
+    <string name="visitas_no_realizadas">Visitas no realizadas</string>
+    <string name="visitas_canceladas">Visitas canceladas</string>
+    <string name="lunes">Lunes</string>
+    <string name="martes">Martes</string>
+    <string name="miercoles">Miercoles</string>
+    <string name="jueves">Jueves</string>
+    <string name="viernes">Viernes</string>
+    <string name="sabado">Sabado</string>
+    <string name="domingo">Domingo</string>
+    <string name="cita_finalizada">Cita finalizada</string>
+    <string name="ver_mas">ver más...</string>
+    <string name="una">01:00</string>
+    <string name="dos">02:00</string>
+    <string name="tres">03:00</string>
+    <string name="cuatro">04:00</string>
+    <string name="cinco">05:00</string>
+    <string name="seis">06:00</string>
+    <string name="siete">07:00</string>
+    <string name="ocho">08:00</string>
+    <string name="nueve">09:00</string>
+    <string name="diez">10:00</string>
+    <string name="once">11:00</string>
+    <string name="doce">12:00</string>
+    <string name="trece">13:00</string>
+    <string name="catorce">14:00</string>
+    <string name="quince">15:00</string>
+    <string name="dieciseis">16:00</string>
+    <string name="diecsiete">17:00</string>
+    <string name="dieciocho">18:00</string>
+    <string name="diecinueve">19:00</string>
+    <string name="veinte">20:00</string>
+    <string name="veintiuno">21:00</string>
+    <string name="veintidos">22:00</string>
+    <string name="veintitres">23:00</string>
+    <string name="cero_horas">00:00</string>
+
+    <!--Encuesta-->
     <string name="pregunta_uno">¿Cubre el inmueble sus requerimientos?</string>
     <string name="pregunta_dos">¿Por qué cubre o no cubre sus requerimientos?</string>
     <string name="pregunta_tres">¿Se encuentra dentro de su presupuesto?</string>
-    <string name="pregunta_cuatro">¿Considerasrías el inmueble dentro e sus opciones de compra o renta?</string>
-    <string name="pregunta_cinco">Recibío la información que requería respecto a la propiedad y aclaró sus dudas</string>
+    <string name="pregunta_cuatro">¿Considerarías el inmueble dentro e sus opciones de compra o renta?</string>
+    <string name="pregunta_cinco">Recibió la información que requería respecto a la propiedad y aclaró sus dudas</string>
     <string name="pregunta_seis">El asesor acudió de manera puntual a la cita:</string>
     <string name="pregunta_siete">La atención que recibió por parte del asesor fue:</string>
     <string name="pregunta_ocho">¿Encuentra alguna objeción por la cual descartaría el inmueble de sus opciones?</string>
     <string name="pregunta_nueve">Desea dejar un comentario.</string>
+    <!--Botones-->
     <string name="Aceptar">Si</string>
     <string name="Negar">No</string>
     <string name="siguiente">Siguiente</string>
     <string name="buena">BUENA</string>
     <string name="regular">REGULAR</string>
     <string name="mala">MALA</string>
+    <!--Utilidades-->
     <string name="indice"> de 9</string>
+    <!--Dialogos-->
+    <string name="comentario_al_propietario">Comentario al propietario (asesor)</string>
+    <string name="bt_aceptar_dialogos">Aceptar</string>
+    <string name="pregunta_realizar_cuestionaro">Deseas realizar cuestionario</string>
+    <string name="bt_cancelar_dialogos">Cancelar</string>
+    <string name="comentrio_al_propietario_default">No dejo comentario hacia el propietario</string>
+
+
+    <!--Hide Texts-->
+    <string name="escribir_aqui_comentario">Escribe aquí tu comentario</string>
+
+    <!--Firma-->
+    <string name="firma">Firma digital</string>
+    <string name="firma_aceptar">Aceptar</string>
+    <string name="firma_corregir">Corregir</string>
+    <string name="firma_leyenda">Además de la firma digital, se debe corroborar de manera física \n en el contrato de presentación de servicios</string>
+    <string name="title_activity_login">Sign in</string>
+
+    <!-- Strings related to login -->
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password (optional)</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="error_invalid_email">This email address is invalid</string>
+    <string name="error_invalid_password">This password is too short</string>
+    <string name="error_incorrect_password">This password is incorrect</string>
+    <string name="error_field_required">This field is required</string>
+    <string name="permission_rationale">"Contacts permissions are needed for providing email
+        completions."
+    </string>
 
 </resources>

@@ -1,44 +1,69 @@
-package eder.padilla.personal.works.redhabitat20.Activitys;
+package eder.padilla.personal.works.redhabitat20.activitys;
 
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
 
-import eder.padilla.personal.works.redhabitat20.Adapters.MyPagerAdapter;
-import eder.padilla.personal.works.redhabitat20.Modelos.Encuesta;
+import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
+
+import eder.padilla.personal.works.redhabitat20.adapters.EncuestaAdapter;
+import eder.padilla.personal.works.redhabitat20.modelos.Encuesta;
 import eder.padilla.personal.works.redhabitat20.R;
 
 public class MainActivity extends AppCompatActivity implements ViewPager.OnPageChangeListener{
+    /* Declaracion de objetos con los que se trbajara */
     public Encuesta encuesta;
     public ViewPager viewpager;
-    public static TextView tv_indice;
+    private TextView mTvIndice;
+
+    View decorView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+       hideSystemUI();
         objectInitialization();
     }
+    /* Referenciamos nuestros objetos*/
    public void objectInitialization() {
         encuesta = new Encuesta();
         viewpager = (ViewPager) findViewById(R.id.viewPager);
-        viewpager.setAdapter(new MyPagerAdapter(getSupportFragmentManager()));
+        viewpager.setAdapter(new EncuestaAdapter(getSupportFragmentManager()));
         viewpager.addOnPageChangeListener(this);
-        tv_indice=(TextView) findViewById(R.id.main_indice);
-        tv_indice.setText(1+"");
+        mTvIndice =(TextView) findViewById(R.id.main_indice);
+        mTvIndice.setText(1+"");
     }
     @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
+
     }
     @Override
     public void onPageSelected(int position) {
-        tv_indice.setText(position+1+"");
+        /* decimos en que posicion se encuentra nuestro indice*/
+        mTvIndice.setText(position+1+"");
     }
     @Override
     public void onPageScrollStateChanged(int state) {
 
     }
 
+    private void hideSystemUI() {
+        decorView = getWindow().getDecorView();
+        // Set the IMMERSIVE flag.
+        // Set the content to appear under the system bars so that the content
+        // doesn't resize when the system bars hide and show.
+        decorView.setSystemUiVisibility(
+                View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                        | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                        | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                        | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION // hide nav bar
+                        | View.SYSTEM_UI_FLAG_FULLSCREEN // hide status bar
+                        | View.SYSTEM_UI_FLAG_IMMERSIVE);
+    }
 
 }

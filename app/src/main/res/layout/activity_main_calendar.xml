@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="2.15"
-        android:background="@color/barra_sesion"
+        android:background="@color/blue_marine"
         android:gravity="right"
         android:orientation="horizontal">
 
@@ -92,13 +92,18 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1.65"
-            android:background="@color/titulo.dialogo.firma"
+            android:background="@color/blue_marine"
             android:orientation="vertical">
 
             <com.prolificinteractive.materialcalendarview.MaterialCalendarView
                 android:id="@+id/calendarView"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                app:mcv_arrowColor="@color/white"
+                app:mcv_dateTextAppearance="@style/CustomTextAppearance"
+                app:mcv_headerTextAppearance="@style/CustomTextAppearance"
+                app:mcv_weekDayTextAppearance="@style/CustomTextAppearance"
+                android:layout_height="wrap_content"
+                app:mcv_selectionColor="@color/colorPrimary"/>
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -171,6 +176,29 @@
                     android:textSize="@dimen/tamaño_de_visitas" />
 
             </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="8dp"
+                android:orientation="horizontal">
+
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/visitas_finalizadas" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="5dp"
+                    android:text="@string/visitas_finalizadas"
+                    android:textColor="@color/textovisitas"
+                    android:textSize="@dimen/tamaño_de_visitas" />
+
+            </LinearLayout>
 
 
         </LinearLayout>
@@ -187,6 +215,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1.6"
+                android:background="@color/white"
                 android:orientation="horizontal"
                 android:weightSum="6">
 
@@ -195,7 +224,6 @@
                     android:layout_height="match_parent"
                     android:layout_marginTop="2dp"
                     android:layout_weight="1"
-                    android:background="@color/titulo.asesor"
                     android:gravity="center"
                     android:orientation="vertical">
                     <TextView
@@ -203,7 +231,7 @@
                         android:layout_height="wrap_content"
                         android:text="Día"
                         android:textSize="@dimen/numero_de_dia_mes"
-                        android:textColor="@color/textovisitas"/>
+                        android:textColor="@color/black"/>
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"

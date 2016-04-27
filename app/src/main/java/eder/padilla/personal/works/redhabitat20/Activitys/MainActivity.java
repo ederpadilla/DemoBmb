@@ -24,8 +24,7 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-       hideSystemUI();
+        hideSystemUI();
         objectInitialization();
     }
     /* Referenciamos nuestros objetos*/
@@ -35,6 +34,7 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
         viewpager.setAdapter(new EncuestaAdapter(getSupportFragmentManager()));
         viewpager.addOnPageChangeListener(this);
         mTvIndice =(TextView) findViewById(R.id.main_indice);
+
         mTvIndice.setText(1+"");
     }
     @Override

@@ -27,10 +27,8 @@ public class CalendarActivity extends AppCompatActivity implements View.OnClickL
     LinearLayout cuadroDeCitas;
 
     MaterialCalendarView materialCalendarView;
-    CalendarDay calendarDay = new CalendarDay(2016, 4, 20);
-    Calendar calendar = Calendar.getInstance();
-    Calendar mañana;
-    Calendar antier = Calendar.getInstance();
+
+    Calendar hoy = Calendar.getInstance();
 
 
     @Override
@@ -57,18 +55,13 @@ public class CalendarActivity extends AppCompatActivity implements View.OnClickL
     }
 
     public void selectionModeforCalendar() {
-        materialCalendarView.setSelectionMode(MaterialCalendarView.SELECTION_MODE_MULTIPLE);
-        // materialCalendarView.setSelectionColor(R.color.visita_programada);
+        materialCalendarView.setSelectionMode(MaterialCalendarView.SELECTION_MODE_SINGLE);
 
-        materialCalendarView.setSelectionColor(R.color.rojo_Intenso);
-        //materialCalendarView.setDateSelected(calendar, true);
         Calendar cal = Calendar.getInstance();
         Date date = cal.getTime();
-        CalendarDay from = CalendarDay.from(2016, 3, 22);
-        materialCalendarView.setSelectedDate(from);
+        CalendarDay today= CalendarDay.today();
+        materialCalendarView.setSelectedDate(today);
 
-        //  materialCalendarView.setDateSelected(calendarDay,true);
-        // materialCalendarView.set
     }
 
     private void hideSystemUI() {

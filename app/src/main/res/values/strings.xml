@@ -1,10 +1,17 @@
 <resources>
     <string name="app_name">Red Habitat 2.0</string>
+    <!--Actividad Log in -->
+    <string name="hint_email">Asesor</string>
+    <string name="hint_password">Clave Interna</string>
+    <string name="btn_sign_up">Iniciar Sesión</string>
+    <string name="err_msg_email">Asesor invalido</string>
+    <string name="err_msg_password">Ingresar contraseña</string>
     <!--Actividad Calendario-->
     <string name="visitas">Visitas</string>
     <string name="visitas_programadas">Visitas programadas</string>
     <string name="visitas_no_realizadas">Visitas no realizadas</string>
     <string name="visitas_canceladas">Visitas canceladas</string>
+    <string name="visitas_finalizadas">Visitas finalizadas</string>
     <string name="lunes">Lunes</string>
     <string name="martes">Martes</string>
     <string name="miercoles">Miercoles</string>

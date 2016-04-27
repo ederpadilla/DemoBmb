@@ -11,6 +11,9 @@ import android.widget.EditText;
 
 import eder.padilla.personal.works.redhabitat20.R;
 import eder.padilla.personal.works.redhabitat20.activitys.MainActivity;
+import eder.padilla.personal.works.redhabitat20.modelos.Encuesta;
+import io.realm.Realm;
+import io.realm.RealmResults;
 
 
 /**
@@ -20,7 +23,8 @@ public class DialogoComentarioPropietario extends DialogFragment implements View
     private Button mbt_relizar_comentario_propietario;
     private Button mbt_no_realizar_comentario;
     private EditText met_ComentarioHaciaElPropietario;
-
+    private RealmResults<Encuesta> allEncuestas;
+    private Realm realm;
 
 
     @Override
@@ -39,6 +43,8 @@ public class DialogoComentarioPropietario extends DialogFragment implements View
         mbt_relizar_comentario_propietario = (Button) view.findViewById(R.id.bt_dialogo_aceptar);
         mbt_no_realizar_comentario =(Button) view.findViewById(R.id.bt__dialogo_cancelar);
         met_ComentarioHaciaElPropietario=(EditText)view.findViewById(R.id.et_cometario_propietario);
+        realm = Realm.getInstance(getActivity().getApplicationContext());
+        allEncuestas = realm.where(Encuesta.class).findAll();
 
 
     }
@@ -52,6 +58,7 @@ public class DialogoComentarioPropietario extends DialogFragment implements View
     public void onClick(View v) {
         switch (v.getId()){
         case R.id.bt_dialogo_aceptar:
+            ((MainActivity) getActivity()).encuesta.setIdd(allEncuestas.size() + 1);
 
             ((MainActivity)getActivity()).encuesta.setComentarioHaciaElPropietario
                     (met_ComentarioHaciaElPropietario.getText().toString());
@@ -59,6 +66,7 @@ public class DialogoComentarioPropietario extends DialogFragment implements View
             dismiss();
         break;
             case R.id.bt__dialogo_cancelar:
+                ((MainActivity) getActivity()).encuesta.setIdd(allEncuestas.size() + 1);
 
                 dismiss();
                 break;

@@ -21,8 +21,7 @@ import io.realm.RealmResults;
 public class DiaologoPreguntaRealizarEncuesta extends DialogFragment implements View.OnClickListener {
     private Button mbt_RealizarEncuesta;
     private Button mbt_NoRealizarEncuesta;
-    private RealmResults<Encuesta> allEncuestas;
-    private Realm realm;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -38,8 +37,7 @@ public class DiaologoPreguntaRealizarEncuesta extends DialogFragment implements 
     private void objectInitialization(View view) {
         mbt_RealizarEncuesta = (Button) view.findViewById(R.id.bt_dialogo_aceptar_encuesta);
         mbt_NoRealizarEncuesta =(Button) view.findViewById(R.id.bt__dialogo_cancelar_encuesta);
-        realm = Realm.getInstance(getActivity().getApplicationContext());
-        allEncuestas = realm.where(Encuesta.class).findAll();
+
 
     }
 
@@ -55,7 +53,7 @@ public class DiaologoPreguntaRealizarEncuesta extends DialogFragment implements 
     public void onClick(View v) {
         switch(v.getId()){
             case R.id.bt_dialogo_aceptar_encuesta:
-                ((MainActivity) getActivity()).encuesta.setIdd(allEncuestas.size() + 1);
+
                 Intent myIntent = new Intent(getActivity(), MainActivity.class);
                 getActivity().startActivity(myIntent);
 

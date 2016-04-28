@@ -1,0 +1,443 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:weightSum="2">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1.7"
+        android:background="@color/king_blue"
+        android:orientation="horizontal"
+        android:id="@+id/cabecera"
+        android:weightSum="2"
+       >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="bottom"
+        android:layout_marginLeft="50dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="40sp"
+            android:textStyle="bold"
+            android:text="Visitas"
+            android:layout_marginBottom="5dp"
+            android:textColor="@color/white"
+            />
+
+    </LinearLayout>
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_weight="1"
+    android:orientation="horizontal"
+    android:gravity="right">
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="20dp"
+        android:layout_gravity="left"
+        android:layout_alignParentEnd="true">
+
+        <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/mnactv_fotodeasesor"
+            android:layout_width="55dp"
+            android:layout_height="65dp"
+            android:layout_weight="1"
+            android:layout_marginTop="20dp"
+            android:src="@mipmap/asesor"
+            app:civ_border_color="#FF000000"
+            app:civ_border_width="2dp" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="150dp"
+        android:layout_marginTop="40sp"
+        android:orientation="vertical"
+        android:layout_alignParentEnd="true">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Asesor"
+            android:textStyle="bold"
+            android:textColor="@color/common_signin_btn_dark_text_disabled" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Nombre del asesor"
+            android:id="@+id/tv_nombre_asesor"
+            android:textColor="@color/nombre.asesor" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/opc"
+            android:layout_marginLeft="110dp"
+            android:id="@+id/opc"
+
+            />
+    </LinearLayout>
+
+
+
+
+</LinearLayout>
+
+
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight=".3"
+        android:weightSum="2">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1.6"
+            android:background="@color/blue_marine"
+            android:orientation="vertical">
+            <com.prolificinteractive.materialcalendarview.MaterialCalendarView
+                android:id="@+id/calendarView"
+                android:layout_width="match_parent"
+                app:mcv_arrowColor="@color/white"
+                app:mcv_dateTextAppearance="@style/CustomTextAppearance"
+                app:mcv_headerTextAppearance="@style/CustomTextAppearance"
+                app:mcv_weekDayTextAppearance="@style/CustomTextAppearance"
+                android:layout_height="wrap_content"
+                app:mcv_selectionColor="@color/colorPrimary"/>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="25dp"
+                android:orientation="horizontal">
+
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/vistias_programadas" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="5dp"
+                    android:text="@string/visitas_programadas"
+                    android:textColor="@color/textovisitas"
+                    android:textSize="@dimen/tamaño_de_visitas" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="8dp"
+                android:orientation="horizontal">
+
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/visitas_no_realizadas" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="5dp"
+                    android:text="@string/visitas_no_realizadas"
+                    android:textColor="@color/textovisitas"
+                    android:textSize="@dimen/tamaño_de_visitas" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="8dp"
+                android:orientation="horizontal">
+
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/visitas_canceladas" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="5dp"
+                    android:text="@string/visitas_canceladas"
+                    android:textColor="@color/textovisitas"
+                    android:textSize="@dimen/tamaño_de_visitas" />
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="8dp"
+                android:orientation="horizontal">
+
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/visitas_finalizadas" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="5dp"
+                    android:text="@string/visitas_finalizadas"
+                    android:textColor="@color/textovisitas"
+                    android:textSize="@dimen/tamaño_de_visitas" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight=".4"
+            android:weightSum="2"
+            android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1.8"
+                android:gravity="center_horizontal">
+                <TextView
+                    android:id="@+id/fecha_indice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:layout_marginTop="10dp"
+                    android:text="1 - 7 Febrero 2016 "
+                    android:textAlignment="center"
+                    android:textSize="25sp"
+                    android:textColor="@color/salmon_orange"/>
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight=".2"
+                android:weightSum="2"
+                android:orientation="vertical"
+                >
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1.7"
+                    android:weightSum="8"
+                    android:orientation="horizontal"
+                    android:background="@color/barra_sesion">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1.05"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:background="#f4f4f4"
+                        android:layout_margin="2dp">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Hora"
+                            android:textSize="20sp"
+                            android:textColor="@color/black"/>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight=".992"
+                        android:background="#f4f4f4"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:layout_margin="2dp">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            style="@style/NumeroDeDiaDelaSemana"
+                            android:text="1"
+                            android:id="@+id/numeroPrimerDiaDeLaSemana"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/domingo"
+                            android:id="@+id/primerDiaDeLaSemana"
+                            style="@style/DiaDelaSemana"/>
+
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight=".992"
+                        android:background="#f4f4f4"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:layout_margin="2dp">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            style="@style/NumeroDeDiaDelaSemana"
+                            android:text="2"
+                            android:id="@+id/numeroSegundoDiaDeLaSemana"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/lunes"
+                            android:id="@+id/segundoDiaDeLaSemana"
+                            style="@style/DiaDelaSemana"/>
+
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight=".992"
+                        android:background="#f4f4f4"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:layout_margin="2dp">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            style="@style/NumeroDeDiaDelaSemana"
+                            android:text="3"
+                            android:id="@+id/numeroTercerDiaDelaSemana"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/martes"
+                            android:id="@+id/TercerDiaDelaSemana"
+                            style="@style/DiaDelaSemana"/>
+
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight=".992"
+                        android:background="#f4f4f4"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:layout_margin="2dp">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            style="@style/NumeroDeDiaDelaSemana"
+                            android:text="4"
+                            android:id="@+id/numeroCuartoDiaDeLaSemana"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/miercoles"
+                            android:id="@+id/cuartoDiaDeLaSemana"
+                            style="@style/DiaDelaSemana"/>
+
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight=".992"
+                        android:background="#f4f4f4"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:layout_margin="2dp">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            style="@style/NumeroDeDiaDelaSemana"
+                            android:text="5"
+                            android:id="@+id/numeroQuintoDiaDeLaSemana"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/jueves"
+                            android:id="@+id/quintoDiaDeLaSemana"
+                            style="@style/DiaDelaSemana"/>
+
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight=".992"
+                        android:background="#f4f4f4"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:layout_margin="2dp">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            style="@style/NumeroDeDiaDelaSemana"
+                            android:text="6"
+                            android:id="@+id/numeroSextoDiaDeLaSemana"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/viernes"
+                            android:id="@+id/sextoDiaDeLasSemana"
+                            style="@style/DiaDelaSemana"/>
+
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight=".992"
+                        android:background="#f4f4f4"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:layout_margin="2dp">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            style="@style/NumeroDeDiaDelaSemana"
+                            android:text="7"
+                            android:id="@+id/numeroSeptimoDiaDeLaSemana"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/sabado"
+                            android:id="@+id/septimoDiaDeLasSemana"
+                            style="@style/DiaDelaSemana"/>
+
+                    </LinearLayout>
+                </LinearLayout>
+                <ScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight=".3">
+                    <include layout="@layout/horario"/>
+
+
+
+                </ScrollView>
+
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+
+</LinearLayout>

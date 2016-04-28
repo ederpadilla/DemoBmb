@@ -34,7 +34,7 @@ public class CalendarActivity extends AppCompatActivity implements View.OnClickL
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main_calendar);
+        setContentView(R.layout.act_calendar);
         objectInitialization();
         hideSystemUI();
         setListeners();

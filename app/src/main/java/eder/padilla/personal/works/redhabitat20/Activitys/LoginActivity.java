@@ -3,6 +3,7 @@ package eder.padilla.personal.works.redhabitat20.activitys;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.PorterDuff;
+import android.provider.Settings;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 
@@ -15,6 +16,8 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import org.json.JSONObject;
 
 import eder.padilla.personal.works.redhabitat20.R;
 import eder.padilla.personal.works.redhabitat20.interfaces.Interfaz;
@@ -91,14 +94,22 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 int statusCode = response.code();
                 Context context = getApplicationContext();
                 int duration = Toast.LENGTH_SHORT;
+                JSONObject jsonObject= new JSONObject();
 
 
                 Informacion user = response.body();
+                System.out.println("El jonson es: "+response.body().toString());
                 if (statusCode == 200) {
-                    Toast toast = Toast.makeText(context, user.getName() + "\n" + user.getToken(), duration);
-                    toast.show();
+
+                    System.out.println("El token es "+user.getToken());
+                    if(user.getToken()==(null)){
+                        Toast toaste = Toast.makeText(context,"Token no recibido", duration);
+                        toaste.show();
+                    } else {
+                        Toast toast = Toast.makeText(context,"Bienvenido: "+ "\n" + user.getName() , duration);
+                        toast.show();
                     Intent myIntent = new Intent(LoginActivity.this, CalendarActivity.class);
-                    LoginActivity.this.startActivity(myIntent);
+                    LoginActivity.this.startActivity(myIntent);}
 
 
                 } else if (statusCode == 400) {

@@ -8,43 +8,74 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="2.15"
-        android:background="@color/blue_marine"
+        android:background="@color/king_blue"
         android:orientation="horizontal"
-        android:gravity="right"
+        android:id="@+id/cabecera"
+
         >
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="10dp"
-            android:layout_marginTop="20dp">
-            <de.hdodenhof.circleimageview.CircleImageView
-                xmlns:app="http://schemas.android.com/apk/res-auto"
-                android:id="@+id/mnactv_fotodeasesor"
-                android:layout_weight="1"
-                android:src="@drawable/boton_redondo"
-                android:layout_width="55dp"
-                android:layout_height="65dp"
-                app:civ_border_color="#FF000000"
-                app:civ_border_width="2dp" />
-        </LinearLayout>
+
 
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginRight="150dp"
-            android:layout_marginTop="40sp">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/titulo.asesor"
-            android:text="Asesor"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/nombre.asesor"
-            android:text="Nombre del asesor"/>
-    </LinearLayout>
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:gravity="right">
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="20dp"
+                android:layout_gravity="left"
+                android:layout_alignParentEnd="true">
+
+                <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/mnactv_fotodeasesor"
+                    android:layout_width="55dp"
+                    android:layout_height="65dp"
+                    android:layout_weight="1"
+                    android:layout_marginTop="20dp"
+                    android:src="@mipmap/asesor"
+                    app:civ_border_color="#FF000000"
+                    app:civ_border_width="2dp" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="150dp"
+                android:layout_marginTop="40sp"
+                android:orientation="vertical"
+                android:layout_alignParentEnd="true">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Asesor"
+                    android:textStyle="bold"
+                    android:textColor="@color/common_signin_btn_dark_text_disabled" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Nombre del asesor"
+                    android:id="@+id/tv_nombre_asesor"
+                    android:textColor="@color/nombre.asesor" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/opc"
+                    android:layout_marginLeft="110dp"
+                    android:id="@+id/opc"
+
+                    />
+            </LinearLayout>
+
+
+
+
+        </LinearLayout>
+
 
 
     </LinearLayout>

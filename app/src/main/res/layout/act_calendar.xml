@@ -42,8 +42,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginRight="10dp"
-        android:layout_marginTop="20dp"
-        android:layout_gravity="left"
+        android:layout_gravity="left|center_vertical"
         android:layout_alignParentEnd="true">
 
         <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -51,13 +50,12 @@
             android:layout_width="55dp"
             android:layout_height="65dp"
             android:layout_weight="1"
-            android:layout_marginTop="20dp"
             android:src="@mipmap/asesor"
             app:civ_border_color="#FF000000"
             app:civ_border_width="2dp" />
     </LinearLayout>
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="190dp"
         android:layout_height="wrap_content"
         android:layout_marginRight="150dp"
         android:layout_marginTop="40sp"
@@ -78,14 +76,15 @@
             android:id="@+id/tv_nombre_asesor"
             android:textColor="@color/nombre.asesor" />
 
-        <ImageView
-            android:layout_width="wrap_content"
+        <com.jaredrummler.materialspinner.MaterialSpinner
+            android:id="@+id/spinner"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:src="@mipmap/opc"
-            android:layout_marginLeft="110dp"
-            android:id="@+id/opc"
+            app:ms_arrow_tint="@color/black"
+            app:ms_background_color="@color/king_blue"
+            app:ms_text_color="@color/white"
+        />
 
-            />
     </LinearLayout>
 
 
@@ -229,9 +228,9 @@
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
                     android:layout_marginTop="10dp"
-                    android:text="1 - 7 Febrero 2016 "
                     android:textAlignment="center"
                     android:textSize="25sp"
+                    android:textStyle="bold"
                     android:textColor="@color/salmon_orange"/>
 
             </LinearLayout>
@@ -269,6 +268,7 @@
                         android:layout_height="match_parent"
                         android:layout_weight=".992"
                         android:background="#f4f4f4"
+                        android:id="@+id/linearlayaoutuno"
                         android:gravity="center"
                         android:orientation="vertical"
                         android:layout_margin="2dp">
@@ -293,6 +293,7 @@
                         android:background="#f4f4f4"
                         android:gravity="center"
                         android:orientation="vertical"
+                        android:id="@+id/linearlayaoutdos"
                         android:layout_margin="2dp">
                         <TextView
                             android:layout_width="wrap_content"
@@ -311,6 +312,7 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:id="@+id/linearlayaouttres"
                         android:layout_weight=".992"
                         android:background="#f4f4f4"
                         android:gravity="center"
@@ -336,6 +338,7 @@
                         android:layout_weight=".992"
                         android:background="#f4f4f4"
                         android:gravity="center"
+                        android:id="@+id/linearlayaoutcuatro"
                         android:orientation="vertical"
                         android:layout_margin="2dp">
                         <TextView
@@ -359,6 +362,7 @@
                         android:background="#f4f4f4"
                         android:gravity="center"
                         android:orientation="vertical"
+                        android:id="@+id/linearlayaoutcinco"
                         android:layout_margin="2dp">
                         <TextView
                             android:layout_width="wrap_content"
@@ -381,6 +385,7 @@
                         android:background="#f4f4f4"
                         android:gravity="center"
                         android:orientation="vertical"
+                        android:id="@+id/linearlayaoutseis"
                         android:layout_margin="2dp">
                         <TextView
                             android:layout_width="wrap_content"
@@ -400,6 +405,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight=".992"
+                        android:id="@+id/linearlayaoutsiete"
                         android:background="#f4f4f4"
                         android:gravity="center"
                         android:orientation="vertical"

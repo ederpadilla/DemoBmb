@@ -26,6 +26,7 @@ public class Splash extends Activity {
         setContentView(R.layout.activity_splash);
         StartAnimations();
     }
+    /** Here we star the animation. */
     private void StartAnimations() {
         Animation anim = AnimationUtils.loadAnimation(this, R.anim.alpha);
         anim.reset();

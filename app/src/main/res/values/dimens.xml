@@ -6,5 +6,7 @@
     <dimen name="tamaño_de_visitas">14sp</dimen>
     <dimen name="numero_de_dia_mes">30sp</dimen>
     <dimen name="dia_de_la_semana">15sp</dimen>
+    <dimen name="btns_questions">18sp</dimen>
+    <dimen name="btns_buena_regular_mala">25sp</dimen>
     <dimen name="tipo_de_cita_cuadro_de_citas">14sp</dimen>
 </resources>

@@ -1,24 +1,30 @@
 package eder.padilla.personal.works.redhabitat20.activitys;
 
+import android.support.design.widget.Snackbar;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import com.jaredrummler.materialspinner.MaterialSpinner;
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
 
 import eder.padilla.personal.works.redhabitat20.adapters.EncuestaAdapter;
 import eder.padilla.personal.works.redhabitat20.modelos.Encuesta;
 import eder.padilla.personal.works.redhabitat20.R;
 
-public class MainActivity extends AppCompatActivity implements ViewPager.OnPageChangeListener{
+public class MainActivity extends AppCompatActivity implements ViewPager.OnPageChangeListener {
     /* Declaracion de objetos con los que se trbajara */
     public Encuesta encuesta;
     public ViewPager viewpager;
     private TextView mTvIndice;
 
     View decorView;
+    MaterialSpinner spinner;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +40,14 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
         viewpager.setAdapter(new EncuestaAdapter(getSupportFragmentManager()));
         viewpager.addOnPageChangeListener(this);
         mTvIndice =(TextView) findViewById(R.id.main_indice);
+        spinner = (MaterialSpinner) findViewById(R.id.spinner);
+       spinner.setItems("","Finalizar cuestionario", "Cerrar sesión");
+       spinner.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener<String>() {
+
+           @Override public void onItemSelected(MaterialSpinner view, int position, long id, String item) {
+               Snackbar.make(view, "Clicked " + item, Snackbar.LENGTH_LONG).show();
+           }
+       });
 
         mTvIndice.setText(1+"");
     }
@@ -52,6 +66,7 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
 
     }
 
+
     private void hideSystemUI() {
         decorView = getWindow().getDecorView();
         // Set the IMMERSIVE flag.
@@ -65,5 +80,6 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
                         | View.SYSTEM_UI_FLAG_FULLSCREEN // hide status bar
                         | View.SYSTEM_UI_FLAG_IMMERSIVE);
     }
+
 
 }

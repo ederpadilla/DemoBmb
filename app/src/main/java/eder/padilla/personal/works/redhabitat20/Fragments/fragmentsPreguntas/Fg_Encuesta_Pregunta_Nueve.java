@@ -1,5 +1,6 @@
 package eder.padilla.personal.works.redhabitat20.fragments.fragmentsPreguntas;
 
+import android.app.FragmentManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -13,6 +14,7 @@ import android.widget.TextView;
 
 import eder.padilla.personal.works.redhabitat20.activitys.CalendarActivity;
 import eder.padilla.personal.works.redhabitat20.activitys.MainActivity;
+import eder.padilla.personal.works.redhabitat20.fragments.dialogs.DialogoFinalEncuesta;
 import eder.padilla.personal.works.redhabitat20.fragments.dialogs.Firma_Electronica;
 import eder.padilla.personal.works.redhabitat20.util.Util;
 import eder.padilla.personal.works.redhabitat20.modelos.Encuesta;
@@ -79,17 +81,25 @@ public class Fg_Encuesta_Pregunta_Nueve extends Fragment implements View.OnClick
                     * la proxima pagina del viewpager*/
                 ((MainActivity) getActivity()).encuesta.setComentarioFinal(etComentarioFinal.getText().toString());
                 createEncuestaRespondida(((MainActivity) getActivity()).encuesta);
-                ((MainActivity) getActivity()).viewpager.setCurrentItem(0);
+               // ((MainActivity) getActivity()).viewpager.setCurrentItem(8);
                 Encuesta a = ((MainActivity)getActivity()).encuesta;
                 System.out.println("El objeto es " + Util.toStringEncuesta(a));
+
                 Intent myIntent = new Intent(getActivity(), CalendarActivity.class);
                 getActivity().startActivity(myIntent);
+                dialogoFinal();
 
                 break;
             case R.id.firmadigital:
                 signatureRequest();
                 break;
         }
+    }
+    public void dialogoFinal() {
+        FragmentManager fm2 = getActivity().getFragmentManager();
+        DialogoFinalEncuesta editNameDialog = new DialogoFinalEncuesta();
+        editNameDialog.show(fm2,"Hi");
+        editNameDialog.dismiss();
     }
     private void hideSystemUI() {
         decorView = getActivity().getWindow().getDecorView();

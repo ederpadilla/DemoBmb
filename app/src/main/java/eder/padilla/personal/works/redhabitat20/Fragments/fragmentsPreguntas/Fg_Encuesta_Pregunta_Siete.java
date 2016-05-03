@@ -5,6 +5,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import eder.padilla.personal.works.redhabitat20.activitys.MainActivity;
@@ -15,9 +16,9 @@ import eder.padilla.personal.works.redhabitat20.R;
  * Created by Eder on 15/03/2016.
  */
 public class Fg_Encuesta_Pregunta_Siete extends Fragment implements View.OnClickListener {
-    private CircleImageView btnBuenaAtencion;
-    private CircleImageView btnAtencionRegular;
-    private CircleImageView btnMalaAtencion;
+    private ImageButton btnBuenaAtencion;
+    private ImageButton btnAtencionRegular;
+    private ImageButton btnMalaAtencion;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view= inflater.inflate(R.layout.fragment_encuesta_pregunta_siete,container,false);
@@ -28,9 +29,9 @@ public class Fg_Encuesta_Pregunta_Siete extends Fragment implements View.OnClick
         return view;
     }
     public void objectInitialization(View view) {
-        btnBuenaAtencion =(CircleImageView)view.findViewById(R.id.buena);
-        btnMalaAtencion =(CircleImageView)view.findViewById(R.id.mala);
-        btnAtencionRegular =(CircleImageView)view.findViewById(R.id.regular);
+        btnBuenaAtencion =(ImageButton) view.findViewById(R.id.buena);
+        btnMalaAtencion =(ImageButton) view.findViewById(R.id.mala);
+        btnAtencionRegular =(ImageButton) view.findViewById(R.id.regular);
     }
     public void setListener(){
         btnBuenaAtencion.setOnClickListener(this);

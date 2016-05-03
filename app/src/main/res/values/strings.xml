@@ -6,6 +6,7 @@
     <string name="btn_sign_up">Iniciar Sesión</string>
     <string name="err_msg_email">Asesor invalido</string>
     <string name="err_msg_password">Ingresar contraseña</string>
+
     <!--Actividad Calendario-->
     <string name="visitas">Visitas</string>
     <string name="visitas_programadas">Visitas programadas</string>
@@ -45,12 +46,16 @@
     <string name="veintidos">22:00</string>
     <string name="veintitres">23:00</string>
     <string name="cero_horas">00:00</string>
+    <string-array name="brew_array">
+        <item>Finalizar cuestionario</item>
+        <item>Cerrar sesión</item>
+    </string-array>
 
     <!--Encuesta-->
     <string name="pregunta_uno">¿Cubre el inmueble sus requerimientos?</string>
     <string name="pregunta_dos">¿Por qué cubre o no cubre sus requerimientos?</string>
     <string name="pregunta_tres">¿Se encuentra dentro de su presupuesto?</string>
-    <string name="pregunta_cuatro">¿Considerarías el inmueble dentro e sus opciones de compra o renta?</string>
+    <string name="pregunta_cuatro">¿Considerarías el inmueble dentro de sus opciones de compra o renta?</string>
     <string name="pregunta_cinco">Recibió la información que requería respecto a la propiedad y aclaró sus dudas</string>
     <string name="pregunta_seis">El asesor acudió de manera puntual a la cita:</string>
     <string name="pregunta_siete">La atención que recibió por parte del asesor fue:</string>
@@ -77,7 +82,7 @@
     <string name="escribir_aqui_comentario">Escribe aquí tu comentario</string>
 
     <!--Firma-->
-    <string name="firma">Firma digital</string>
+    <string name="firma">Firma elecrónica</string>
     <string name="firma_aceptar">Aceptar</string>
     <string name="firma_corregir">Corregir</string>
     <string name="firma_leyenda">Además de la firma digital, se debe corroborar de manera física \n en el contrato de presentación de servicios</string>
@@ -95,5 +100,6 @@
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."
     </string>
+    <string name="visitaregistradaconesxito">Tu visita fue registrada con éxito.</string>
 
 </resources>

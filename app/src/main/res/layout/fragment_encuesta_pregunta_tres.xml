@@ -22,7 +22,12 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight=".9">
+        android:layout_weight=".9"
+        android:gravity="center">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/presupuesto"/>
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
@@ -32,17 +37,19 @@
         <Button
             android:layout_width="210dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="55dp"
-            android:background="#88868b"
+            android:background="@color/yellow_egg"
+            style="@style/Btns_questions"
             android:text="@string/Negar"
+            android:layout_marginRight="15dp"
             android:id="@+id/negar"/>
         <Button
             android:layout_width="210dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="90dp"
             android:text="@string/Aceptar"
-            android:background="#88868b"
+            style="@style/Btns_questions"
+            android:background="@color/salmon_orange"
             android:id="@+id/aceptar"/>
+
     </LinearLayout>
 
 

@@ -78,6 +78,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     private void tryLogIn() {
+        /** Calle the URL where we gona made the peticions. */
         String BASE_URL = "http://redhabitat-dev.us-west-2.elasticbeanstalk.com";
 
         Retrofit retrofit = new Retrofit.Builder()

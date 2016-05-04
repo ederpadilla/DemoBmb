@@ -55,12 +55,6 @@
                     android:textStyle="bold"
                     android:textColor="@color/common_signin_btn_dark_text_disabled" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Nombre del asesor"
-                    android:id="@+id/tv_nombre_asesor"
-                    android:textColor="@color/nombre.asesor" />
 
                 <com.jaredrummler.materialspinner.MaterialSpinner
                     android:id="@+id/spinner"

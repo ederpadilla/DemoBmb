@@ -10,13 +10,13 @@ public class Informacion {
     String token;
     @SerializedName("name")
     String name;
-    @SerializedName("error")
-    String error;
+    @SerializedName("status")
+    String status;
 
-    public Informacion(String token, String name) {
+    public Informacion(String token, String name,String status) {
         this.token = token;
         this.name = name;
-        this.error=error;
+        this.status=status;
     }
 
     @Override
@@ -24,7 +24,7 @@ public class Informacion {
         return "Info{" +
                 "token='" + token + '\'' +
                 ", name='" + name + '\'' +
-                ", error='" + error + '\'' +
+                ", name='" + status + '\'' +
                 '}';
     }
 
@@ -43,6 +43,6 @@ public class Informacion {
     public void setName(String name) {
         this.name = name;
     }
-    public String getError(){return error;    }
-    public void setError(String error){this.error=error; }
+    public String getStatus(){return status;}
+    public void setStatus(){this.status=status;}
 }

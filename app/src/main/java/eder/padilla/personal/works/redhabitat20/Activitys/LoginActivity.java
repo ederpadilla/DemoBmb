@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -49,12 +50,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     private void objectInitialization() {
         inputLayoutEmail = (TextInputLayout) findViewById(R.id.input_layout_email);
-
         inputLayoutPassword = (TextInputLayout) findViewById(R.id.input_layout_password);
         inputEmail = (EditText) findViewById(R.id.input_email);
-        // inputEmail.getBackground().setColorFilter(getResources().getColor(R.color.colorPrimary), PorterDuff.Mode.SRC_IN);
         inputPassword = (EditText) findViewById(R.id.input_password);
-        //inputPassword.getBackground().setColorFilter(getResources().getColor(R.color.colorPrimary), PorterDuff.Mode.SRC_IN);
         btnSignUp = (Button) findViewById(R.id.btn_signup);
     }
 
@@ -79,7 +77,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     private void tryLogIn() {
         /** Calle the URL where we gona made the peticions. */
-        String BASE_URL = "http://redhabitat-dev.us-west-2.elasticbeanstalk.com";
+        String BASE_URL = "http://redhabitat-dev.us-west-2.elasticbeanstalk.com/";
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
@@ -99,45 +97,44 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
 
                 Informacion user = response.body();
-                System.out.println("El jonson es: "+response.body().toString());
-                if (statusCode == 200) {
-
-                    System.out.println("El token es "+user.getToken());
-                    if(user.getToken()==(null)){
-                        Toast toaste = Toast.makeText(context,"Token no recibido", duration);
-                        toaste.show();
-                    } else {
-                        Toast toast = Toast.makeText(context,"Bienvenido: "+ "\n" + user.getName() , duration);
+//                System.out.println("El jonson es: "+response.body().toString());
+                Log.e("login","entre a onresponse");
+                switch (statusCode){
+                    case 200:
+                        System.out.println("El token es "+user.getToken());
+                        Log.e("Status es: ",user.getStatus());
+                        if(user.getToken()==(null)){
+                            Toast toaste = Toast.makeText(context,"Token no recibido", duration);
+                            toaste.show();
+                        } else {
+                            Toast toast = Toast.makeText(context,"Bienvenido: "+ "\n" + user.getName() , duration);
+                            toast.show();
+                            Intent myIntent = new Intent(LoginActivity.this, CalendarActivity.class);
+                            LoginActivity.this.startActivity(myIntent);}
+                    break;
+                    case 400:
+                        Toast toast = Toast.makeText(context,"El correo y la contraseña son requeridos" , duration);
                         toast.show();
-                    Intent myIntent = new Intent(LoginActivity.this, CalendarActivity.class);
-                    LoginActivity.this.startActivity(myIntent);}
-
-
-                } else if (statusCode == 400) {
-                    Toast toast = Toast.makeText(context, "Correo o contraseña inválido", duration);
-                    toast.show();
-
-
-                } else if (statusCode == 401) {
-                    Toast toast = Toast.makeText(context, "El correo y la contraseña son requeridos", duration);
-                    toast.show();
-
-
-                } else if (statusCode == 403) {
-                    Toast toast = Toast.makeText(context, "Confirma tu cuenta antes de iniciar sesión", duration);
-                    toast.show();
-
-
-                } else if (statusCode == 404) {
-                    Toast toast = Toast.makeText(context, "No se encontró usuario", duration);
-                    toast.show();
-
-
-                } else if (statusCode == 500) {
-                    Toast toast = Toast.makeText(context, "Server Error", duration);
-                    toast.show();
+                        break;
+                    case 401:
+                        Toast toast1 = Toast.makeText(context,"Correo o contraseña inválido" , duration);
+                        toast1.show();
+                        break;
+                    case 403:
+                        Toast toast2 = Toast.makeText(context, "Confirma tu cuenta antes de iniciar sesión", duration);
+                        toast2.show();
+                        break;
+                    case 404:
+                        Toast toast3 = Toast.makeText(context, "No se encontró usuario", duration);
+                        toast3.show();
+                        break;
+                    case 500:
+                        Toast toast4 = Toast.makeText(context, "Server Error", duration);
+                        toast4.show();
+                        break;
 
                 }
+
 
 
             }

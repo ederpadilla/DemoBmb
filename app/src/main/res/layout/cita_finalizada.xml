@@ -6,8 +6,6 @@
     android:layout_marginLeft="10dp"
     android:layout_marginRight="10dp"
     android:id="@+id/cuadro_de_citas_xml"
-    android:background="@color/primary_material_light"
-
     android:gravity="center">
 
     <LinearLayout
@@ -19,17 +17,6 @@
         android:layout_marginBottom="5dp"
         android:background="@color/background_floating_material_dark">
 
-        <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textStyle="bold"
-        android:layout_gravity="center"
-        android:textAlignment="center"
-        android:textColor="#ffffff"
-        android:layout_marginTop="5dp"
-        android:text="@string/cita_finalizada"
-        android:id="@+id/tipo_de_cita"
-        android:textSize="@dimen/tipo_de_cita_cuadro_de_citas"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -39,7 +26,7 @@
             android:layout_marginTop="2dp"
             android:layout_gravity="center"
             android:id="@+id/tv_cita_calendario_nombre"
-            android:text="Nombre: "
+            android:text="@string/nomre_dela_persona"
             android:textSize="@dimen/tipo_de_cita_cuadro_de_citas"/>
 
         <TextView
@@ -50,7 +37,7 @@
             android:id="@+id/tv_cita_calendario_hora"
             android:layout_marginTop="2dp"
             android:layout_gravity="center"
-            android:text="Hora: "
+            android:text="@string/direccion"
             android:textSize="@dimen/tipo_de_cita_cuadro_de_citas"/>
     </LinearLayout>
 

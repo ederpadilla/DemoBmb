@@ -9,11 +9,8 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.LinearLayout;
-import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.jaredrummler.materialspinner.MaterialSpinner;
@@ -38,18 +35,23 @@ public class CalendarActivity extends AppCompatActivity implements View.OnClickL
     View linlay;
     LinearLayout cuadroDeCitas,
             domingo,
-    lunes,
-    martes,
-    miercoles,
-    jueves,
-    viernes,
-    sabado;
+            lunes,
+            martes,
+            miercoles,
+            jueves,
+            viernes,
+            sabado;
 
     MaterialCalendarView materialCalendarView;
     TextView tv_Fechaindice;
     MaterialSpinner spinner;
-    Calendar c = Calendar.getInstance();
-
+    TextView tv_primernumero_semana,
+             tv_segundonumero_semana,
+             tv_tercernumero_semana,
+             tv_cuartonumero_semana,
+             tv_quintonumero_semana,
+             tv_sextonumero_semana,
+             tv_septimonumero_semana;
 
 
 
@@ -68,7 +70,9 @@ public class CalendarActivity extends AppCompatActivity implements View.OnClickL
         hideSystemUI();
         setListeners();
         adapterForCalendar();
+        Calendar c= Calendar.getInstance();
         dayOfTheWeek(c);
+
         materialCalendarView.getShowOtherDates();
         tv_Fechaindice.setText(getSelectedDatesString());
 
@@ -89,6 +93,13 @@ public class CalendarActivity extends AppCompatActivity implements View.OnClickL
         viernes=(LinearLayout)findViewById(R.id.linearlayaoutseis);
         sabado=(LinearLayout)findViewById(R.id.linearlayaoutsiete);
         spinner = (MaterialSpinner) findViewById(R.id.spinner);
+        tv_primernumero_semana=(TextView)findViewById(R.id.numeroPrimerDiaDeLaSemana);
+        tv_segundonumero_semana=(TextView)findViewById(R.id.numeroSegundoDiaDeLaSemana);
+        tv_tercernumero_semana=(TextView)findViewById(R.id.numeroTercerDiaDelaSemana);
+        tv_cuartonumero_semana=(TextView)findViewById(R.id.numeroCuartoDiaDeLaSemana);
+        tv_quintonumero_semana=(TextView)findViewById(R.id.numeroQuintoDiaDeLaSemana);
+        tv_sextonumero_semana=(TextView)findViewById(R.id.numeroSextoDiaDeLaSemana);
+        tv_septimonumero_semana =(TextView)findViewById(R.id.numeroSeptimoDiaDeLaSemana);
     }
 
 
@@ -117,7 +128,7 @@ public class CalendarActivity extends AppCompatActivity implements View.OnClickL
         cuadroDeCitas.setOnClickListener(this);
         materialCalendarView.setOnDateChangedListener(this);
         materialCalendarView.setOnMonthChangedListener(this);
-        spinner.setItems("","Finalizar cuestionario", "Cerrar sesión");
+        spinner.setItems("Nombre del asesor","Finalizar cuestionario", "Cerrar sesión");
         spinner.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener<String>() {
 
             @Override public void onItemSelected(MaterialSpinner view, int position, long id, String item) {
@@ -147,57 +158,158 @@ public class CalendarActivity extends AppCompatActivity implements View.OnClickL
     public void onDateSelected(@NonNull MaterialCalendarView widget, @Nullable CalendarDay date, boolean selected) {
         tv_Fechaindice.setText(getSelectedDatesString());
 
-        System.out.println("El dia es :"+date.getDay());
-        System.out.println("Current date :"+widget.getCurrentDate());
-        System.out.println("Date to string es"+date.toString());
-        DatePickerDialog dp= new DatePickerDialog(this,this,2016,1,1);
         Calendar cal =  Calendar.getInstance();
         cal.setTime(date.getDate());
 
+        System.out.println("Day of month :"+cal.get(Calendar.DAY_OF_MONTH));
         dayOfTheWeek(cal);
-
     }
     public void dayOfTheWeek(Calendar cal){
         if(linlay!=null){
             linlay.setBackgroundColor(getResources().getColor(R.color.white));
         }
-        System.out.print("Dia del mes es :"+ cal.get(Calendar.DAY_OF_MONTH));
-
         switch(cal.get(Calendar.DAY_OF_WEEK)){
+        //    Calendar today=Calendar.getInstance();
             case 1:
                 linlay=domingo;
                 linlay.setBackgroundColor(getResources().getColor(R.color.backgroundlinears));
                 tv_Fechaindice.setText("Dom, "+getSelectedDatesString());
+                tv_primernumero_semana.setText(cal.get(Calendar.DAY_OF_MONTH)+"");
+                cal.add(Calendar.DATE,1);
+                tv_segundonumero_semana.setText(cal.get(Calendar.DAY_OF_MONTH)+"");
+                cal.add(Calendar.DATE,1);
+                tv_tercernumero_semana.setText(cal.get(Calendar.DAY_OF_MONTH)+"");
+                cal.add(Calendar.DATE,1);
+                tv_cuartonumero_semana.setText(cal.get(Calendar.DAY_OF_MONTH)+"");
+                cal.add(Calendar.DATE,1);
+                tv_quintonumero_semana.setText(cal.get(Calendar.DAY_OF_MONTH)+"");
+                cal.add(Calendar.DATE,1);
+                tv_sextonumero_semana.setText(cal.get(Calendar.DAY_OF_MONTH)+"");
+                cal.add(Calendar.DATE,1);
+                tv_septimonumero_semana.setText(cal.get(Calendar.DAY_OF_MONTH)+"");
+
+
                 break;
             case 2:
                 linlay=lunes;
                 linlay.setBackgroundColor(getResources().getColor(R.color.backgroundlinears));
                 tv_Fechaindice.setText("Lun, "+getSelectedDatesString());
+                cal.add(Calendar.DATE,-1);
+                tv_primernumero_semana.setText(cal.get(Calendar.DAY_OF_MONTH)+"");
+                cal.add(Calendar.DATE,1);
+                tv_segundonumero_semana.setText(cal.get(Calendar.DAY_OF_MONTH)+"");
+                cal.add(Calendar.DATE,1);
+                tv_tercernumero_semana.setText(cal.get(Calendar.DAY_OF_MONTH)+"");
+                cal.add(Calendar.DATE,1);
+                tv_cuartonumero_semana.setText(cal.get(Calendar.DAY_OF_MONTH)+"");
+                cal.add(Calendar.DATE,1);
+                tv_quintonumero_semana.setText(cal.get(Calendar.DAY_OF_MONTH)+"");
+                cal.add(Calendar.DATE,1);
+                tv_sextonumero_semana.setText(cal.get(Calendar.DAY_OF_MONTH)+"");
+                cal.add(Calendar.DATE,1);
+                tv_septimonumero_semana.setText(cal.get(Calendar.DAY_OF_MONTH)+"");
+
+
                 break;
             case 3:
                 linlay=martes;
                 linlay.setBackgroundColor(getResources().getColor(R.color.backgroundlinears));
                 tv_Fechaindice.setText("Mar, "+getSelectedDatesString());
+                cal.add(Calendar.DATE,-2);
+                tv_primernumero_semana.setText(cal.get(Calendar.DAY_OF_MONTH)+"");
+                cal.add(Calendar.DATE,1);
+                tv_segundonumero_semana.setText(cal.get(Calendar.DAY_OF_MONTH)+"");
+                cal.add(Calendar.DATE,1);
+                tv_tercernumero_semana.setText(cal.get(Calendar.DAY_OF_MONTH)+"");
+                cal.add(Calendar.DATE,1);
+                tv_cuartonumero_semana.setText(cal.get(Calendar.DAY_OF_MONTH)+"");
+                cal.add(Calendar.DATE,1);
+                tv_quintonumero_semana.setText(cal.get(Calendar.DAY_OF_MONTH)+"");
+                cal.add(Calendar.DATE,1);
+                tv_sextonumero_semana.setText(cal.get(Calendar.DAY_OF_MONTH)+"");
+                cal.add(Calendar.DATE,1);
+                tv_septimonumero_semana.setText(cal.get(Calendar.DAY_OF_MONTH)+"");
+
                 break;
             case 4:
                 linlay=miercoles;
                 linlay.setBackgroundColor(getResources().getColor(R.color.backgroundlinears));
                 tv_Fechaindice.setText("Mier, "+getSelectedDatesString());
+                cal.add(Calendar.DATE,-3);
+                tv_primernumero_semana.setText(cal.get(Calendar.DAY_OF_MONTH)+"");
+                cal.add(Calendar.DATE,1);
+                tv_segundonumero_semana.setText(cal.get(Calendar.DAY_OF_MONTH)+"");
+                cal.add(Calendar.DATE,1);
+                tv_tercernumero_semana.setText(cal.get(Calendar.DAY_OF_MONTH)+"");
+                cal.add(Calendar.DATE,1);
+                tv_cuartonumero_semana.setText(cal.get(Calendar.DAY_OF_MONTH)+"");
+                cal.add(Calendar.DATE,1);
+                tv_quintonumero_semana.setText(cal.get(Calendar.DAY_OF_MONTH)+"");
+                cal.add(Calendar.DATE,1);
+                tv_sextonumero_semana.setText(cal.get(Calendar.DAY_OF_MONTH)+"");
+                cal.add(Calendar.DATE,1);
+                tv_septimonumero_semana.setText(cal.get(Calendar.DAY_OF_MONTH)+"");
+
                 break;
             case 5:
                 linlay=jueves;
                 linlay.setBackgroundColor(getResources().getColor(R.color.backgroundlinears));
                 tv_Fechaindice.setText("Jue, "+getSelectedDatesString());
+                cal.add(Calendar.DATE,-4);
+                tv_primernumero_semana.setText(cal.get(Calendar.DAY_OF_MONTH)+"");
+                cal.add(Calendar.DATE,1);
+                tv_segundonumero_semana.setText(cal.get(Calendar.DAY_OF_MONTH)+"");
+                cal.add(Calendar.DATE,1);
+                tv_tercernumero_semana.setText(cal.get(Calendar.DAY_OF_MONTH)+"");
+                cal.add(Calendar.DATE,1);
+                tv_cuartonumero_semana.setText(cal.get(Calendar.DAY_OF_MONTH)+"");
+                cal.add(Calendar.DATE,1);
+                tv_quintonumero_semana.setText(cal.get(Calendar.DAY_OF_MONTH)+"");
+                cal.add(Calendar.DATE,1);
+                tv_sextonumero_semana.setText(cal.get(Calendar.DAY_OF_MONTH)+"");
+                cal.add(Calendar.DATE,1);
+                tv_septimonumero_semana.setText(cal.get(Calendar.DAY_OF_MONTH)+"");
+
                 break;
             case 6:
                 linlay=viernes;
                 linlay.setBackgroundColor(getResources().getColor(R.color.backgroundlinears));
                 tv_Fechaindice.setText("Vie, "+getSelectedDatesString());
+                cal.add(Calendar.DATE,-5);
+                tv_primernumero_semana.setText(cal.get(Calendar.DAY_OF_MONTH)+"");
+                cal.add(Calendar.DATE,1);
+                tv_segundonumero_semana.setText(cal.get(Calendar.DAY_OF_MONTH)+"");
+                cal.add(Calendar.DATE,1);
+                tv_tercernumero_semana.setText(cal.get(Calendar.DAY_OF_MONTH)+"");
+                cal.add(Calendar.DATE,1);
+                tv_cuartonumero_semana.setText(cal.get(Calendar.DAY_OF_MONTH)+"");
+                cal.add(Calendar.DATE,1);
+                tv_quintonumero_semana.setText(cal.get(Calendar.DAY_OF_MONTH)+"");
+                cal.add(Calendar.DATE,1);
+                tv_sextonumero_semana.setText(cal.get(Calendar.DAY_OF_MONTH)+"");
+                cal.add(Calendar.DATE,1);
+                tv_septimonumero_semana.setText(cal.get(Calendar.DAY_OF_MONTH)+"");
+
                 break;
             case 7:
                 linlay=sabado;
                 linlay.setBackgroundColor(getResources().getColor(R.color.backgroundlinears));
                 tv_Fechaindice.setText("Sab, "+getSelectedDatesString());
+                cal.add(Calendar.DATE,-6);
+                tv_primernumero_semana.setText(cal.get(Calendar.DAY_OF_MONTH)+"");
+                cal.add(Calendar.DATE,1);
+                tv_segundonumero_semana.setText(cal.get(Calendar.DAY_OF_MONTH)+"");
+                cal.add(Calendar.DATE,1);
+                tv_tercernumero_semana.setText(cal.get(Calendar.DAY_OF_MONTH)+"");
+                cal.add(Calendar.DATE,1);
+                tv_cuartonumero_semana.setText(cal.get(Calendar.DAY_OF_MONTH)+"");
+                cal.add(Calendar.DATE,1);
+                tv_quintonumero_semana.setText(cal.get(Calendar.DAY_OF_MONTH)+"");
+                cal.add(Calendar.DATE,1);
+                tv_sextonumero_semana.setText(cal.get(Calendar.DAY_OF_MONTH)+"");
+                cal.add(Calendar.DATE,1);
+                tv_septimonumero_semana.setText(cal.get(Calendar.DAY_OF_MONTH)+"");
+
                 break;
         }
 

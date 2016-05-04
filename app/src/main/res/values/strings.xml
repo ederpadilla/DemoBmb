@@ -101,5 +101,7 @@
         completions."
     </string>
     <string name="visitaregistradaconesxito">Tu visita fue registrada con éxito.</string>
+    <string name="nomre_dela_persona">Nombre:</string>
+    <string name="direccion">Dirección:</string>
 
 </resources>

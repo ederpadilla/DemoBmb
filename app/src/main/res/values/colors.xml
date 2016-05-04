@@ -18,9 +18,10 @@
     <color name="titulo.asesor">#e74d27</color>
     <color name="nombre.asesor">#a3a1a1</color>
     <color name="titulo.dialogo.firma">#e6e4e4</color>
-    <color name="visita_programada">#8998D8</color>
-    <color name="visita_no_realizada">#5968A5</color>
-    <color name="visita_cancelada">#383838</color>
+    <color name="visita_programada">#4EC6E4</color>
+    <color name="visita_no_realizada">#84b6ce</color>
+    <color name="visita_cancelada">#204496</color>
+    <color name="visitas_finalizadas">#0092cc</color>
     <color name="textovisitas">#ffffff</color>
     <color name="rojo_Intenso">#ff0909</color>
 </resources>

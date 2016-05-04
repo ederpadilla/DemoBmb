@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
         viewpager.addOnPageChangeListener(this);
         mTvIndice =(TextView) findViewById(R.id.main_indice);
         spinner = (MaterialSpinner) findViewById(R.id.spinner);
-       spinner.setItems("","Finalizar cuestionario", "Cerrar sesión");
+       spinner.setItems("Nombe del asesor","Finalizar cuestionario", "Cerrar sesión");
        spinner.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener<String>() {
 
            @Override public void onItemSelected(MaterialSpinner view, int position, long id, String item) {

@@ -20,6 +20,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/comentario_al_propietario"
                 android:textSize="@dimen/questions_size"
+                android:layout_marginLeft="20dp"
                 android:textColor="@color/nombre.asesor"
                 />
 
@@ -51,7 +52,7 @@
                 android:layout_marginRight="35dp"
                 android:id="@+id/bt__dialogo_cancelar"
                 android:text="@string/bt_cancelar_dialogos"
-                android:background="@color/titulo.asesor"
+                android:background="@drawable/my_button_bg"
 
                 />
             <Button

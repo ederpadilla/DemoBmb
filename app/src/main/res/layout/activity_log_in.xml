@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:custom="http://schemas.android.com/tools"
     android:background="@mipmap/_background">
 
     <LinearLayout
@@ -57,6 +58,16 @@
             android:background="@color/colorPrimary"
             android:text="@string/btn_sign_up"
             android:textColor="@android:color/white" />
+        <com.github.silvestrpredko.dotprogressbar.DotProgressBar
+            android:id="@+id/dot_progress_bar"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            custom:amount="5"
+            custom:duration="@android:integer/config_mediumAnimTime"
+            custom:endColor="@color/salmon_orange"
+            custom:startColor="@color/peach"
+
+         />
 
 
 

@@ -2,8 +2,6 @@ package eder.padilla.personal.works.redhabitat20.activitys;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.PorterDuff;
-import android.provider.Settings;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 
@@ -17,6 +15,8 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import com.github.silvestrpredko.dotprogressbar.DotProgressBar;
 
 import org.json.JSONObject;
 
@@ -37,11 +37,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private EditText inputEmail, inputPassword;
     private TextInputLayout inputLayoutEmail, inputLayoutPassword;
     private Button btnSignUp;
+    private DotProgressBar dotProgressBar;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.act_log_in);
+        setContentView(R.layout.activity_log_in);
         hideSystemUI();
         objectInitialization();
         setListeners();
@@ -54,12 +55,16 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         inputEmail = (EditText) findViewById(R.id.input_email);
         inputPassword = (EditText) findViewById(R.id.input_password);
         btnSignUp = (Button) findViewById(R.id.btn_signup);
+        dotProgressBar=(DotProgressBar) findViewById(R.id.dot_progress_bar);
+        dotProgressBar.setStartColor(getResources().getColor(R.color.peach));
+        dotProgressBar.setEndColor(getResources().getColor(R.color.salmon_orange));
     }
 
     private void setListeners() {
         btnSignUp.setOnClickListener(this);
         inputEmail.addTextChangedListener(new MyTextWatcher(inputEmail));
         inputPassword.addTextChangedListener(new MyTextWatcher(inputPassword));
+        dotProgressBar.setVisibility(View.GONE);
     }
 
     @Override
@@ -67,9 +72,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         switch (v.getId()) {
             case R.id.btn_signup:
                 submitForm();
-                //tryLogIn();
-                Intent myIntent = new Intent(LoginActivity.this, CalendarActivity.class);
-                LoginActivity.this.startActivity(myIntent);
+                dotProgressBar.setVisibility(View.VISIBLE);
+                btnSignUp.setVisibility(View.GONE);
+
+                tryLogIn();
+
+                //Intent myIntent = new Intent(LoginActivity.this, CalendarActivity.class);
+                //lasargentoleon LoginActivity.this.startActivity(myIntent);
                 break;
 
         }
@@ -77,7 +86,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     private void tryLogIn() {
         /** Calle the URL where we gona made the peticions. */
-        String BASE_URL = "http://redhabitat-dev.us-west-2.elasticbeanstalk.com/";
+        String BASE_URL = "http://192.168.1.97:8080";
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
@@ -101,6 +110,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 Log.e("login","entre a onresponse");
                 switch (statusCode){
                     case 200:
+                        dotProgressBar.setVisibility(View.GONE);
                         System.out.println("El token es "+user.getToken());
                         Log.e("Status es: ",user.getStatus());
                         if(user.getToken()==(null)){
@@ -113,26 +123,35 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                             LoginActivity.this.startActivity(myIntent);}
                     break;
                     case 400:
+                        dotProgressBar.setVisibility(View.GONE);
+                        btnSignUp.setVisibility(View.VISIBLE);
                         Toast toast = Toast.makeText(context,"El correo y la contraseña son requeridos" , duration);
                         toast.show();
                         break;
                     case 401:
+                        dotProgressBar.setVisibility(View.GONE);
+                        btnSignUp.setVisibility(View.VISIBLE);
                         Toast toast1 = Toast.makeText(context,"Correo o contraseña inválido" , duration);
                         toast1.show();
                         break;
                     case 403:
+                        dotProgressBar.setVisibility(View.GONE);
+                        btnSignUp.setVisibility(View.VISIBLE);
                         Toast toast2 = Toast.makeText(context, "Confirma tu cuenta antes de iniciar sesión", duration);
                         toast2.show();
                         break;
                     case 404:
+                        dotProgressBar.setVisibility(View.GONE);
+                        btnSignUp.setVisibility(View.VISIBLE);
                         Toast toast3 = Toast.makeText(context, "No se encontró usuario", duration);
                         toast3.show();
                         break;
                     case 500:
+                        dotProgressBar.setVisibility(View.GONE);
+                        btnSignUp.setVisibility(View.VISIBLE);
                         Toast toast4 = Toast.makeText(context, "Server Error", duration);
                         toast4.show();
                         break;
-
                 }
 
 
@@ -141,10 +160,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
             @Override
             public void onFailure(Call<Informacion> call, Throwable t) {
+                dotProgressBar.setVisibility(View.GONE);
+                btnSignUp.setVisibility(View.VISIBLE);
+                Log.e("login","entre a onfailure");
                 Context context = getApplicationContext();
                 int duration = Toast.LENGTH_SHORT;
                 System.out.println("onFailure!!!!!");
-                Toast toast = Toast.makeText(context, t.getMessage(), duration);
+                Toast toast = Toast.makeText(context, getResources().getString(R.string.error_server), duration);
                 toast.show();
 
 
@@ -202,12 +224,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         }
     }
 
-    // (?=.*\d)		    #   must contains one digit from 0-9
-// (?=.*[a-z])		#   must contains one lowercase characters
-// (?=.*[A-Z])		#   must contains one uppercase characters
-// (?=.*[@#$%])		#   must contains one special symbols in the list "@#$%"
-//                  #   match anything with previous condition checking
-//  {6,20}	        #   length at least 6 characters and maximum of 20
     private static final String PASSWORD_PATTERN =
             "((?=.*\\d)(?=.*[a-z])(?=\\S+$).{6,20})";
 

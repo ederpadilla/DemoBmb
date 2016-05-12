@@ -21,6 +21,10 @@ public class Encuesta extends RealmObject {
     private String correo;
 
 
+
+    private String fecha;
+
+
     private String comentarioHaciaElPropietario;
     private boolean cubreRequerimientos;
 
@@ -143,6 +147,13 @@ public class Encuesta extends RealmObject {
 
     public void setComentarioHaciaElPropietario(String comentarioHaciaElPropietario) {
         this.comentarioHaciaElPropietario = comentarioHaciaElPropietario;
+    }
+    public String getFecha() {
+        return fecha;
+    }
+
+    public void setFecha(String fecha) {
+        this.fecha = fecha;
     }
 
 }

@@ -22,267 +22,267 @@
                 android:layout_width="match_parent"
                 android:layout_height="90dp"
                 android:layout_gravity="center"
-                android:textSize="20sp"
                 android:text="@string/una"
                 android:layout_weight="1"
-                android:textColor="@color/black"
+                android:textColor="@color/horas"
                 android:textAlignment="center"
                 android:gravity="center"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:textSize="@dimen/horas" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="90dp"
                 android:layout_gravity="center"
                 android:layout_weight="1"
-                android:textSize="20sp"
                 android:text="@string/dos"
-                android:textColor="@color/black"
+                android:textColor="@color/horas"
                 android:textAlignment="center"
                 android:gravity="center"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:textSize="@dimen/horas" />
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="90dp"
                 android:layout_gravity="center"
                 android:layout_weight="1"
-                android:textSize="20sp"
                 android:text="@string/tres"
-                android:textColor="@color/black"
+                android:textColor="@color/horas"
                 android:textAlignment="center"
                 android:gravity="center"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:textSize="@dimen/horas" />
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="90dp"
                 android:layout_gravity="center"
                 android:layout_weight="1"
-                android:textSize="20sp"
                 android:text="@string/cuatro"
-                android:textColor="@color/black"
+                android:textColor="@color/horas"
                 android:textAlignment="center"
                 android:gravity="center"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:textSize="@dimen/horas" />
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="90dp"
                 android:layout_gravity="center"
                 android:layout_weight="1"
-                android:textSize="20sp"
                 android:text="@string/cinco"
-                android:textColor="@color/black"
+                android:textColor="@color/horas"
                 android:textAlignment="center"
                 android:gravity="center"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:textSize="@dimen/horas" />
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="90dp"
                 android:layout_gravity="center"
                 android:layout_weight="1"
-                android:textSize="20sp"
                 android:text="@string/seis"
-                android:textColor="@color/black"
+                android:textColor="@color/horas"
                 android:textAlignment="center"
                 android:gravity="center"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:textSize="@dimen/horas" />
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="90dp"
                 android:layout_gravity="center"
                 android:layout_weight="1"
-                android:textSize="20sp"
                 android:text="@string/siete"
-                android:textColor="@color/black"
+                android:textColor="@color/horas"
                 android:textAlignment="center"
                 android:gravity="center"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:textSize="@dimen/horas" />
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="90dp"
                 android:layout_gravity="center"
                 android:layout_weight="1"
-                android:textSize="20sp"
                 android:text="@string/ocho"
-                android:textColor="@color/black"
+                android:textColor="@color/horas"
                 android:textAlignment="center"
                 android:gravity="center"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:textSize="@dimen/horas" />
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="90dp"
                 android:layout_gravity="center"
                 android:layout_weight="1"
-                android:textSize="20sp"
                 android:text="@string/nueve"
-                android:textColor="@color/black"
+                android:textColor="@color/horas"
                 android:textAlignment="center"
                 android:gravity="center"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:textSize="@dimen/horas" />
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="90dp"
                 android:layout_gravity="center"
                 android:layout_weight="1"
-                android:textSize="20sp"
                 android:text="@string/diez"
-                android:textColor="@color/black"
+                android:textColor="@color/horas"
                 android:textAlignment="center"
                 android:gravity="center"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:textSize="@dimen/horas" />
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="90dp"
                 android:layout_gravity="center"
                 android:layout_weight="1"
-                android:textSize="20sp"
                 android:text="@string/once"
-                android:textColor="@color/black"
+                android:textColor="@color/horas"
                 android:textAlignment="center"
                 android:gravity="center"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:textSize="@dimen/horas" />
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="90dp"
                 android:layout_gravity="center"
                 android:layout_weight="1"
-                android:textSize="20sp"
                 android:text="@string/doce"
-                android:textColor="@color/black"
+                android:textColor="@color/horas"
                 android:textAlignment="center"
                 android:gravity="center"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:textSize="@dimen/horas" />
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="90dp"
                 android:layout_gravity="center"
                 android:layout_weight="1"
-                android:textSize="20sp"
                 android:text="@string/trece"
-                android:textColor="@color/black"
+                android:textColor="@color/horas"
                 android:textAlignment="center"
                 android:gravity="center"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:textSize="@dimen/horas" />
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="90dp"
                 android:layout_gravity="center"
                 android:layout_weight="1"
-                android:textSize="20sp"
                 android:text="@string/catorce"
-                android:textColor="@color/black"
+                android:textColor="@color/horas"
                 android:textAlignment="center"
                 android:gravity="center"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:textSize="@dimen/horas" />
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="90dp"
                 android:layout_gravity="center"
                 android:layout_weight="1"
-                android:textSize="20sp"
                 android:text="@string/quince"
-                android:textColor="@color/black"
+                android:textColor="@color/horas"
                 android:textAlignment="center"
                 android:gravity="center"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:textSize="@dimen/horas" />
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="90dp"
                 android:layout_gravity="center"
                 android:layout_weight="1"
-                android:textSize="20sp"
                 android:text="@string/dieciseis"
-                android:textColor="@color/black"
+                android:textColor="@color/horas"
                 android:textAlignment="center"
                 android:gravity="center"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:textSize="@dimen/horas" />
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="90dp"
                 android:layout_gravity="center"
                 android:layout_weight="1"
-                android:textSize="20sp"
                 android:text="@string/diecsiete"
-                android:textColor="@color/black"
+                android:textColor="@color/horas"
                 android:textAlignment="center"
                 android:gravity="center"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:textSize="@dimen/horas" />
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="90dp"
                 android:layout_gravity="center"
                 android:layout_weight="1"
-                android:textSize="20sp"
                 android:text="@string/dieciocho"
-                android:textColor="@color/black"
+                android:textColor="@color/horas"
                 android:textAlignment="center"
                 android:gravity="center"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:textSize="@dimen/horas" />
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="90dp"
                 android:layout_gravity="center"
                 android:layout_weight="1"
-                android:textSize="20sp"
                 android:text="@string/diecinueve"
-                android:textColor="@color/black"
+                android:textColor="@color/horas"
                 android:textAlignment="center"
                 android:gravity="center"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:textSize="@dimen/horas" />
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="90dp"
                 android:layout_gravity="center"
                 android:layout_weight="1"
-                android:textSize="20sp"
                 android:text="@string/veinte"
-                android:textColor="@color/black"
+                android:textColor="@color/horas"
                 android:textAlignment="center"
                 android:gravity="center"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:textSize="@dimen/horas" />
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="90dp"
                 android:layout_gravity="center"
                 android:layout_weight="1"
-                android:textSize="20sp"
                 android:text="@string/veintiuno"
-                android:textColor="@color/black"
+                android:textColor="@color/horas"
                 android:textAlignment="center"
                 android:gravity="center"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:textSize="@dimen/horas" />
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="90dp"
                 android:layout_gravity="center"
                 android:layout_weight="1"
-                android:textSize="20sp"
                 android:text="@string/veintidos"
-                android:textColor="@color/black"
+                android:textColor="@color/horas"
                 android:textAlignment="center"
                 android:gravity="center"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:textSize="@dimen/horas" />
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="90dp"
                 android:layout_gravity="center"
                 android:layout_weight="1"
-                android:textSize="20sp"
                 android:text="@string/veintitres"
-                android:textColor="@color/black"
+                android:textColor="@color/horas"
                 android:textAlignment="center"
                 android:gravity="center"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:textSize="@dimen/horas" />
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="90dp"
                 android:layout_gravity="center"
                 android:layout_weight="1"
-                android:textSize="20sp"
                 android:text="@string/cero_horas"
-                android:textColor="@color/black"
+                android:textColor="@color/horas"
                 android:textAlignment="center"
                 android:gravity="center"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:textSize="@dimen/horas" />
 
         </LinearLayout>
         <LinearLayout
@@ -291,43 +291,34 @@
             android:layout_weight=".992"
             android:background="@android:color/background_light"
             android:orientation="vertical"
+            android:id="@+id/linearlayoutdomingo"
             android:weightSum="24"
             android:layout_margin="1dp">
-            <include layout="@layout/cita_finalizada" />
-            <include layout="@layout/cita_finalizada"/>
-            <include layout="@layout/cita_finalizada"/>
-            <include layout="@layout/cita_finalizada"/>
-            <include layout="@layout/cita_finalizada"/>
-            <include layout="@layout/cita_finalizada"/>
-            <include layout="@layout/cita_finalizada"/>
-            <include layout="@layout/cita_finalizada"/>
-            <include layout="@layout/cita_finalizada"/>
-            <include layout="@layout/cita_finalizada"/>
-            <include layout="@layout/cita_finalizada"/>
-            <include layout="@layout/cita_finalizada"/>
-            <include layout="@layout/cita_finalizada"/>
-            <include layout="@layout/cita_finalizada"/>
-            <include layout="@layout/cita_finalizada"/>
-            <include layout="@layout/cita_finalizada"/>
-            <include layout="@layout/cita_finalizada"/>
-            <include layout="@layout/cita_finalizada"/>
-            <include layout="@layout/cita_finalizada"/>
-            <include layout="@layout/cita_finalizada"/>
-            <include layout="@layout/cita_finalizada"/>
-            <include layout="@layout/cita_finalizada"/>
-            <include layout="@layout/cita_finalizada"/>
-            <include layout="@layout/cita_finalizada"/>
+            <include layout="@layout/visita_no_realizada"/>
+            <include layout="@layout/visita_no_realizada"/>
+            <include layout="@layout/visita_no_realizada"/>
+            <include layout="@layout/visita_no_realizada"/>
+            <include layout="@layout/visita_no_realizada"/>
+            <include layout="@layout/visita_no_realizada"/>
+            <include layout="@layout/visita_no_realizada"/>
+            <include layout="@layout/visita_no_realizada"/>
+            <include layout="@layout/visita_no_realizada"/>
+            <include layout="@layout/visita_no_realizada"/>
+            <include layout="@layout/visita_no_realizada"/>
+            <include layout="@layout/visita_no_realizada"/>
+            <include layout="@layout/visita_no_realizada"/>
+            <include layout="@layout/visita_no_realizada"/>
+            <include layout="@layout/visita_no_realizada"/>
+            <include layout="@layout/visita_no_realizada"/>
+            <include layout="@layout/visita_no_realizada"/>
+            <include layout="@layout/visita_no_realizada"/>
+            <include layout="@layout/visita_no_realizada"/>
+            <include layout="@layout/visita_no_realizada"/>
+            <include layout="@layout/visita_no_realizada"/>
+            <include layout="@layout/visita_no_realizada"/>
+            <include layout="@layout/visita_no_realizada"/>
+            <include layout="@layout/visita_no_realizada"/>
 
-
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight=".992"
-            android:background="@android:color/background_light"
-            android:weightSum="24"
-            android:orientation="vertical"
-            android:layout_margin="1dp">
 
         </LinearLayout>
         <LinearLayout
@@ -337,6 +328,7 @@
             android:background="@android:color/background_light"
             android:weightSum="24"
             android:orientation="vertical"
+            android:id="@+id/linearlayoutlunes"
             android:layout_margin="1dp">
 
         </LinearLayout>
@@ -346,6 +338,7 @@
             android:layout_weight=".992"
             android:background="@android:color/background_light"
             android:weightSum="24"
+            android:id="@+id/linearlayoutmartes"
             android:orientation="vertical"
             android:layout_margin="1dp">
 
@@ -356,6 +349,7 @@
             android:layout_weight=".992"
             android:background="@android:color/background_light"
             android:weightSum="24"
+            android:id="@+id/linearlayoutmiercoles"
             android:orientation="vertical"
             android:layout_margin="1dp">
 
@@ -366,6 +360,7 @@
             android:layout_weight=".992"
             android:background="@android:color/background_light"
             android:weightSum="24"
+            android:id="@+id/linearlayoutjueves"
             android:orientation="vertical"
             android:layout_margin="1dp">
 
@@ -376,6 +371,18 @@
             android:layout_weight=".992"
             android:background="@android:color/background_light"
             android:weightSum="24"
+            android:id="@+id/linearlayoutviernes"
+            android:orientation="vertical"
+            android:layout_margin="1dp">
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight=".992"
+            android:background="@android:color/background_light"
+            android:weightSum="24"
+            android:id="@+id/linearlayoutsabado"
             android:orientation="vertical"
             android:layout_margin="1dp">
 

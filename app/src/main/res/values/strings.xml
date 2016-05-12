@@ -46,10 +46,7 @@
     <string name="veintidos">22:00</string>
     <string name="veintitres">23:00</string>
     <string name="cero_horas">00:00</string>
-    <string-array name="brew_array">
-        <item>Finalizar cuestionario</item>
-        <item>Cerrar sesión</item>
-    </string-array>
+
 
     <!--Encuesta-->
     <string name="pregunta_uno">¿Cubre el inmueble sus requerimientos?</string>
@@ -77,7 +74,8 @@
     <string name="bt_cancelar_dialogos">Cancelar</string>
     <string name="comentrio_al_propietario_default">No dejo comentario hacia el propietario</string>
 
-
+    <!--No Hay servidor-->
+    <string name="error_server">"Estamos teniendo problemas en este momento intente mas tarde"</string>
     <!--Hide Texts-->
     <string name="escribir_aqui_comentario">Escribe aquí tu comentario</string>
 

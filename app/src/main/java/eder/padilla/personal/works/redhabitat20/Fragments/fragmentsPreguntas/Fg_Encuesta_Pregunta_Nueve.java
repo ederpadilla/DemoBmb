@@ -12,6 +12,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 
+import java.util.Calendar;
+
 import eder.padilla.personal.works.redhabitat20.activitys.CalendarActivity;
 import eder.padilla.personal.works.redhabitat20.activitys.MainActivity;
 import eder.padilla.personal.works.redhabitat20.fragments.dialogs.DialogoFinalEncuesta;
@@ -29,7 +31,9 @@ public class Fg_Encuesta_Pregunta_Nueve extends Fragment implements View.OnClick
     private EditText etComentarioFinal;
     private TextView firma_digital;
     private View decorView;
+    Calendar c = Calendar.getInstance();
     Realm realm;
+
 
 
 
@@ -76,13 +80,18 @@ public class Fg_Encuesta_Pregunta_Nueve extends Fragment implements View.OnClick
     @Override
     public void onClick(View v) {
         switch (v.getId()){
+
+
+
             case R.id.final1:
+                String f=c.get(Calendar.DAY_OF_YEAR)+" / "+c.get(Calendar.MONTH)+" / "+c.get(Calendar.YEAR);
                   /*Casteamos nuestro objeto y asignamos valor al campo del modelo y llamamos a
                     * la proxima pagina del viewpager*/
                 ((MainActivity) getActivity()).encuesta.setComentarioFinal(etComentarioFinal.getText().toString());
+                ((MainActivity) getActivity()).encuesta.setFecha(f);
                 createEncuestaRespondida(((MainActivity) getActivity()).encuesta);
-               // ((MainActivity) getActivity()).viewpager.setCurrentItem(8);
                 Encuesta a = ((MainActivity)getActivity()).encuesta;
+
                 System.out.println("El objeto es " + Util.toStringEncuesta(a));
 
                 Intent myIntent = new Intent(getActivity(), CalendarActivity.class);

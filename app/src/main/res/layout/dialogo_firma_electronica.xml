@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:gravity="center_vertical|center"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="800dp"
+    android:layout_height="350dp"
 
     >
     <LinearLayout
-        android:layout_width="800dp"
+        android:layout_width="match_parent"
         android:layout_height="30dp"
         android:background="@color/blue_marine"
         android:orientation="horizontal"
@@ -22,7 +23,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/firma"
                 android:layout_gravity="center"
-                android:textColor="@color/titulo.dialogo.firma"
+                android:textColor="@color/titulo_dialogo_firma"
                 />
         </LinearLayout>
         <LinearLayout

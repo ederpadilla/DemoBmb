@@ -6,7 +6,7 @@
     <LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="500dp"
-        android:layout_height="200dp"
+        android:layout_height="150dp"
         android:orientation="vertical"
         android:gravity="right"
         android:weightSum="2">
@@ -20,8 +20,11 @@
                 android:layout_height="wrap_content"
                 android:text="@string/pregunta_realizar_cuestionaro"
                 android:textAlignment="center"
-                android:textSize="@dimen/questions_size"
-                android:textColor="@color/nombre.asesor"
+                android:layout_marginLeft="20dp"
+                android:textSize="@dimen/btns_questions"
+                android:textColor="@color/black"
+
+
                 />
 
         </LinearLayout>
@@ -33,8 +36,8 @@
             android:orientation="horizontal"
             android:gravity="center">
             <Button
-                android:layout_width="160dp"
-                android:layout_height="wrap_content"
+                android:layout_width="@dimen/ancho_btn_aceptar_cancelar"
+                android:layout_height="@dimen/alto_btn_aceptar_cancelar"
                 android:layout_marginRight="35dp"
                 android:id="@+id/bt__dialogo_cancelar_encuesta"
                 android:text="@string/bt_cancelar_dialogos"
@@ -42,11 +45,12 @@
 
                 />
             <Button
-                android:layout_width="160dp"
-                android:layout_height="wrap_content"
+                android:layout_width="@dimen/ancho_btn_aceptar_cancelar"
+                android:layout_height="@dimen/alto_btn_aceptar_cancelar"
                 android:text="@string/bt_aceptar_dialogos"
+                style="@style/Btns_questions"
                 android:id="@+id/bt_dialogo_aceptar_encuesta"
-                android:background="@color/titulo.asesor"/>
+                android:background="@color/titulo_asesor"/>
 
         </LinearLayout>
 

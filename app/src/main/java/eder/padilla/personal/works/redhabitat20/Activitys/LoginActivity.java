@@ -75,10 +75,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 dotProgressBar.setVisibility(View.VISIBLE);
                 btnSignUp.setVisibility(View.GONE);
 
-                tryLogIn();
+                //tryLogIn();
 
-                //Intent myIntent = new Intent(LoginActivity.this, CalendarActivity.class);
-                //lasargentoleon LoginActivity.this.startActivity(myIntent);
+                Intent myIntent = new Intent(LoginActivity.this, CalendarActivity.class);
+                LoginActivity.this.startActivity(myIntent);
                 break;
 
         }

@@ -23,38 +23,23 @@
             android:layout_weight="1"
             android:orientation="horizontal"
             android:gravity="right">
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="10dp"
-                android:layout_gravity="left|center_vertical"
-                android:layout_alignParentEnd="true">
 
-                <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
-                    android:id="@+id/mnactv_fotodeasesor"
-                    android:layout_width="55dp"
-                    android:layout_height="65dp"
-                    android:layout_weight="1"
-                    android:src="@mipmap/asesor"
-                    app:civ_border_color="#FF000000"
-                    app:civ_border_width="2dp" />
-            </LinearLayout>
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="190dp"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="150dp"
                 android:layout_marginTop="40sp"
                 android:orientation="vertical"
-                android:gravity="center_vertical"
                 android:layout_alignParentEnd="true">
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Asesor"
+                    android:layout_marginLeft="20dp"
+                    android:textAlignment="textStart"
                     android:textStyle="bold"
-                    android:textColor="@color/common_signin_btn_dark_text_disabled" />
-
+                    android:textColor="@color/white" />
 
                 <com.jaredrummler.materialspinner.MaterialSpinner
                     android:id="@+id/spinner"
@@ -63,6 +48,7 @@
                     app:ms_arrow_tint="@color/black"
                     app:ms_background_color="@color/king_blue"
                     app:ms_text_color="@color/white"
+                    android:textStyle="bold"
                     />
             </LinearLayout>
 

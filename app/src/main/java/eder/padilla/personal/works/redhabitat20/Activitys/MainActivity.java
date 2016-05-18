@@ -1,5 +1,7 @@
 package eder.padilla.personal.works.redhabitat20.activitys;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.design.widget.Snackbar;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -24,6 +26,7 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
 
     View decorView;
     MaterialSpinner spinner;
+    String nombreAsesor;
 
 
     @Override
@@ -36,16 +39,28 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
     /* Referenciamos nuestros objetos*/
    public void objectInitialization() {
         encuesta = new Encuesta();
+        nombreAsesor="Eder";
         viewpager = (ViewPager) findViewById(R.id.viewPager);
         viewpager.setAdapter(new EncuestaAdapter(getSupportFragmentManager()));
         viewpager.addOnPageChangeListener(this);
         mTvIndice =(TextView) findViewById(R.id.main_indice);
         spinner = (MaterialSpinner) findViewById(R.id.spinner);
-       spinner.setItems("Nombe del asesor","Finalizar cuestionario", "Cerrar sesión");
+       spinner.setItems(nombreAsesor, "Cerrar sesión");
        spinner.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener<String>() {
 
            @Override public void onItemSelected(MaterialSpinner view, int position, long id, String item) {
                Snackbar.make(view, "Clicked " + item, Snackbar.LENGTH_LONG).show();
+
+               if(item.equals(getResources().getString(R.string.cerrarsesion))){
+                   SharedPreferences sp=getSharedPreferences("Login", 0);
+                   SharedPreferences.Editor Ed=sp.edit();
+                   Ed.putString("Unm","" );
+                   Ed.putString("Psw","");
+                   Ed.commit();
+                   Intent intent = new Intent(MainActivity.this,
+                           Splash.class);intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                   startActivity(intent);
+               }
            }
        });
 

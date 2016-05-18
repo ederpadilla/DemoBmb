@@ -46,6 +46,7 @@
     <string name="veintidos">22:00</string>
     <string name="veintitres">23:00</string>
     <string name="cero_horas">00:00</string>
+    <string name="cerrarsesion">Cerrar sesión</string>
 
 
     <!--Encuesta-->

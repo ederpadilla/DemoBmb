@@ -2,6 +2,7 @@ package eder.padilla.personal.works.redhabitat20.activitys;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 
@@ -38,7 +39,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private TextInputLayout inputLayoutEmail, inputLayoutPassword;
     private Button btnSignUp;
     private DotProgressBar dotProgressBar;
-
+    SharedPreferences sp;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,8 +75,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 submitForm();
                 dotProgressBar.setVisibility(View.VISIBLE);
                 btnSignUp.setVisibility(View.GONE);
-
-                //tryLogIn();
+                //sp=getSharedPreferences("Login", 0);
+                //SharedPreferences.Editor Ed=sp.edit();
+                //Ed.putString("Unm",inputEmail.getText().toString() );
+                //Ed.putString("Psw",inputPassword.getText().toString());
+                //Ed.putBoolean("isLogin",true);
+                //Ed.commit();
+                tryLogIn();
 
                 Intent myIntent = new Intent(LoginActivity.this, CalendarActivity.class);
                 LoginActivity.this.startActivity(myIntent);
@@ -86,7 +92,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     private void tryLogIn() {
         /** Calle the URL where we gona made the peticions. */
-        String BASE_URL = "http://192.168.1.97:8080";
+        String BASE_URL = "http://192.168.1.91:8080";
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
@@ -110,6 +116,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 Log.e("login","entre a onresponse");
                 switch (statusCode){
                     case 200:
+                        sp=getSharedPreferences("Login", 0);
+                        SharedPreferences.Editor Ed=sp.edit();
+                        Ed.putString("Unm",inputEmail.getText().toString() );
+                        Ed.putString("Psw",inputPassword.getText().toString());
+                        Ed.putBoolean("isLogin",true);
+                        Ed.commit();
                         dotProgressBar.setVisibility(View.GONE);
                         System.out.println("El token es "+user.getToken());
                         Log.e("Status es: ",user.getStatus());

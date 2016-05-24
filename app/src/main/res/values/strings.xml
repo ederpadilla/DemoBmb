@@ -22,30 +22,6 @@
     <string name="domingo">Domingo</string>
     <string name="cita_finalizada">Cita finalizada</string>
     <string name="ver_mas">ver más...</string>
-    <string name="una">01:00</string>
-    <string name="dos">02:00</string>
-    <string name="tres">03:00</string>
-    <string name="cuatro">04:00</string>
-    <string name="cinco">05:00</string>
-    <string name="seis">06:00</string>
-    <string name="siete">07:00</string>
-    <string name="ocho">08:00</string>
-    <string name="nueve">09:00</string>
-    <string name="diez">10:00</string>
-    <string name="once">11:00</string>
-    <string name="doce">12:00</string>
-    <string name="trece">13:00</string>
-    <string name="catorce">14:00</string>
-    <string name="quince">15:00</string>
-    <string name="dieciseis">16:00</string>
-    <string name="diecsiete">17:00</string>
-    <string name="dieciocho">18:00</string>
-    <string name="diecinueve">19:00</string>
-    <string name="veinte">20:00</string>
-    <string name="veintiuno">21:00</string>
-    <string name="veintidos">22:00</string>
-    <string name="veintitres">23:00</string>
-    <string name="cero_horas">00:00</string>
     <string name="cerrarsesion">Cerrar sesión</string>
 
 

@@ -4,13 +4,17 @@ package eder.padilla.personal.works.redhabitat20.activitys;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
-import android.view.LayoutInflater;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.LinearLayout;
@@ -26,20 +30,23 @@ import com.prolificinteractive.materialcalendarview.OnMonthChangedListener;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 
 
-import de.hdodenhof.circleimageview.CircleImageView;
 import eder.padilla.personal.works.redhabitat20.R;
+import eder.padilla.personal.works.redhabitat20.adapters.AdaptadorVisitas;
 import eder.padilla.personal.works.redhabitat20.fragments.dialogs.DiaologoPreguntaRealizarEncuesta;
+import eder.padilla.personal.works.redhabitat20.modelos.Visita;
 import eder.padilla.personal.works.redhabitat20.util.ConnectionDetector;
+import eder.padilla.personal.works.redhabitat20.util.DividerItemDecoration;
 
 /**
  * Created by Eder on 12/04/2016.
  */
 public class CalendarActivity extends AppCompatActivity implements View.OnClickListener,OnDateSelectedListener, OnMonthChangedListener, DatePickerDialog.OnDateSetListener {
-    View linlay,linlaya;
-    LinearLayout cuadroDeCitas,
+    private View linlay,linlaya;
+    private LinearLayout cuadroDeCitas,
             domingo,lldomingo,
             lunes,lllunes,
             martes,llmartes,
@@ -47,25 +54,37 @@ public class CalendarActivity extends AppCompatActivity implements View.OnClickL
             jueves,lljueves,
             viernes,llviernes,
             sabado,llsabado;
-
-    MaterialCalendarView materialCalendarView;
-    TextView tv_Fechaindice;
-    MaterialSpinner spinner;
-    TextView tv_primernumero_semana,
+    private String nombreAsesor;
+    private MaterialCalendarView materialCalendarView;
+    private TextView tv_Fechaindice;
+    private MaterialSpinner spinner;
+    private TextView tv_primernumero_semana,
              tv_segundonumero_semana,
              tv_tercernumero_semana,
              tv_cuartonumero_semana,
              tv_quintonumero_semana,
              tv_sextonumero_semana,
              tv_septimonumero_semana;
-    CircleImageView foto;
-    ConnectionDetector cd;
-    Boolean isInternetPresent = false;
-
-
-
-
-
+    private ConnectionDetector cd;
+    private Boolean isInternetPresent = false;
+    private RecyclerView recViewSunday,recViewMonday,
+                         recViewTuesday,recViewWednesday,
+                         recViewThursday,recViewFriday,
+                         recViewSaturday;
+    private ArrayList<Visita> sundayData;
+    private ArrayList<Visita> mondayData;
+    private ArrayList<Visita> tuesdayData;
+    private ArrayList<Visita> wednesdayData;
+    private ArrayList<Visita> thursdayData;
+    private ArrayList<Visita> fridayData;
+    private ArrayList<Visita> saturdayData;
+    private AdaptadorVisitas sundayAdapter;
+    private AdaptadorVisitas mondayAdapter;
+    private AdaptadorVisitas tuesdayAdapter;
+    private AdaptadorVisitas wednesdayAdapter;
+    private AdaptadorVisitas thursdayAdapter;
+    private AdaptadorVisitas fridayAdapter;
+    private AdaptadorVisitas saturdayAdapter;
     private static final DateFormat FORMATTER = SimpleDateFormat.getDateInstance();
 
 
@@ -80,20 +99,31 @@ public class CalendarActivity extends AppCompatActivity implements View.OnClickL
         Calendar c= Calendar.getInstance();
         dayOfTheWeek(c);
         checkInternetConection();
-
         materialCalendarView.getShowOtherDates();
         tv_Fechaindice.setText(getSelectedDatesString());
-
-
-
-
+        SharedPreferences sp1=this.getSharedPreferences("Login",0);
+        String unm=sp1.getString("Unm", null);
+        Log.e("Splash user",sp1.getString("Unm", null));
+        String pass = sp1.getString("Psw", null);
+        Log.e("Splash user",sp1.getString("Psw", null));
+        fillInAllArrayList();
     }
     /** Initializte all our objects . */
 
     private void objectInitialization() {
-        cuadroDeCitas = (LinearLayout) findViewById(R.id.visita_cancelada_xml);
+        //cuadroDeCitas = (LinearLayout) findViewById(R.id.visita_cancelada_xml);
+        /**Calendario . */
         materialCalendarView = (MaterialCalendarView) findViewById(R.id.calendarView);
+        /** TextView. */
         tv_Fechaindice=(TextView) findViewById(R.id.fecha_indice);
+        tv_primernumero_semana=(TextView)findViewById(R.id.numeroPrimerDiaDeLaSemana);
+        tv_segundonumero_semana=(TextView)findViewById(R.id.numeroSegundoDiaDeLaSemana);
+        tv_tercernumero_semana=(TextView)findViewById(R.id.numeroTercerDiaDelaSemana);
+        tv_cuartonumero_semana=(TextView)findViewById(R.id.numeroCuartoDiaDeLaSemana);
+        tv_quintonumero_semana=(TextView)findViewById(R.id.numeroQuintoDiaDeLaSemana);
+        tv_sextonumero_semana=(TextView)findViewById(R.id.numeroSextoDiaDeLaSemana);
+        tv_septimonumero_semana =(TextView)findViewById(R.id.numeroSeptimoDiaDeLaSemana);
+        /**Liear Layouts . */
         domingo =(LinearLayout)findViewById(R.id.linearlayaoutuno);
         lldomingo=(LinearLayout)findViewById(R.id.linearlayoutdomingo);
         lunes=(LinearLayout)findViewById(R.id.linearlayaoutdos);
@@ -108,19 +138,144 @@ public class CalendarActivity extends AppCompatActivity implements View.OnClickL
         llviernes=(LinearLayout)findViewById(R.id.linearlayoutviernes);
         sabado=(LinearLayout)findViewById(R.id.linearlayaoutsiete);
         llsabado=(LinearLayout)findViewById(R.id.linearlayoutsabado);
+        /** Spinner. */
         spinner = (MaterialSpinner) findViewById(R.id.spinner);
-        tv_primernumero_semana=(TextView)findViewById(R.id.numeroPrimerDiaDeLaSemana);
-        tv_segundonumero_semana=(TextView)findViewById(R.id.numeroSegundoDiaDeLaSemana);
-        tv_tercernumero_semana=(TextView)findViewById(R.id.numeroTercerDiaDelaSemana);
-        tv_cuartonumero_semana=(TextView)findViewById(R.id.numeroCuartoDiaDeLaSemana);
-        tv_quintonumero_semana=(TextView)findViewById(R.id.numeroQuintoDiaDeLaSemana);
-        tv_sextonumero_semana=(TextView)findViewById(R.id.numeroSextoDiaDeLaSemana);
-        tv_septimonumero_semana =(TextView)findViewById(R.id.numeroSeptimoDiaDeLaSemana);
-        foto=(CircleImageView) findViewById(R.id.mnactv_fotodeasesor);
+        /** Recicler Views. */
+        recViewSunday=(RecyclerView)findViewById(R.id.RecViewDomingo);
+        recViewSunday.setHasFixedSize(true);
+        recViewMonday=(RecyclerView)findViewById(R.id.RecViewLunes);
+        recViewMonday.setHasFixedSize(true);
+        recViewTuesday=(RecyclerView)findViewById(R.id.RecViewMartes);
+        recViewTuesday.setHasFixedSize(true);
+        recViewWednesday=(RecyclerView)findViewById(R.id.RecViewMiercoles);
+        recViewWednesday.setHasFixedSize(true);
+        recViewThursday =(RecyclerView)findViewById(R.id.RecViewJueves);
+        recViewThursday.setHasFixedSize(true);
+        recViewFriday =(RecyclerView)findViewById(R.id.RecViewViernes);
+        recViewFriday.setHasFixedSize(true);
+        recViewSaturday =(RecyclerView)findViewById(R.id.RecViewSabado);
+        recViewSaturday.setHasFixedSize(true);
+        /** OInternet Conection detector. */
         cd = new ConnectionDetector(getApplicationContext());
+        nombreAsesor="Eder";
+        /** ArrayLists. */
+        sundayData = new ArrayList<Visita>();
+        mondayData = new ArrayList<Visita>();
+        tuesdayData = new ArrayList<Visita>();
+        wednesdayData = new ArrayList<Visita>();
+        thursdayData = new ArrayList<Visita>();
+        fridayData = new ArrayList<Visita>();
+        saturdayData = new ArrayList<Visita>();
+    }
+    /** Fill All the arrlists with null parameters. */
+    private void fillInAllArrayList(){
+        for(int i=0; i<24; i++){
+            sundayData.add(new Visita("" , "","",0,null));
+            mondayData.add(new Visita("" , "","",0,null));
+            tuesdayData.add(new Visita("" , "","",0,null));
+            wednesdayData.add(new Visita("" , "","",0,null));
+            thursdayData.add(new Visita("" , "","",0,null));
+            fridayData.add(new Visita("" , "","",0,null));
+            saturdayData.add(new Visita("" , "","",0,null));
+        }
+        setAdapters();
+    }
+    /** Asign the behavior to the recyclerviews. */
+    private void setAdapters(){
+        sundayAdapter = new AdaptadorVisitas(sundayData,this.getApplicationContext());
+        recViewSunday.setAdapter(sundayAdapter);
+        recViewSunday.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
+        recViewSunday.addItemDecoration(
+                new DividerItemDecoration(this,DividerItemDecoration.VERTICAL_LIST));
+        recViewSunday.setItemAnimator(new DefaultItemAnimator());
+        mondayAdapter = new AdaptadorVisitas(mondayData,this.getApplicationContext());
+        recViewMonday.setAdapter(mondayAdapter);
+        recViewMonday.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
+        recViewMonday.addItemDecoration(
+                new DividerItemDecoration(this,DividerItemDecoration.VERTICAL_LIST));
+        recViewMonday.setItemAnimator(new DefaultItemAnimator());
+        tuesdayAdapter = new AdaptadorVisitas(tuesdayData,this.getApplicationContext());
+        recViewTuesday.setAdapter(tuesdayAdapter);
+        recViewTuesday.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
+        recViewTuesday.addItemDecoration(
+                new DividerItemDecoration(this,DividerItemDecoration.VERTICAL_LIST));
+        recViewTuesday.setItemAnimator(new DefaultItemAnimator());
+        wednesdayAdapter = new AdaptadorVisitas(wednesdayData,this.getApplicationContext());
+        recViewWednesday.setAdapter(wednesdayAdapter);
+        recViewWednesday.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
+        recViewWednesday.addItemDecoration(
+                new DividerItemDecoration(this,DividerItemDecoration.VERTICAL_LIST));
+        recViewWednesday.setItemAnimator(new DefaultItemAnimator());
+        thursdayAdapter = new AdaptadorVisitas(thursdayData,this.getApplicationContext());
+        recViewThursday.setAdapter(thursdayAdapter);
+        recViewThursday.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
+        recViewThursday.addItemDecoration(
+                new DividerItemDecoration(this,DividerItemDecoration.VERTICAL_LIST));
+        recViewThursday.setItemAnimator(new DefaultItemAnimator());
+        fridayAdapter = new AdaptadorVisitas(fridayData,this.getApplicationContext());
+        recViewFriday.setAdapter(fridayAdapter);
+        recViewFriday.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
+        recViewFriday.addItemDecoration(
+                new DividerItemDecoration(this,DividerItemDecoration.VERTICAL_LIST));
+        recViewFriday.setItemAnimator(new DefaultItemAnimator());
+        saturdayAdapter = new AdaptadorVisitas(saturdayData,this.getApplicationContext());
+        recViewSaturday.setAdapter(saturdayAdapter);
+        recViewSaturday.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
+        recViewSaturday.addItemDecoration(
+                new DividerItemDecoration(this,DividerItemDecoration.VERTICAL_LIST));
+        recViewSaturday.setItemAnimator(new DefaultItemAnimator());
+        setListenersToAdapters();
+    }
+    /** We check the position we are clicking on . */
+    private void setListenersToAdapters(){
+        sundayAdapter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.i("SundayRecView", "Pulsado el elemento " + recViewSunday.getChildAdapterPosition(v));
+            }
+        });
+        mondayAdapter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.i("MondayRecView", "Pulsado el elemento " + recViewMonday.getChildAdapterPosition(v));
+            }
+        });
+        tuesdayAdapter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.i("TuesdayRecView", "Pulsado el elemento " + recViewTuesday.getChildAdapterPosition(v));
+            }
+        });
+        wednesdayAdapter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.i("WednesdayRecView", "Pulsado el elemento " + recViewWednesday.getChildAdapterPosition(v));
+
+            }
+        });
+        thursdayAdapter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.i("ThursdayRecView", "Pulsado el elemento " + recViewThursday.getChildAdapterPosition(v));
+
+            }
+        });
+        fridayAdapter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.i("FridayRecView", "Pulsado el elemento " + recViewFriday.getChildAdapterPosition(v));
+            }
+        });
+        saturdayAdapter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.i("SaturdayRecView", "Pulsado el elemento " + recViewSaturday.getChildAdapterPosition(v));
+            }
+        });
     }
 
 
+    /** Select the adapter for manage the calendar. */
     public void adapterForCalendar() {
         materialCalendarView.setSelectionMode(MaterialCalendarView.SELECTION_MODE_SINGLE);
         CalendarDay today= CalendarDay.today();
@@ -163,7 +318,7 @@ public class CalendarActivity extends AppCompatActivity implements View.OnClickL
 
     private void setListeners() {
 
-        cuadroDeCitas.setOnClickListener(this);
+      //  cuadroDeCitas.setOnClickListener(this);
         materialCalendarView.setOnDateChangedListener(this);
         materialCalendarView.setOnMonthChangedListener(this);
         domingo.setOnClickListener(this);
@@ -180,12 +335,22 @@ public class CalendarActivity extends AppCompatActivity implements View.OnClickL
         llviernes.setOnClickListener(this);
         sabado.setOnClickListener(this);
         llsabado.setOnClickListener(this);
-        foto.setOnClickListener(this);
-        spinner.setItems("Nombre del asesor","Finalizar cuestionario", "Cerrar sesión");
+        spinner.setItems(nombreAsesor, "Cerrar sesión");
         spinner.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener<String>() {
 
             @Override public void onItemSelected(MaterialSpinner view, int position, long id, String item) {
                 Snackbar.make(view, "Clicked " + item, Snackbar.LENGTH_LONG).show();
+
+                if(item.equals(getResources().getString(R.string.cerrarsesion))){
+                    SharedPreferences sp=getSharedPreferences("Login", 0);
+                    SharedPreferences.Editor Ed=sp.edit();
+                    Ed.putString("Unm","" );
+                    Ed.putString("Psw","");
+                    Ed.commit();
+                    Intent intent = new Intent(CalendarActivity.this,
+                            Splash.class);intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                    startActivity(intent);
+                }
             }
         });
     }
@@ -202,16 +367,13 @@ public class CalendarActivity extends AppCompatActivity implements View.OnClickL
             linlaya.setBackgroundColor(getResources().getColor(R.color.white));
         }
         if(linlay!=null){
-            linlay.setBackgroundColor(getResources().getColor(R.color.white));
+           linlay.setBackgroundColor(getResources().getColor(R.color.white));
         }
+        /** Asign backgorung color to our dates. */
         switch (v.getId()) {
-            case R.id.visita_cancelada_xml:
-                showEditDialog();
-                break;
-            case R.id.mnactv_fotodeasesor:
-                Intent myIntent = new Intent(CalendarActivity.this, Resultados.class);
-                CalendarActivity.this.startActivity(myIntent);
-                break;
+           // case R.id.visita_cancelada_xml:
+             //   showEditDialog();
+               // break;
             case R.id.linearlayoutdomingo:
                 setBackgroundSunday();
                   break;
@@ -259,33 +421,17 @@ public class CalendarActivity extends AppCompatActivity implements View.OnClickL
 
 
 
+
         }
 
     }
-    private void inflarVisitasProgramadas() {
-        LayoutInflater inflater = LayoutInflater.from(this);
-        final View laViewInflada = inflater.inflate(R.layout.visita_programada, null);
-    }
-    private void inflarVisitasNoRealizadas() {
-        LayoutInflater inflater = LayoutInflater.from(this);
-        final View laViewInflada = inflater.inflate(R.layout.visita_no_realizada, null);
-    }
-    private void inflarVisitasCanceladas() {
-        LayoutInflater inflater = LayoutInflater.from(this);
-        final View laViewInflada = inflater.inflate(R.layout.visita_cancelada, null);
-    }
-    private void inflarVisitasFinalizadas() {
-        LayoutInflater inflater = LayoutInflater.from(this);
-        final View laViewInflada = inflater.inflate(R.layout.visita_finalizada, null);
-    }
 
+    /** Check the date we elect. */
     @Override
     public void onDateSelected(@NonNull MaterialCalendarView widget, @Nullable CalendarDay date, boolean selected) {
         tv_Fechaindice.setText(getSelectedDatesString());
-
         Calendar cal =  Calendar.getInstance();
         cal.setTime(date.getDate());
-
         System.out.println("Day of month :"+cal.get(Calendar.DAY_OF_MONTH));
         dayOfTheWeek(cal);
     }
@@ -367,6 +513,7 @@ public class CalendarActivity extends AppCompatActivity implements View.OnClickL
     public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
 
     }
+    /** Set the dates in our weeks if we select sunday. */
     private void selectSunday(Calendar cal){
         tv_primernumero_semana.setText(cal.get(Calendar.DAY_OF_MONTH)+"");
         cal.add(Calendar.DATE,1);
@@ -382,6 +529,7 @@ public class CalendarActivity extends AppCompatActivity implements View.OnClickL
         cal.add(Calendar.DATE,1);
         tv_septimonumero_semana.setText(cal.get(Calendar.DAY_OF_MONTH)+"");
     }
+    /** Set the dates in our weeks if we select monday. */
     private void selectMonday(Calendar cal){
         cal.add(Calendar.DATE,-1);
         tv_primernumero_semana.setText(cal.get(Calendar.DAY_OF_MONTH)+"");
@@ -398,6 +546,7 @@ public class CalendarActivity extends AppCompatActivity implements View.OnClickL
         cal.add(Calendar.DATE,1);
         tv_septimonumero_semana.setText(cal.get(Calendar.DAY_OF_MONTH)+"");
     }
+    /** Set the dates in our weeks if we select tuesday. */
     private void selectTuesday(Calendar cal){
 
         cal.add(Calendar.DATE,-2);
@@ -415,6 +564,7 @@ public class CalendarActivity extends AppCompatActivity implements View.OnClickL
         cal.add(Calendar.DATE,1);
         tv_septimonumero_semana.setText(cal.get(Calendar.DAY_OF_MONTH)+"");
     }
+    /** Set the dates in our weeks if we select wednesday. */
     private void selectWednesday(Calendar cal){
         cal.add(Calendar.DATE,-3);
         tv_primernumero_semana.setText(cal.get(Calendar.DAY_OF_MONTH)+"");
@@ -431,6 +581,7 @@ public class CalendarActivity extends AppCompatActivity implements View.OnClickL
         cal.add(Calendar.DATE,1);
         tv_septimonumero_semana.setText(cal.get(Calendar.DAY_OF_MONTH)+"");
     }
+    /** Set the dates in our weeks if we select thursday. */
     private void selectThursday(Calendar cal){
         cal.add(Calendar.DATE,-4);
         tv_primernumero_semana.setText(cal.get(Calendar.DAY_OF_MONTH)+"");
@@ -447,6 +598,7 @@ public class CalendarActivity extends AppCompatActivity implements View.OnClickL
         cal.add(Calendar.DATE,1);
         tv_septimonumero_semana.setText(cal.get(Calendar.DAY_OF_MONTH)+"");
     }
+    /** Set the dates in our weeks if we select friday. */
     private void selectFriday(Calendar cal){
         cal.add(Calendar.DATE,-5);
         tv_primernumero_semana.setText(cal.get(Calendar.DAY_OF_MONTH)+"");
@@ -464,6 +616,7 @@ public class CalendarActivity extends AppCompatActivity implements View.OnClickL
         tv_septimonumero_semana.setText(cal.get(Calendar.DAY_OF_MONTH)+"");
 
     }
+    /** Set the dates in our weeks if we select saturday. */
     private void selectSaturday(Calendar cal){
         cal.add(Calendar.DATE,-6);
         tv_primernumero_semana.setText(cal.get(Calendar.DAY_OF_MONTH)+"");

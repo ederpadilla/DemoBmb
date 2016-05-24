@@ -7,14 +7,11 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.jaredrummler.materialspinner.MaterialSpinner;
-import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
 
-import eder.padilla.personal.works.redhabitat20.adapters.EncuestaAdapter;
+import eder.padilla.personal.works.redhabitat20.adapters.ViewPagerEncuestaAdapter;
 import eder.padilla.personal.works.redhabitat20.modelos.Encuesta;
 import eder.padilla.personal.works.redhabitat20.R;
 
@@ -41,7 +38,7 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
         encuesta = new Encuesta();
         nombreAsesor="Eder";
         viewpager = (ViewPager) findViewById(R.id.viewPager);
-        viewpager.setAdapter(new EncuestaAdapter(getSupportFragmentManager()));
+        viewpager.setAdapter(new ViewPagerEncuestaAdapter(getSupportFragmentManager()));
         viewpager.addOnPageChangeListener(this);
         mTvIndice =(TextView) findViewById(R.id.main_indice);
         spinner = (MaterialSpinner) findViewById(R.id.spinner);

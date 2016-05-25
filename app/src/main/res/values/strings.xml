@@ -79,4 +79,13 @@
     <string name="nomre_dela_persona">Nombre:</string>
     <string name="direccion">Dirección:</string>
 
+
+    <!--Reponse status codes-->
+    <string name="statuscode400">El correo y la contraseña son requeridos</string>
+    <string name="statuscode401">Correo o contraseña inválido</string>
+    <string name="statuscode403">Confirma tu cuenta antes de iniciar sesión</string>
+    <string name="statuscode404">No se encontró usuario</string>
+    <string name="statuscode200">Bienvenido: </string>
+
+
 </resources>

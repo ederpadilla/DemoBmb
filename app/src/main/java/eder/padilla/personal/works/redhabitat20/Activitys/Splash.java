@@ -49,22 +49,22 @@ public class Splash extends Activity {
         LinearLayout l=(LinearLayout) findViewById(R.id.lin_lay);
         l.clearAnimation();
         l.startAnimation(anim);
-
+        /** We call the animation that says form where to where its gonna move. */
         anim = AnimationUtils.loadAnimation(this, R.anim.translate);
         anim.reset();
-
-        ImageView iv = (ImageView) findViewById(R.id.splash);
-        iv.clearAnimation();
-        iv.startAnimation(anim);
+        /** The image ots gona move.**/
+        ImageView logo = (ImageView) findViewById(R.id.splash);
+        logo.clearAnimation();
+        logo.startAnimation(anim);
 
         splashTread = new Thread() {
             @Override
             public void run() {
                 try {
 
-
+                    /** Pause the execution of the code for 3.5 secs. **/
                     sleep(3500);
-
+                    /** We check if there is a user log in or not. **/
                     if(mSharedPreferences.getString(Constants.PREFERENCES_USER_NAME,null).length()>0){
 
                         Log.e("entra al if","if false");

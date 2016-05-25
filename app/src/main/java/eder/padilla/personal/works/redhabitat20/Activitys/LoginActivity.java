@@ -8,7 +8,6 @@ import android.support.v7.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.text.Editable;
-import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
@@ -25,6 +24,7 @@ import eder.padilla.personal.works.redhabitat20.R;
 import eder.padilla.personal.works.redhabitat20.interfaces.Interfaz;
 import eder.padilla.personal.works.redhabitat20.modelos.Asesor;
 import eder.padilla.personal.works.redhabitat20.modelos.Informacion;
+import eder.padilla.personal.works.redhabitat20.util.Constants;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -45,11 +45,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_log_in);
         hideSystemUI();
+        /** Call all objects un the UI we need. **/
         objectInitialization();
         setListeners();
     }
 
 
+    /** initialize the objects . */
     private void objectInitialization() {
         inputLayoutEmail = (TextInputLayout) findViewById(R.id.input_layout_email);
         inputLayoutPassword = (TextInputLayout) findViewById(R.id.input_layout_password);
@@ -60,7 +62,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         dotProgressBar.setStartColor(getResources().getColor(R.color.peach));
         dotProgressBar.setEndColor(getResources().getColor(R.color.salmon_orange));
     }
-
+    /** SetListeners to objects */
     private void setListeners() {
         btnSignUp.setOnClickListener(this);
         inputEmail.addTextChangedListener(new MyTextWatcher(inputEmail));
@@ -71,20 +73,22 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
+            /** Try the log in . */
             case R.id.btn_signup:
                 submitForm();
+                /** Star the request to server and the progress bar appear. **/
                 dotProgressBar.setVisibility(View.VISIBLE);
                 btnSignUp.setVisibility(View.GONE);
-                //sp=getSharedPreferences("Login", 0);
-                //SharedPreferences.Editor Ed=sp.edit();
+               // sp=getSharedPreferences("Login", 0);
+                // SharedPreferences.Editor Ed=sp.edit();
                 //Ed.putString("Unm",inputEmail.getText().toString() );
                 //Ed.putString("Psw",inputPassword.getText().toString());
                 //Ed.putBoolean("isLogin",true);
                 //Ed.commit();
-                tryLogIn();
+               tryLogIn();
 
-                Intent myIntent = new Intent(LoginActivity.this, CalendarActivity.class);
-                LoginActivity.this.startActivity(myIntent);
+                // Intent myIntent = new Intent(LoginActivity.this, CalendarActivity.class);
+                //LoginActivity.this.startActivity(myIntent);
                 break;
 
         }
@@ -92,7 +96,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     private void tryLogIn() {
         /** Calle the URL where we gona made the peticions. */
-        String BASE_URL = "http://192.168.1.91:8080";
+        String BASE_URL = Constants.BASE_URL;
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
@@ -118,7 +122,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     case 200:
                         sp=getSharedPreferences("Login", 0);
                         SharedPreferences.Editor Ed=sp.edit();
-                        Ed.putString("Unm",inputEmail.getText().toString() );
+                        Ed.putString(Constants.PREFERENCES_USER_NAME,inputEmail.getText().toString() );
+                        Ed.putString("Unm_asdasd_AsdasD_asd_ASdas",inputEmail.getText().toString() );
                         Ed.putString("Psw",inputPassword.getText().toString());
                         Ed.putBoolean("isLogin",true);
                         Ed.commit();
@@ -129,7 +134,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                             Toast toaste = Toast.makeText(context,"Token no recibido", duration);
                             toaste.show();
                         } else {
-                            Toast toast = Toast.makeText(context,"Bienvenido: "+ "\n" + user.getName() , duration);
+                            Toast toast = Toast.makeText(context,getString(R.string.statuscode200)+ "\n" + user.getName() , duration);
                             toast.show();
                             Intent myIntent = new Intent(LoginActivity.this, CalendarActivity.class);
                             LoginActivity.this.startActivity(myIntent);}
@@ -137,39 +142,40 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     case 400:
                         dotProgressBar.setVisibility(View.GONE);
                         btnSignUp.setVisibility(View.VISIBLE);
-                        Toast toast = Toast.makeText(context,"El correo y la contraseña son requeridos" , duration);
+                        Toast toast = Toast.makeText(context,getString(R.string.statuscode400) , duration);
                         toast.show();
                         break;
                     case 401:
                         dotProgressBar.setVisibility(View.GONE);
                         btnSignUp.setVisibility(View.VISIBLE);
-                        Toast toast1 = Toast.makeText(context,"Correo o contraseña inválido" , duration);
+                        Toast toast1 = Toast.makeText(context,R.string.statuscode401 , duration);
                         toast1.show();
                         break;
                     case 403:
                         dotProgressBar.setVisibility(View.GONE);
                         btnSignUp.setVisibility(View.VISIBLE);
-                        Toast toast2 = Toast.makeText(context, "Confirma tu cuenta antes de iniciar sesión", duration);
+                        Toast toast2 = Toast.makeText(context, R.string.statuscode403, duration);
                         toast2.show();
                         break;
                     case 404:
                         dotProgressBar.setVisibility(View.GONE);
                         btnSignUp.setVisibility(View.VISIBLE);
-                        Toast toast3 = Toast.makeText(context, "No se encontró usuario", duration);
+                        Toast toast3 = Toast.makeText(context, R.string.statuscode404, duration);
                         toast3.show();
                         break;
                     case 500:
                         dotProgressBar.setVisibility(View.GONE);
                         btnSignUp.setVisibility(View.VISIBLE);
-                        Toast toast4 = Toast.makeText(context, "Server Error", duration);
+                        Toast toast4 = Toast.makeText(context, R.string.error_server, duration);
                         toast4.show();
                         break;
+
                 }
 
 
 
             }
-
+            /** Si el servidor falla. */
             @Override
             public void onFailure(Call<Informacion> call, Throwable t) {
                 dotProgressBar.setVisibility(View.GONE);
@@ -198,7 +204,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             return;
         }
     }
-
+    /** Validamos email. */
     private boolean validateEmail() {
         String email = inputEmail.getText().toString().trim();
 
@@ -213,7 +219,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         return true;
     }
-
+    /** Validamos contraseña. */
     private boolean validatePassword() {
         if (inputPassword.getText().toString().trim().isEmpty()) {
             inputLayoutPassword.setError(getString(R.string.err_msg_password));
@@ -226,18 +232,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         return true;
     }
 
-    private static boolean isValidEmail(String email) {
-        return !TextUtils.isEmpty(email) && android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches();
-    }
-
     private void requestFocus(View view) {
         if (view.requestFocus()) {
             getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
         }
     }
-
-    private static final String PASSWORD_PATTERN =
-            "((?=.*\\d)(?=.*[a-z])(?=\\S+$).{6,20})";
 
     public  boolean isValidEmail2(String text) {
         if (text.trim().equals("")) {

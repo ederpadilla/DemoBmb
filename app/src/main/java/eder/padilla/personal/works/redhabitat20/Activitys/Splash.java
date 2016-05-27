@@ -12,22 +12,21 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import org.json.JSONObject;
+
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+
 import eder.padilla.personal.works.redhabitat20.R;
-import eder.padilla.personal.works.redhabitat20.util.Constants;
 
 public class Splash extends Activity {
-
-
-    private SharedPreferences mSharedPreferences;
-
+    SharedPreferences sharedPreferences;
     private Thread splashTread;
-
     public void onAttachedToWindow() {
         super.onAttachedToWindow();
         Window window = getWindow();
         window.setFormat(PixelFormat.RGBA_8888);
     }
-
     /**
      * Called when the activity is first created.
      */
@@ -35,10 +34,8 @@ public class Splash extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
-
-        mSharedPreferences =this.getSharedPreferences("Login",0);
-
         StartAnimations();
+        sharedPreferences =this.getSharedPreferences("Login",0);
 
 
     }
@@ -65,7 +62,8 @@ public class Splash extends Activity {
                     /** Pause the execution of the code for 3.5 secs. **/
                     sleep(3500);
                     /** We check if there is a user log in or not. **/
-                    if(mSharedPreferences.getString(Constants.PREFERENCES_USER_NAME,null).length()>0){
+                    //String unm= sharedPreferences.getString(getResources().getString(R.string.Shared_Preferences_User), null);
+                    if(sharedPreferences.contains(getResources().getString(R.string.Shared_Preferences_User))){
 
                         Log.e("entra al if","if false");
                         Intent intent = new Intent(Splash.this,
@@ -77,9 +75,7 @@ public class Splash extends Activity {
                         Intent intent = new Intent(Splash.this,
                                 LoginActivity.class);intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                         startActivity(intent);
-                        }
-
-
+                    }
                     Splash.this.finish();
                 } catch (InterruptedException e) {
                     // do nothing
@@ -91,5 +87,6 @@ public class Splash extends Activity {
         splashTread.start();
 
     }
+
 
 }

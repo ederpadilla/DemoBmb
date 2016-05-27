@@ -13,14 +13,15 @@ import java.util.ArrayList;
 import eder.padilla.personal.works.redhabitat20.R;
 import eder.padilla.personal.works.redhabitat20.modelos.Visita;
 
+/**This class will select the behavior of our recycler views.**/
 public class AdaptadorVisitas
         extends RecyclerView.Adapter<AdaptadorVisitas.TitularesViewHolder>
         implements View.OnClickListener {
 
     private View.OnClickListener listener;
     private ArrayList<Visita> datos;
-    Context context;
-
+    private Context context;
+    /**Here its gonna we going to declare the views we gonna use in our recyclerviews .**/
     public static class TitularesViewHolder
             extends RecyclerView.ViewHolder {
 
@@ -36,11 +37,10 @@ public class AdaptadorVisitas
             mContainer = itemView.findViewById(R.id.layout_container);
         }
 
-
+        /**Set text to the headers and also set the background .**/
         public void bindTitular(Visita t) {
             txtTitulo.setText(t.getNombre());
             txtSubtitulo.setText(t.getDireccion());
-            Log.i("myLog", "tipo : " + t.getTipo());
             if (t.getTipo().trim().equalsIgnoreCase("programada")) {
                 mContainer.setBackgroundColor(mContainer.getResources().getColor(R.color.visita_programada));
             }else if(t.getTipo().trim().equalsIgnoreCase("norealizada")){
@@ -49,8 +49,7 @@ public class AdaptadorVisitas
                 mContainer.setBackgroundColor(mContainer.getResources().getColor(R.color.visita_cancelada));
             }else if(t.getTipo().trim().equalsIgnoreCase("finalizada")){
                 mContainer.setBackgroundColor(mContainer.getResources().getColor(R.color.visitas_finalizadas));
-            }
-            else {
+            }else {
                 mContainer.setBackgroundColor(mContainer.getResources().getColor(R.color.white));
             }
         }
@@ -60,14 +59,14 @@ public class AdaptadorVisitas
         this.datos = datos;
         this.context = context;
     }
-
+    /**Set the view that its gonna inflate inside the Recycler View.**/
     @Override
     public TitularesViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
         View itemView = LayoutInflater.from(viewGroup.getContext())
                 .inflate(R.layout.visita, viewGroup, false);
         itemView.setOnClickListener(this);
-        TitularesViewHolder tvh = new TitularesViewHolder(itemView);
-        return tvh;
+        TitularesViewHolder titularesViewHolder = new TitularesViewHolder(itemView);
+        return titularesViewHolder;
     }
 
     @Override

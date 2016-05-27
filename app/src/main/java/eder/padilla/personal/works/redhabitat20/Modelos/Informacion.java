@@ -5,6 +5,7 @@ import com.google.gson.annotations.SerializedName;
 /**
  * Created by Eder on 16/03/2016.
  */
+/**Clase para obtener la informacion del usuario.**/
 public class Informacion {
     @SerializedName("token")
     String token;

@@ -7,6 +7,7 @@ import android.net.NetworkInfo;
 /**
  * Created by Eder on 09/05/2016.
  */
+/**Te objective of this class its to check if  there is an internet conecction  .**/
 public class ConnectionDetector {
     private Context _context;
 

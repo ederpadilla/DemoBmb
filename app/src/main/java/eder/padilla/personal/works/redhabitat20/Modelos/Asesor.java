@@ -6,7 +6,7 @@ import com.google.gson.annotations.SerializedName;
  * Created by Eder on 25/04/2016.
  */
 public class Asesor {
-
+    /**.**/
     @SerializedName("email")
     String email;
     @SerializedName("password")

@@ -6,7 +6,7 @@
     <string name="btn_sign_up">Iniciar Sesión</string>
     <string name="err_msg_email">Asesor invalido</string>
     <string name="err_msg_password">Ingresar contraseña</string>
-
+    <string name="Shared_Preferences_User">userName</string>
     <!--Actividad Calendario-->
     <string name="visitas">Visitas</string>
     <string name="visitas_programadas">Visitas programadas</string>
@@ -35,7 +35,7 @@
     <string name="pregunta_siete">La atención que recibió por parte del asesor fue:</string>
     <string name="pregunta_ocho">¿Encuentra alguna objeción por la cual descartaría el inmueble de sus opciones?</string>
     <string name="pregunta_nueve">Desea dejar un comentario.</string>
-    <!--Botones-->
+    <!--Botones de preguntas-->
     <string name="Aceptar">Si</string>
     <string name="Negar">No</string>
     <string name="siguiente">Siguiente</string>
@@ -72,9 +72,7 @@
     <string name="error_invalid_password">This password is too short</string>
     <string name="error_incorrect_password">This password is incorrect</string>
     <string name="error_field_required">This field is required</string>
-    <string name="permission_rationale">"Contacts permissions are needed for providing email
-        completions."
-    </string>
+    <string name="permission_rationale">"Contacts permissions are needed for providing email completions." </string>
     <string name="visitaregistradaconesxito">Tu visita fue registrada con éxito.</string>
     <string name="nomre_dela_persona">Nombre:</string>
     <string name="direccion">Dirección:</string>

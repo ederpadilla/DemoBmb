@@ -11,9 +11,14 @@ import android.widget.TextView;
 
 import com.jaredrummler.materialspinner.MaterialSpinner;
 
+
 import eder.padilla.personal.works.redhabitat20.adapters.ViewPagerEncuestaAdapter;
 import eder.padilla.personal.works.redhabitat20.modelos.Encuesta;
 import eder.padilla.personal.works.redhabitat20.R;
+import io.realm.Realm;
+import io.realm.RealmConfiguration;
+import io.realm.RealmResults;
+import io.realm.Sort;
 
 public class MainActivity extends AppCompatActivity implements ViewPager.OnPageChangeListener {
     /* Declaracion de objetos con los que se trbajara */
@@ -21,9 +26,10 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
     public ViewPager viewpager;
     private TextView mTvIndice;
 
-    View decorView;
-    MaterialSpinner spinner;
-    String nombreAsesor;
+    private View decorView;
+    private MaterialSpinner mSpinner;
+    private String mNombreAsesor;
+
 
 
     @Override
@@ -32,28 +38,29 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
         setContentView(R.layout.activity_main);
         hideSystemUI();
         objectInitialization();
+
     }
     /* Referenciamos nuestros objetos*/
    public void objectInitialization() {
         encuesta = new Encuesta();
-        nombreAsesor="Eder";
+        mNombreAsesor ="Eder";
         viewpager = (ViewPager) findViewById(R.id.viewPager);
         viewpager.setAdapter(new ViewPagerEncuestaAdapter(getSupportFragmentManager()));
         viewpager.addOnPageChangeListener(this);
         mTvIndice =(TextView) findViewById(R.id.main_indice);
-        spinner = (MaterialSpinner) findViewById(R.id.spinner);
-       spinner.setItems(nombreAsesor, "Cerrar sesión");
-       spinner.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener<String>() {
+        mSpinner = (MaterialSpinner) findViewById(R.id.spinner);
+       mSpinner.setItems(mNombreAsesor, "Cerrar sesión");
+       mSpinner.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener<String>() {
 
            @Override public void onItemSelected(MaterialSpinner view, int position, long id, String item) {
                Snackbar.make(view, "Clicked " + item, Snackbar.LENGTH_LONG).show();
 
                if(item.equals(getResources().getString(R.string.cerrarsesion))){
                    SharedPreferences sp=getSharedPreferences("Login", 0);
-                   SharedPreferences.Editor Ed=sp.edit();
-                   Ed.putString("Unm","" );
-                   Ed.putString("Psw","");
-                   Ed.commit();
+                   SharedPreferences.Editor editor=sp.edit();
+                   editor.clear();
+                   editor.commit();
+                   deleteRealmBBDD();
                    Intent intent = new Intent(MainActivity.this,
                            Splash.class);intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                    startActivity(intent);
@@ -91,6 +98,18 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
                         | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION // hide nav bar
                         | View.SYSTEM_UI_FLAG_FULLSCREEN // hide status bar
                         | View.SYSTEM_UI_FLAG_IMMERSIVE);
+    }
+    private void deleteRealmBBDD(){
+        RealmConfiguration realmConfig = new RealmConfiguration.Builder(getApplicationContext()).build();
+        Realm realm=Realm.getInstance(realmConfig);
+        RealmResults<Encuesta> results = realm.where(Encuesta.class).findAll();
+        results.sort("nombre");
+        results.sort("nombre", Sort.ASCENDING);
+        for (Encuesta encuesta : results) {
+
+                encuesta.removeFromRealm();
+        }
+
     }
 
 

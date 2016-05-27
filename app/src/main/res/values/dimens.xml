@@ -13,4 +13,5 @@
     <dimen name="dias_de_la_semana">15sp</dimen>
     <dimen name="ancho_btn_aceptar_cancelar">160dp</dimen>
     <dimen name="alto_btn_aceptar_cancelar">35dp</dimen>
+    <dimen name="omar_vista">12sp</dimen>
 </resources>

@@ -39,12 +39,16 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private TextInputLayout inputLayoutEmail, inputLayoutPassword;
     private Button btnSignUp;
     private DotProgressBar dotProgressBar;
-    SharedPreferences sp;
+    SharedPreferences mSharedPreferences;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_log_in);
         hideSystemUI();
+        mSharedPreferences=getSharedPreferences("Login", 0);
+        SharedPreferences.Editor editor=mSharedPreferences.edit();
+        editor.putString(getResources().getString(R.string.Shared_Preferences_User),"" );
+        editor.commit();
         /** Call all objects un the UI we need. **/
         objectInitialization();
         setListeners();
@@ -79,16 +83,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 /** Star the request to server and the progress bar appear. **/
                 dotProgressBar.setVisibility(View.VISIBLE);
                 btnSignUp.setVisibility(View.GONE);
-               // sp=getSharedPreferences("Login", 0);
-                // SharedPreferences.Editor Ed=sp.edit();
-                //Ed.putString("Unm",inputEmail.getText().toString() );
-                //Ed.putString("Psw",inputPassword.getText().toString());
-                //Ed.putBoolean("isLogin",true);
-                //Ed.commit();
-               tryLogIn();
-
-                // Intent myIntent = new Intent(LoginActivity.this, CalendarActivity.class);
-                //LoginActivity.this.startActivity(myIntent);
+                //tryLogIn();
+                mSharedPreferences=getSharedPreferences("Login", 0);
+                SharedPreferences.Editor editor=mSharedPreferences.edit();
+                editor.putString(getResources().getString(R.string.Shared_Preferences_User),inputPassword.getText().toString() );
+                editor.commit();
+                Intent myIntent = new Intent(LoginActivity.this, CalendarActivity.class);
+                LoginActivity.this.startActivity(myIntent);
                 break;
 
         }
@@ -120,13 +121,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 Log.e("login","entre a onresponse");
                 switch (statusCode){
                     case 200:
-                        sp=getSharedPreferences("Login", 0);
-                        SharedPreferences.Editor Ed=sp.edit();
-                        Ed.putString(Constants.PREFERENCES_USER_NAME,inputEmail.getText().toString() );
-                        Ed.putString("Unm_asdasd_AsdasD_asd_ASdas",inputEmail.getText().toString() );
-                        Ed.putString("Psw",inputPassword.getText().toString());
-                        Ed.putBoolean("isLogin",true);
-                        Ed.commit();
                         dotProgressBar.setVisibility(View.GONE);
                         System.out.println("El token es "+user.getToken());
                         Log.e("Status es: ",user.getStatus());
@@ -287,6 +281,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             }
         }
     }
+
 
 }
 

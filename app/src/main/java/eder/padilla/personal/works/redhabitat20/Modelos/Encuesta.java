@@ -7,7 +7,7 @@ import io.realm.annotations.PrimaryKey;
  * Created by Eder on 31/03/2016.
  */
 /**
- * Clase sobre que se guardara y que se enviara
+ * Clase que define el modelo que se guardara y que se enviara
  */
 public class Encuesta extends RealmObject {
 

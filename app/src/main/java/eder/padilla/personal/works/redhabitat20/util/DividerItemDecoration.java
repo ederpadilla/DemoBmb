@@ -13,7 +13,7 @@ import android.view.View;
  * Ref: https://chromium.googlesource.com/android_tools/+/18728e9dd5dd66d4f5edf1b792e77e2b544a1cb0/sdk/extras/android/support/samples/Support7Demos/src/com/example/android/supportv7/widget/RecyclerViewActivity.java
  */
 public class DividerItemDecoration extends RecyclerView.ItemDecoration {
-
+    /**Class to set Decorator to our views in the recycler voews.**/
     private static final int[] ATTRS = new int[]{
             android.R.attr.listDivider
     };

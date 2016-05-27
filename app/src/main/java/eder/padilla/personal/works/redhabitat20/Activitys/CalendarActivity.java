@@ -16,6 +16,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.DatePicker;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -37,14 +38,19 @@ import java.util.Calendar;
 import eder.padilla.personal.works.redhabitat20.R;
 import eder.padilla.personal.works.redhabitat20.adapters.AdaptadorVisitas;
 import eder.padilla.personal.works.redhabitat20.fragments.dialogs.DiaologoPreguntaRealizarEncuesta;
+import eder.padilla.personal.works.redhabitat20.modelos.Encuesta;
 import eder.padilla.personal.works.redhabitat20.modelos.Visita;
 import eder.padilla.personal.works.redhabitat20.util.ConnectionDetector;
 import eder.padilla.personal.works.redhabitat20.util.DividerItemDecoration;
+import io.realm.Realm;
+import io.realm.RealmConfiguration;
+import io.realm.RealmResults;
 
 /**
  * Created by Eder on 12/04/2016.
  */
-public class CalendarActivity extends AppCompatActivity implements View.OnClickListener,OnDateSelectedListener, OnMonthChangedListener, DatePickerDialog.OnDateSetListener {
+public class CalendarActivity extends AppCompatActivity implements View.OnClickListener,OnDateSelectedListener, OnMonthChangedListener,
+        DatePickerDialog.OnDateSetListener, AdapterView.OnItemClickListener{
     private View linlay,linlaya;
     private LinearLayout cuadroDeCitas,
             domingo,lldomingo,
@@ -101,14 +107,9 @@ public class CalendarActivity extends AppCompatActivity implements View.OnClickL
         checkInternetConection();
         materialCalendarView.getShowOtherDates();
         tv_Fechaindice.setText(getSelectedDatesString());
-        SharedPreferences sp1=this.getSharedPreferences("Login",0);
-        String unm=sp1.getString("Unm", null);
-        Log.e("Splash user",sp1.getString("Unm", null));
-        String pass = sp1.getString("Psw", null);
-        Log.e("Splash user",sp1.getString("Psw", null));
         fillInAllArrayList();
     }
-    /** Initializte all our objects . */
+    /** Initializte all our objects . **/
 
     private void objectInitialization() {
         //cuadroDeCitas = (LinearLayout) findViewById(R.id.visita_cancelada_xml);
@@ -167,6 +168,7 @@ public class CalendarActivity extends AppCompatActivity implements View.OnClickL
         fridayData = new ArrayList<Visita>();
         saturdayData = new ArrayList<Visita>();
     }
+
     /** Fill All the arrlists with null parameters. */
     private void fillInAllArrayList(){
         for(int i=0; i<24; i++){
@@ -274,6 +276,10 @@ public class CalendarActivity extends AppCompatActivity implements View.OnClickL
         });
     }
 
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+    }
 
     /** Select the adapter for manage the calendar. */
     public void adapterForCalendar() {
@@ -299,18 +305,22 @@ public class CalendarActivity extends AppCompatActivity implements View.OnClickL
         Context context = getApplicationContext();
         int duration = Toast.LENGTH_SHORT;
 
-        // get Internet status
+
+        /**get Internet status .**/
         isInternetPresent = cd.isConnectingToInternet();
 
-        // check for Internet status
+
+        /** check for Internet status.**/
         if (isInternetPresent) {
-            // Internet Connection is Present
-            // make HTTP requests
+
+            /**Internet Connection is Present
+             // make HTTP requests .**/
             Toast toaste = Toast.makeText(context,"Existe conexión a internet", duration);
             toaste.show();
         } else {
-            // Internet connection is not present
-            // Ask user to connect to Internet
+
+            /**Internet connection is not present
+             // Ask user to connect to Internet .**/
             Toast toaste = Toast.makeText(context,"No existe conexion a internet", duration);
             toaste.show();
         }
@@ -343,10 +353,10 @@ public class CalendarActivity extends AppCompatActivity implements View.OnClickL
 
                 if(item.equals(getResources().getString(R.string.cerrarsesion))){
                     SharedPreferences sp=getSharedPreferences("Login", 0);
-                    SharedPreferences.Editor Ed=sp.edit();
-                    Ed.putString("Unm","" );
-                    Ed.putString("Psw","");
-                    Ed.commit();
+                    SharedPreferences.Editor editor=sp.edit();
+                    editor.clear();
+                    editor.commit();
+                    deleteRealmBBDD();
                     Intent intent = new Intent(CalendarActivity.this,
                             Splash.class);intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                     startActivity(intent);
@@ -359,6 +369,16 @@ public class CalendarActivity extends AppCompatActivity implements View.OnClickL
         FragmentManager fm = getSupportFragmentManager();
         DiaologoPreguntaRealizarEncuesta editNameDialog = new DiaologoPreguntaRealizarEncuesta();
         editNameDialog.show(getFragmentManager(), "diaologo_preguntar_encuesta");
+    }
+    private void getDatesforAsesor(){
+        Visita visita =  new Visita();
+        for (int i =0 ; i<24; i++){
+            if (i%2!=0)
+                System.out.println("no es par");
+            else
+                System.out.println("es par");
+        }
+
     }
 
     @Override
@@ -677,5 +697,15 @@ public class CalendarActivity extends AppCompatActivity implements View.OnClickL
         linlaya.setBackgroundColor(getResources().getColor(R.color.backgroundlinears));
 
     }
+    private void deleteRealmBBDD(){
+        RealmConfiguration realmConfig = new RealmConfiguration.Builder(getApplicationContext()).build();
+        Realm realm=Realm.getInstance(realmConfig);
+        RealmResults<Encuesta> results = realm.where(Encuesta.class).findAll();
+        for (Encuesta encuesta : results) {
+            encuesta.removeFromRealm();
+        }
+
+    }
+
 
 }

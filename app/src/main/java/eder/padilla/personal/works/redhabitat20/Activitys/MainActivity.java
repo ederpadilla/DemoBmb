@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
     /* Referenciamos nuestros objetos*/
    public void objectInitialization() {
         encuesta = new Encuesta();
-        mNombreAsesor ="Eder";
+        mNombreAsesor ="Asesor";
         viewpager = (ViewPager) findViewById(R.id.viewPager);
         viewpager.setAdapter(new ViewPagerEncuestaAdapter(getSupportFragmentManager()));
         viewpager.addOnPageChangeListener(this);
@@ -60,10 +60,11 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
                    SharedPreferences.Editor editor=sp.edit();
                    editor.clear();
                    editor.commit();
-                   deleteRealmBBDD();
+                   //deleteRealmBBDD();
                    Intent intent = new Intent(MainActivity.this,
                            Splash.class);intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                    startActivity(intent);
+                   finish();
                }
            }
        });

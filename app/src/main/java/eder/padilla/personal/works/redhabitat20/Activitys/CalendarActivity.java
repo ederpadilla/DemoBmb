@@ -52,7 +52,7 @@ import io.realm.RealmResults;
 public class CalendarActivity extends AppCompatActivity implements View.OnClickListener,OnDateSelectedListener, OnMonthChangedListener,
         DatePickerDialog.OnDateSetListener, AdapterView.OnItemClickListener{
     private View linlay,linlaya;
-    private LinearLayout cuadroDeCitas,
+    private LinearLayout //cuadroDeCitas,
             domingo,lldomingo,
             lunes,lllunes,
             martes,llmartes,
@@ -158,7 +158,7 @@ public class CalendarActivity extends AppCompatActivity implements View.OnClickL
         recViewSaturday.setHasFixedSize(true);
         /** OInternet Conection detector. */
         cd = new ConnectionDetector(getApplicationContext());
-        nombreAsesor="Eder";
+        nombreAsesor="Asesor";
         /** ArrayLists. */
         sundayData = new ArrayList<Visita>();
         mondayData = new ArrayList<Visita>();
@@ -328,7 +328,7 @@ public class CalendarActivity extends AppCompatActivity implements View.OnClickL
 
     private void setListeners() {
 
-      //  cuadroDeCitas.setOnClickListener(this);
+        //cuadroDeCitas.setOnClickListener(this);
         materialCalendarView.setOnDateChangedListener(this);
         materialCalendarView.setOnMonthChangedListener(this);
         domingo.setOnClickListener(this);
@@ -356,10 +356,11 @@ public class CalendarActivity extends AppCompatActivity implements View.OnClickL
                     SharedPreferences.Editor editor=sp.edit();
                     editor.clear();
                     editor.commit();
-                    deleteRealmBBDD();
+                    //deleteRealmBBDD();
                     Intent intent = new Intent(CalendarActivity.this,
                             Splash.class);intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                     startActivity(intent);
+                    finish();
                 }
             }
         });
@@ -391,9 +392,9 @@ public class CalendarActivity extends AppCompatActivity implements View.OnClickL
         }
         /** Asign backgorung color to our dates. */
         switch (v.getId()) {
-           // case R.id.visita_cancelada_xml:
-             //   showEditDialog();
-               // break;
+           /* case R.id.visita_cancelada_xml:
+                showEditDialog();
+                break;*/
             case R.id.linearlayoutdomingo:
                 setBackgroundSunday();
                   break;
@@ -437,13 +438,7 @@ public class CalendarActivity extends AppCompatActivity implements View.OnClickL
             case R.id.linearlayaoutsiete:
                 setBackgroundSaturday();
                 break;
-
-
-
-
-
         }
-
     }
 
     /** Check the date we elect. */

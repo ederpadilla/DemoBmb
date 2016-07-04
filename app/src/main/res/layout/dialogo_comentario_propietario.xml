@@ -36,6 +36,7 @@
                 android:id="@+id/et_cometario_propietario"
                 android:textAlignment="center"
                 android:alpha="30"
+                android:textColor="@color/white"
                 android:hint="@string/escribir_aqui_comentario"/>
 
         </LinearLayout>

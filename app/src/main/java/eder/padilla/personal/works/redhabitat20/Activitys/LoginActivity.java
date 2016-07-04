@@ -90,6 +90,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 editor.commit();
                 Intent myIntent = new Intent(LoginActivity.this, CalendarActivity.class);
                 LoginActivity.this.startActivity(myIntent);
+                finish();
                 break;
 
         }
@@ -131,7 +132,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                             Toast toast = Toast.makeText(context,getString(R.string.statuscode200)+ "\n" + user.getName() , duration);
                             toast.show();
                             Intent myIntent = new Intent(LoginActivity.this, CalendarActivity.class);
-                            LoginActivity.this.startActivity(myIntent);}
+                            LoginActivity.this.startActivity(myIntent);
+                        finish();}
                     break;
                     case 400:
                         dotProgressBar.setVisibility(View.GONE);

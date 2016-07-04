@@ -75,6 +75,7 @@ public class Splash extends Activity {
                         Intent intent = new Intent(Splash.this,
                                 LoginActivity.class);intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                         startActivity(intent);
+                        finish();
                     }
                     Splash.this.finish();
                 } catch (InterruptedException e) {

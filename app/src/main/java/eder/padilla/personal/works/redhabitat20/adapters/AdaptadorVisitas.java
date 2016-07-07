@@ -89,7 +89,6 @@ public class AdaptadorVisitas
          * Set text to the headers and also set the background .
          **/
         public void bindTitular(Visita visita) {
-            Log.e("myLog", "bindTitular");
             txtTitulo.setText(visita.getNombre());
             txtSubtitulo.setText(visita.getDireccion());
             if (visita.getTipo().trim().equalsIgnoreCase("programada")) {

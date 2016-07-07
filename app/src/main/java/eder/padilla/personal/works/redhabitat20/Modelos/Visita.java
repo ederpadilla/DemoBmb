@@ -24,6 +24,11 @@ public class Visita
         this.tipo=tipodevisita;
         this.hora=hora;
     }
+    public Visita(String nombre, String dirreccion, String tipodevisita){
+        this.nombre = nombre;
+        this.direccion = dirreccion;
+        this.tipo=tipodevisita;
+    }
     public Visita(){}
 
     public String getNombre(){

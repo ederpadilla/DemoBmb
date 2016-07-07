@@ -36,6 +36,7 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         objectInitialization();
+        spinnerAdapter();
 
     }
     /* Referenciamos nuestros objetos*/
@@ -68,6 +69,29 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
        });
 
         mTvIndice.setText(1+"");
+    }
+    private void spinnerAdapter() {
+        mSpinner.setItems(mNombreAsesor, getResources().getString(R.string.cerrarsesion));
+        mSpinner.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener<String>() {
+
+            @Override
+            public void onItemSelected(MaterialSpinner view, int position, long id, String item) {
+                Snackbar.make(view, "Clicked " + item, Snackbar.LENGTH_LONG).show();
+
+                if (item.equals(getResources().getString(R.string.cerrarsesion))) {
+                    SharedPreferences sp = getSharedPreferences("Login", 0);
+                    SharedPreferences.Editor editor = sp.edit();
+                    editor.clear();
+                    editor.commit();
+                    deleteRealmBBDD();
+                    Intent intent = new Intent(MainActivity.this,
+                            Splash.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                    startActivity(intent);
+                    finish();
+                }
+            }
+        });
     }
     @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {

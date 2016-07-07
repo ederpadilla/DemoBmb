@@ -97,7 +97,8 @@
                 app:mcv_headerTextAppearance="@style/CustomTextAppearance"
                 app:mcv_weekDayTextAppearance="@style/CustomTextAppearance"
                 android:layout_height="wrap_content"
-                app:mcv_selectionColor="@color/colorPrimary"/>
+                app:mcv_selectionColor="@color/colorPrimary"
+                app:mcv_firstDayOfWeek="sunday"/>
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -122,53 +123,7 @@
 
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
-                android:layout_marginTop="8dp"
-                android:orientation="horizontal">
 
-
-                <de.hdodenhof.circleimageview.CircleImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/visitas_no_realizadas" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginTop="5dp"
-                    android:text="@string/visitas_no_realizadas"
-                    android:textColor="@color/textovisitas"
-                    android:textSize="@dimen/tamaño_de_visitas" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
-                android:layout_marginTop="8dp"
-                android:orientation="horizontal">
-
-
-                <de.hdodenhof.circleimageview.CircleImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/visitas_canceladas" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginTop="5dp"
-                    android:text="@string/visitas_canceladas"
-                    android:textColor="@color/textovisitas"
-                    android:textSize="@dimen/tamaño_de_visitas" />
-
-            </LinearLayout>
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -309,7 +264,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/martes"
-                            android:id="@+id/TercerDiaDelaSemana"
+                            android:id="@+id/tercerDiaDelaSemana"
                             style="@style/DiaDelaSemana"
                             android:textSize="@dimen/dias_de_la_semana" />
 

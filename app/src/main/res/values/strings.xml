@@ -10,8 +10,6 @@
     <!--Actividad Calendario-->
     <string name="visitas">Visitas</string>
     <string name="visitas_programadas">Visitas programadas</string>
-    <string name="visitas_no_realizadas">Visitas no realizadas</string>
-    <string name="visitas_canceladas">Visitas canceladas</string>
     <string name="visitas_finalizadas">Visitas finalizadas</string>
     <string name="lunes">Lunes</string>
     <string name="martes">Martes</string>

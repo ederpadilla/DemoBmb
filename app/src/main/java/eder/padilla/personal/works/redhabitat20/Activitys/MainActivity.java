@@ -26,7 +26,6 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
     public ViewPager viewpager;
     private TextView mTvIndice;
 
-    private View decorView;
     private MaterialSpinner mSpinner;
     private String mNombreAsesor;
 
@@ -36,7 +35,6 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        hideSystemUI();
         objectInitialization();
 
     }
@@ -49,7 +47,7 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
         viewpager.addOnPageChangeListener(this);
         mTvIndice =(TextView) findViewById(R.id.main_indice);
         mSpinner = (MaterialSpinner) findViewById(R.id.spinner);
-       mSpinner.setItems(mNombreAsesor, "Cerrar sesión");
+       mSpinner.setItems(mNombreAsesor, getResources().getString(R.string.cerrarsesion));
        mSpinner.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener<String>() {
 
            @Override public void onItemSelected(MaterialSpinner view, int position, long id, String item) {
@@ -60,7 +58,7 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
                    SharedPreferences.Editor editor=sp.edit();
                    editor.clear();
                    editor.commit();
-                   //deleteRealmBBDD();
+                   deleteRealmBBDD();
                    Intent intent = new Intent(MainActivity.this,
                            Splash.class);intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                    startActivity(intent);
@@ -87,29 +85,12 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
     }
 
 
-    private void hideSystemUI() {
-        decorView = getWindow().getDecorView();
-        // Set the IMMERSIVE flag.
-        // Set the content to appear under the system bars so that the content
-        // doesn't resize when the system bars hide and show.
-        decorView.setSystemUiVisibility(
-                View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-                        | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-                        | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                        | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION // hide nav bar
-                        | View.SYSTEM_UI_FLAG_FULLSCREEN // hide status bar
-                        | View.SYSTEM_UI_FLAG_IMMERSIVE);
-    }
     private void deleteRealmBBDD(){
         RealmConfiguration realmConfig = new RealmConfiguration.Builder(getApplicationContext()).build();
         Realm realm=Realm.getInstance(realmConfig);
-        RealmResults<Encuesta> results = realm.where(Encuesta.class).findAll();
-        results.sort("nombre");
-        results.sort("nombre", Sort.ASCENDING);
-        for (Encuesta encuesta : results) {
-
-                encuesta.removeFromRealm();
-        }
+        realm.beginTransaction();
+        realm.clear(Encuesta.class);
+        realm.commitTransaction();
 
     }
 

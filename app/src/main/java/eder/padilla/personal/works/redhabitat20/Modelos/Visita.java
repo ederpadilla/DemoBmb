@@ -5,12 +5,10 @@ import java.util.Calendar;
 /**Modelo con el que trabajara nuestro recycler view.**/
 public class Visita
 {
-     String nombre;
-
-
+    String nombre;
     String direccion;
-     String tipo;
-     int hora;
+    String tipo;
+    int hora;
     Calendar calendar;
 
     public Visita(String nombre, String dirreccion, String tipodevisita, int hora, Calendar calendar){
@@ -19,6 +17,12 @@ public class Visita
         this.tipo=tipodevisita;
         this.hora=hora;
         this.calendar =calendar;
+    }
+    public Visita(String nombre, String dirreccion, String tipodevisita, int hora){
+        this.nombre = nombre;
+        this.direccion = dirreccion;
+        this.tipo=tipodevisita;
+        this.hora=hora;
     }
     public Visita(){}
 

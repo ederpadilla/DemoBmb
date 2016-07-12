@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Red Habitat 2.0</string>
+    <string name="app_name">Red Habitat Alpha</string>
     <!--Actividad Log in -->
     <string name="hint_email">Asesor</string>
     <string name="hint_password">Clave Interna</string>
@@ -33,6 +33,7 @@
     <string name="pregunta_siete">La atención que recibió por parte del asesor fue:</string>
     <string name="pregunta_ocho">¿Encuentra alguna objeción por la cual descartaría el inmueble de sus opciones?</string>
     <string name="pregunta_nueve">Desea dejar un comentario.</string>
+    <string name="finalizar_cuestionario">Finalizar cuestionario</string>
     <!--Botones de preguntas-->
     <string name="Aceptar">Si</string>
     <string name="Negar">No</string>

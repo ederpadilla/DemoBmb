@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'realm-android'
 
 android {
     compileSdkVersion 23
@@ -26,7 +27,6 @@ dependencies {
 
     compile 'com.android.support:appcompat-v7:23.3.0'
     compile 'com.prolificinteractive:material-calendarview:1.4.0'
-    compile 'io.realm:realm-android:0.86.1'
     compile 'de.hdodenhof:circleimageview:2.0.0'
     compile 'com.github.gcacace:signature-pad:1.1.0'
     compile 'com.google.android.gms:play-services-appindexing:8.1.0'
@@ -35,6 +35,6 @@ dependencies {
     compile 'com.google.code.gson:gson:2.2.4'
     compile 'com.squareup.okhttp:okhttp:2.7.2'
     compile 'com.squareup.retrofit2:converter-gson:2.0.0-beta4'
-    compile 'com.jaredrummler:material-spinner:1.0.6'
+    compile 'com.jaredrummler:material-spinner:1.0.9'
     compile 'com.github.silvestrpredko:dot-progress-bar:0.1.4@aar'
 }

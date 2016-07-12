@@ -25,7 +25,7 @@ public class DiaologoPreguntaRealizarEncuesta extends DialogFragment implements 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        /* Inflamos nuestra vista */
+        /** Inflamos nuestra vista */
         View view = inflater.inflate(R.layout.dialogo_pregunta_realizar_encuesta, container);
         getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
         objectInitialization(view);
@@ -33,7 +33,7 @@ public class DiaologoPreguntaRealizarEncuesta extends DialogFragment implements 
         return view;
     }
 
-    /* Referenciamos nuestros objetos */
+    /** Referenciamos nuestros objetos */
     private void objectInitialization(View view) {
         mbt_RealizarEncuesta = (Button) view.findViewById(R.id.bt_dialogo_aceptar_encuesta);
         mbt_NoRealizarEncuesta =(Button) view.findViewById(R.id.bt__dialogo_cancelar_encuesta);
@@ -48,17 +48,14 @@ public class DiaologoPreguntaRealizarEncuesta extends DialogFragment implements 
     }
 
 
-    /* Asignamos funcionalidades a los botones */
+    /** Asignamos funcionalidades a los botones */
     @Override
     public void onClick(View v) {
         switch(v.getId()){
             case R.id.bt_dialogo_aceptar_encuesta:
-
+                dismiss();
                 Intent myIntent = new Intent(getActivity(), MainActivity.class);
-                getActivity().startActivity(myIntent);
-
-
-
+                getActivity().startActivityForResult(myIntent,1);
                 break;
             case R.id.bt__dialogo_cancelar_encuesta:
                 dismiss();

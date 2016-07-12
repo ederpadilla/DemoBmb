@@ -1,66 +1,103 @@
 package eder.padilla.personal.works.redhabitat20.modelos;
+import io.realm.RealmObject;
+import io.realm.annotations.PrimaryKey;
 
-
-import java.util.Calendar;
 /**Modelo con el que trabajara nuestro recycler view.**/
-public class Visita
-{
-    String nombre;
-    String direccion;
-    String tipo;
-    int hora;
-    Calendar calendar;
+public class Visita extends RealmObject {
+    private String nombre;
+    private String direccion;
+    private String tipo;
+    private String dateOfVisit;
+    private int hora;
+    @PrimaryKey
+    private int idd;
 
-    public Visita(String nombre, String dirreccion, String tipodevisita, int hora, Calendar calendar){
+
+    public Visita(String nombre, String direccion, String tipo, String dateOfVisit, int hora, int idd) {
         this.nombre = nombre;
-        this.direccion = dirreccion;
-        this.tipo=tipodevisita;
-        this.hora=hora;
-        this.calendar =calendar;
-    }
-    public Visita(String nombre, String dirreccion, String tipodevisita, int hora){
-        this.nombre = nombre;
-        this.direccion = dirreccion;
-        this.tipo=tipodevisita;
-        this.hora=hora;
+        this.direccion = direccion;
+        this.tipo = tipo;
+        this.dateOfVisit = dateOfVisit;
+        this.hora = hora;
+        this.idd = idd;
     }
     public Visita(String nombre, String dirreccion, String tipodevisita){
         this.nombre = nombre;
         this.direccion = dirreccion;
         this.tipo=tipodevisita;
     }
-    public Visita(){}
 
-    public String getNombre(){
+    public Visita(){
+
+    }
+    public Visita(String nombre, String direccion, String tipo, int hora) {
+        this.nombre = nombre;
+        this.direccion = direccion;
+        this.tipo = tipo;
+        this.hora = hora;
+    }
+    public Visita(String nombre, String direccion, String tipo, String dateOfVisit, int hora) {
+        this.nombre = nombre;
+        this.direccion = direccion;
+        this.tipo = tipo;
+        this.dateOfVisit = dateOfVisit;
+        this.hora = hora;
+    }
+    public String getNombre() {
         return nombre;
     }
 
-    public String getDireccion(){
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getDireccion() {
         return direccion;
-    }
-    public String getTipo() {return tipo;}
-    public int getHora(){return hora;}
-    public Calendar getCalendar() {
-        return calendar;
-    }
-
-    public void setCalendar(Calendar calendar) {
-        this.calendar = calendar;
-    }
-
-    public void setHora(int hora) {
-        this.hora = hora;
-    }
-
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
     }
 
     public void setDireccion(String direccion) {
         this.direccion = direccion;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
+
+    public int getHora() {
+        return hora;
+    }
+
+    public void setHora(int hora) {
+        this.hora = hora;
+    }
+
+    public String getDateOfVisit() {
+        return dateOfVisit;
+    }
+
+    public void setDateOfVisit(String dateOfVisit) {
+        this.dateOfVisit = dateOfVisit;
+    }
+    public int getIdd() {
+        return idd;
+    }
+
+    public void setIdd(int idd) {
+        this.idd = idd;
+    }
+    @Override
+    public String toString() {
+        return "Visita{" +
+                "nombre='" + nombre + '\'' +
+                ", direccion='" + direccion + '\'' +
+                ", tipo='" + tipo + '\'' +
+                ", dateOfVisit='" + dateOfVisit + '\'' +
+                ", hora=" + hora +
+                ", idd=" + idd +
+                '}';
     }
 }

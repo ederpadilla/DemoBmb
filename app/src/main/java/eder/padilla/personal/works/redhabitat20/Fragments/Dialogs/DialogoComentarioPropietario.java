@@ -13,6 +13,7 @@ import eder.padilla.personal.works.redhabitat20.R;
 import eder.padilla.personal.works.redhabitat20.activitys.MainActivity;
 import eder.padilla.personal.works.redhabitat20.modelos.Encuesta;
 import io.realm.Realm;
+import io.realm.RealmConfiguration;
 import io.realm.RealmResults;
 
 
@@ -25,6 +26,7 @@ public class DialogoComentarioPropietario extends DialogFragment implements View
     private EditText met_ComentarioHaciaElPropietario;
     private RealmResults<Encuesta> allEncuestas;
     private Realm realm;
+    RealmConfiguration realmConfiguration;
 
 
     @Override
@@ -43,7 +45,8 @@ public class DialogoComentarioPropietario extends DialogFragment implements View
         mbt_relizar_comentario_propietario = (Button) view.findViewById(R.id.bt_dialogo_aceptar);
         mbt_no_realizar_comentario =(Button) view.findViewById(R.id.bt__dialogo_cancelar);
         met_ComentarioHaciaElPropietario=(EditText)view.findViewById(R.id.et_cometario_propietario);
-        realm = Realm.getInstance(getActivity().getApplicationContext());
+        realmConfiguration=new RealmConfiguration.Builder(getActivity()).build();
+        realm = Realm.getInstance(realmConfiguration);
         allEncuestas = realm.where(Encuesta.class).findAll();
 
 

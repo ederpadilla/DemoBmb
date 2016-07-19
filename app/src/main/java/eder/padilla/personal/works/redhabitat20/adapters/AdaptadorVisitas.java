@@ -63,7 +63,6 @@ public class AdaptadorVisitas
 
     @Override
     public void onClick(View view) {
-        Log.i("myLog", "clck");
         if (listener != null)
             listener.onClick(view);
 

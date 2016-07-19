@@ -27,8 +27,8 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
     public ViewPager viewpager;
     private TextView mTvIndice;
     private MaterialSpinner mSpinner;
-    private String mNombreAsesor,mFinalizarCuestionario;
-
+    private RealmConfiguration realmConfig;
+    private Realm realm;
 
 
     @Override
@@ -41,9 +41,9 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
     }
     /* Referenciamos nuestros objetos*/
    public void objectInitialization() {
+       realmConfig = new RealmConfiguration.Builder(getApplicationContext()).build();
+       realm=Realm.getInstance(realmConfig);
        encuesta = new Encuesta();
-       mNombreAsesor ="Asesor";
-       mFinalizarCuestionario="Finalizar cuestionario";
        viewpager = (ViewPager) findViewById(R.id.viewPager);
        viewpager.setAdapter(new ViewPagerEncuestaAdapter(getSupportFragmentManager()));
        viewpager.addOnPageChangeListener(this);
@@ -52,14 +52,16 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
        mTvIndice.setText(1+"");
     }
     private void spinnerAdapter() {
-        mSpinner.setItems(mNombreAsesor, getResources().getString(R.string.cerrarsesion),mFinalizarCuestionario);
+        String mNombreAsesor=getResources().getString(R.string.asesor);
+        final String mFinalizarCuestionario=getResources().getString(R.string.finalizar_cuestionario);
+        final String cerrarSesion=getResources().getString(R.string.cerrarsesion);
+        mSpinner.setItems(mNombreAsesor,cerrarSesion,mFinalizarCuestionario);
         mSpinner.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener<String>() {
 
             @Override
             public void onItemSelected(MaterialSpinner view, int position, long id, String item) {
                 Snackbar.make(view, "Clicked " + item, Snackbar.LENGTH_LONG).show();
-
-                if (item.equals(getResources().getString(R.string.cerrarsesion))) {
+                if (item.equals(cerrarSesion)) {
                     SharedPreferences sp = getSharedPreferences("Login", 0);
                     SharedPreferences.Editor editor = sp.edit();
                     editor.clear();
@@ -71,20 +73,19 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
                     startActivity(intent);
                     finish();
                 }else if(item.equals(mFinalizarCuestionario)){
-                    finish();
+                    createEncuestaRespondida(encuesta);
+                    Log.i("FInalizarEncuesta","seCrea"+encuesta.toString());
                     Intent intent = new Intent(MainActivity.this,
                             CalendarActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                     startActivity(intent);
-                    Log.i("Finalizar cuestionario","Aqui debe finalizar el ciestionario");
+                    finish();
                 }
             }
         });
     }
     @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-
     }
     @Override
     public void onPageSelected(int position) {
@@ -93,18 +94,15 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
     }
     @Override
     public void onPageScrollStateChanged(int state) {
-
     }
-
-
-    private void deleteRealmBBDD(){
-        RealmConfiguration realmConfig = new RealmConfiguration.Builder(getApplicationContext()).build();
-        Realm realm=Realm.getInstance(realmConfig);
+       private void deleteRealmBBDD(){
         realm.beginTransaction();
         realm.delete(Encuesta.class);
         realm.commitTransaction();
-
     }
-
-
+    private void createEncuestaRespondida(Encuesta encuesta) {
+        realm.beginTransaction();
+        realm.copyToRealmOrUpdate(encuesta);
+        realm.commitTransaction();
+    }
 }

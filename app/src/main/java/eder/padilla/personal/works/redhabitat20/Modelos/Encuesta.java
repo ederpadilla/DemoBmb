@@ -1,5 +1,7 @@
 package eder.padilla.personal.works.redhabitat20.modelos;
 
+import java.util.Arrays;
+
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
 
@@ -13,27 +15,20 @@ public class Encuesta extends RealmObject {
 
 
 
+
     private String contraseña;
     private String elpPorQueCubreoNo;
     private String atencion;
     private String objecionPorLaCulDescartariaelInmueble;
     private String comentarioFinal;
     private String correo;
-
-
-
     private String fecha;
-
-
     private String comentarioHaciaElPropietario;
     private boolean cubreRequerimientos;
-
     private boolean dentrodelpresupuesto;
     private boolean consideraselinmuebledentrodesusopcionesdecompraorenta;
     private boolean recibiolainformacionquerequeria;
     private boolean elasesoracudiodemanerapuntual;
-
-
     private byte[]bytes;
     @PrimaryKey
     private int idd;
@@ -155,5 +150,24 @@ public class Encuesta extends RealmObject {
     public void setFecha(String fecha) {
         this.fecha = fecha;
     }
-
+    @Override
+    public String toString() {
+        return "Encuesta{" +
+                "contraseña='" + contraseña + '\'' +
+                ", elpPorQueCubreoNo='" + elpPorQueCubreoNo + '\'' +
+                ", atencion='" + atencion + '\'' +
+                ", objecionPorLaCulDescartariaelInmueble='" + objecionPorLaCulDescartariaelInmueble + '\'' +
+                ", comentarioFinal='" + comentarioFinal + '\'' +
+                ", correo='" + correo + '\'' +
+                ", fecha='" + fecha + '\'' +
+                ", comentarioHaciaElPropietario='" + comentarioHaciaElPropietario + '\'' +
+                ", cubreRequerimientos=" + cubreRequerimientos +
+                ", dentrodelpresupuesto=" + dentrodelpresupuesto +
+                ", consideraselinmuebledentrodesusopcionesdecompraorenta=" + consideraselinmuebledentrodesusopcionesdecompraorenta +
+                ", recibiolainformacionquerequeria=" + recibiolainformacionquerequeria +
+                ", elasesoracudiodemanerapuntual=" + elasesoracudiodemanerapuntual +
+                ", bytes=" + Arrays.toString(bytes) +
+                ", idd=" + idd +
+                '}';
+    }
 }

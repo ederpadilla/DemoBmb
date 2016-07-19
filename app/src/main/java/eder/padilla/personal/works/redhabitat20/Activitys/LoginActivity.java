@@ -83,16 +83,19 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 dotProgressBar.setVisibility(View.VISIBLE);
                 btnSignUp.setVisibility(View.GONE);
                 //tryLogIn();
-                mSharedPreferences=getSharedPreferences("Login", 0);
-                SharedPreferences.Editor editor=mSharedPreferences.edit();
-                editor.putString(getResources().getString(R.string.Shared_Preferences_User),inputPassword.getText().toString() );
-                editor.commit();
-                Intent myIntent = new Intent(LoginActivity.this, CalendarActivity.class);
-                LoginActivity.this.startActivity(myIntent);
-                finish();
+               offlineLogin();
                 break;
 
         }
+    }
+    private void offlineLogin(){
+        mSharedPreferences=getSharedPreferences("Login", 0);
+        SharedPreferences.Editor editor=mSharedPreferences.edit();
+        editor.putString(getResources().getString(R.string.Shared_Preferences_User),inputPassword.getText().toString() );
+        editor.commit();
+        Intent myIntent = new Intent(LoginActivity.this, CalendarActivity.class);
+        LoginActivity.this.startActivity(myIntent);
+        finish();
     }
 
     private void tryLogIn() {
@@ -121,6 +124,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 Log.e("login","entre a onresponse");
                 switch (statusCode){
                     case 200:
+                        mSharedPreferences=getSharedPreferences("Login", 0);
+                        SharedPreferences.Editor editor=mSharedPreferences.edit();
+                        editor.putString(getResources().getString(R.string.Shared_Preferences_User),"" );
+                        editor.commit();
                         dotProgressBar.setVisibility(View.GONE);
                         System.out.println("El token es "+user.getToken());
                         Log.e("Status es: ",user.getStatus());

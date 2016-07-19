@@ -64,14 +64,11 @@ public class Splash extends Activity {
                     /** We check if there is a user log in or not. **/
                     //String unm= sharedPreferences.getString(getResources().getString(R.string.Shared_Preferences_User), null);
                     if(sharedPreferences.contains(getResources().getString(R.string.Shared_Preferences_User))){
-
-                        Log.e("entra al if","if false");
                         Intent intent = new Intent(Splash.this,
                                 CalendarActivity.class);intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                         startActivity(intent);
 
                     }else{
-                        Log.e("entra al else","else");
                         Intent intent = new Intent(Splash.this,
                                 LoginActivity.class);intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                         startActivity(intent);

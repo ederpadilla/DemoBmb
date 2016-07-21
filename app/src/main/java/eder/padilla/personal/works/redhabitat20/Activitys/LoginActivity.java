@@ -40,6 +40,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private Button btnSignUp;
     private DotProgressBar dotProgressBar;
     SharedPreferences mSharedPreferences;
+    int duration = Toast.LENGTH_SHORT;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -83,15 +84,16 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 dotProgressBar.setVisibility(View.VISIBLE);
                 btnSignUp.setVisibility(View.GONE);
                 //tryLogIn();
-               offlineLogin();
+                offlineLogin();
                 break;
 
         }
     }
     private void offlineLogin(){
         mSharedPreferences=getSharedPreferences("Login", 0);
+        mSharedPreferences=getSharedPreferences(Constants.LLAVE_LOGIN, 0);
         SharedPreferences.Editor editor=mSharedPreferences.edit();
-        editor.putString(getResources().getString(R.string.Shared_Preferences_User),inputPassword.getText().toString() );
+        editor.putString(Constants.NOMBRE_ASESOR,"Asesor");
         editor.commit();
         Intent myIntent = new Intent(LoginActivity.this, CalendarActivity.class);
         LoginActivity.this.startActivity(myIntent);
@@ -115,7 +117,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             public void onResponse(Call<Informacion> call, Response<Informacion> response) {
                 int statusCode = response.code();
                 Context context = getApplicationContext();
-                int duration = Toast.LENGTH_SHORT;
+
                 JSONObject jsonObject= new JSONObject();
 
 
@@ -124,19 +126,18 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 Log.e("login","entre a onresponse");
                 switch (statusCode){
                     case 200:
-                        mSharedPreferences=getSharedPreferences("Login", 0);
-                        SharedPreferences.Editor editor=mSharedPreferences.edit();
-                        editor.putString(getResources().getString(R.string.Shared_Preferences_User),"" );
-                        editor.commit();
+
                         dotProgressBar.setVisibility(View.GONE);
                         System.out.println("El token es "+user.getToken());
                         Log.e("Status es: ",user.getStatus());
+
                         if(user.getToken()==(null)){
-                            Toast toaste = Toast.makeText(context,"Token no recibido", duration);
-                            toaste.show();
+                            Log.e("tokenfallo: ","norecibido"+context );
                         } else {
-                            Toast toast = Toast.makeText(context,getString(R.string.statuscode200)+ "\n" + user.getName() , duration);
-                            toast.show();
+                            mSharedPreferences=getSharedPreferences(Constants.LLAVE_LOGIN, 0);
+                            SharedPreferences.Editor editor=mSharedPreferences.edit();
+                            editor.putString(Constants.NOMBRE_ASESOR,user.getName());
+                            editor.commit();
                             Intent myIntent = new Intent(LoginActivity.this, CalendarActivity.class);
                             LoginActivity.this.startActivity(myIntent);
                         finish();}

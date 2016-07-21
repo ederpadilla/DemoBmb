@@ -18,6 +18,7 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 import eder.padilla.personal.works.redhabitat20.R;
+import eder.padilla.personal.works.redhabitat20.util.Constants;
 
 public class Splash extends Activity {
     SharedPreferences sharedPreferences;
@@ -63,14 +64,13 @@ public class Splash extends Activity {
                     sleep(3500);
                     /** We check if there is a user log in or not. **/
                     //String unm= sharedPreferences.getString(getResources().getString(R.string.Shared_Preferences_User), null);
-                    if(sharedPreferences.contains(getResources().getString(R.string.Shared_Preferences_User))){
+                    if(sharedPreferences.contains(Constants.LLAVE_LOGIN)){
                         Intent intent = new Intent(Splash.this,
                                 CalendarActivity.class);intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                         startActivity(intent);
 
                     }else{
-                        Intent intent = new Intent(Splash.this,
-                                LoginActivity.class);intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                        Intent intent = new Intent(Splash.this, LoginActivity.class);
                         startActivity(intent);
                         finish();
                     }

@@ -3,6 +3,7 @@ package eder.padilla.personal.works.redhabitat20.activitys;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -14,8 +15,13 @@ import com.jaredrummler.materialspinner.MaterialSpinner;
 
 
 import eder.padilla.personal.works.redhabitat20.adapters.ViewPagerEncuestaAdapter;
+import eder.padilla.personal.works.redhabitat20.fragments.dialogs.DialogoComentarioPropietario;
+import eder.padilla.personal.works.redhabitat20.fragments.dialogs.DialogoFinalEncuesta;
+import eder.padilla.personal.works.redhabitat20.fragments.dialogs.DialogoFinalizarAntesCuestionario;
+import eder.padilla.personal.works.redhabitat20.fragments.dialogs.DiaologoPreguntaRealizarEncuesta;
 import eder.padilla.personal.works.redhabitat20.modelos.Encuesta;
 import eder.padilla.personal.works.redhabitat20.R;
+import eder.padilla.personal.works.redhabitat20.util.Constants;
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
 import io.realm.RealmResults;
@@ -52,17 +58,19 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
        mTvIndice.setText(1+"");
     }
     private void spinnerAdapter() {
+        SharedPreferences userDetails = getSharedPreferences(Constants.LLAVE_LOGIN,0);
+        String Uname = userDetails.getString(Constants.NOMBRE_ASESOR, "");
         String mNombreAsesor=getResources().getString(R.string.asesor);
         final String mFinalizarCuestionario=getResources().getString(R.string.finalizar_cuestionario);
         final String cerrarSesion=getResources().getString(R.string.cerrarsesion);
-        mSpinner.setItems(mNombreAsesor,cerrarSesion,mFinalizarCuestionario);
+        mSpinner.setItems(Uname,cerrarSesion,mFinalizarCuestionario);
         mSpinner.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener<String>() {
 
             @Override
             public void onItemSelected(MaterialSpinner view, int position, long id, String item) {
                 Snackbar.make(view, "Clicked " + item, Snackbar.LENGTH_LONG).show();
                 if (item.equals(cerrarSesion)) {
-                    SharedPreferences sp = getSharedPreferences("Login", 0);
+                    SharedPreferences sp = getSharedPreferences(Constants.LLAVE_LOGIN, 0);
                     SharedPreferences.Editor editor = sp.edit();
                     editor.clear();
                     editor.commit();
@@ -73,13 +81,7 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
                     startActivity(intent);
                     finish();
                 }else if(item.equals(mFinalizarCuestionario)){
-                    createEncuestaRespondida(encuesta);
-                    Log.i("FInalizarEncuesta","seCrea"+encuesta.toString());
-                    Intent intent = new Intent(MainActivity.this,
-                            CalendarActivity.class);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                    startActivity(intent);
-                    finish();
+                    showEditDialog();
                 }
             }
         });
@@ -100,9 +102,8 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
         realm.delete(Encuesta.class);
         realm.commitTransaction();
     }
-    private void createEncuestaRespondida(Encuesta encuesta) {
-        realm.beginTransaction();
-        realm.copyToRealmOrUpdate(encuesta);
-        realm.commitTransaction();
+    private void showEditDialog() {
+        DialogoFinalizarAntesCuestionario editNameDialog = new DialogoFinalizarAntesCuestionario();
+        editNameDialog.show(getFragmentManager(), "diaologo_preguntar_encuesta");
     }
 }

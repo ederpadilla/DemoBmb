@@ -25,7 +25,8 @@
 
 
     <!--Encuesta-->
-    <string name="pregunta_uno">¿Cubre el inmueble sus requerimientos?</string>
+    <string name="pregunta_uno">¿Como calificaría el inmueble respecto a sus requerimientos?</string>
+    <string name="tomandoreferencia">Tomando como referencia que 1 es bajo y 6 alto.</string>
     <string name="pregunta_dos">¿Por qué cubre o no cubre sus requerimientos?</string>
     <string name="pregunta_tres">¿Se encuentra dentro de su presupuesto?</string>
     <string name="pregunta_cuatro">¿Considerarías el inmueble dentro de sus opciones de compra o renta?</string>
@@ -84,6 +85,16 @@
     <string name="statuscode403">Confirma tu cuenta antes de iniciar sesión</string>
     <string name="statuscode404">No se encontró usuario</string>
     <string name="statuscode200">Bienvenido: </string>
+    <string name="pregunta_porque_finaliza">¿Por qué se finalizó el cuestionario?</string>
+    <string name="texto">Texto</string>
+    <string name="bt_guardar">Guardar</string>
+    <string name="uno">1</string>
+    <string name="dos">2</string>
+    <string name="tres">3</string>
+    <string name="cuatro">4</string>
+    <string name="cinco">5</string>
+    <string name="seis">6</string>
+    <string name="poquecalificaasi">¿Por qué lo calificaría así?</string>
 
 
 </resources>

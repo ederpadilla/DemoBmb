@@ -177,7 +177,8 @@
                     android:layout_marginTop="10dp"
                     android:textAlignment="center"
                     android:textSize="25sp"
-                    android:textColor="@color/salmon_orange"/>
+                    android:textStyle="bold"
+                    android:textColor="@color/peach"/>
 
             </LinearLayout>
             <LinearLayout

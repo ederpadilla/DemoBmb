@@ -49,7 +49,7 @@ import io.realm.RealmConfiguration;
  */
 public class CalendarActivity extends AppCompatActivity implements View.OnClickListener, OnDateSelectedListener, OnMonthChangedListener,
         DatePickerDialog.OnDateSetListener, AdapterView.OnItemClickListener {
-    private View linlay, linlaya;
+    private View linearLayout, linearPrueba;
     private LinearLayout
             domingo, lldomingo,
             lunes, lllunes,
@@ -58,7 +58,6 @@ public class CalendarActivity extends AppCompatActivity implements View.OnClickL
             jueves, lljueves,
             viernes, llviernes,
             sabado, llsabado;
-    private String nombreAsesor;
     private MaterialCalendarView materialCalendarView;
     private TextView tv_Fechaindice;
     private MaterialSpinner spinner;
@@ -100,6 +99,7 @@ public class CalendarActivity extends AppCompatActivity implements View.OnClickL
                    semanaMiercoles,semanaJueves,semanaViernes,
                    semanaSabado;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -114,10 +114,33 @@ public class CalendarActivity extends AppCompatActivity implements View.OnClickL
         fillInAllArrayList();
         setListenersToAdapters();
         onChangeWeekListener();
-
+    }
+    @Override
+    public void onResume() {
+        super.onResume();
+        addVisits();
 
     }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
+        if (requestCode == 1) {
+            if (resultCode == Activity.RESULT_OK) {
+                String res = data.getStringExtra(Constants.RESULT_OF_END_QUIZ);
+                Log.e("Resultado en string", "" + res);
+                setFinalType = res;
+            }
+            if (resultCode == Activity.RESULT_CANCELED) {
+                //Write your code if there's no result
+            }
+        }
+
+    }//onActivityResult
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+    }
     /**
      * Initializte all our objects .
      **/
@@ -168,7 +191,6 @@ public class CalendarActivity extends AppCompatActivity implements View.OnClickL
         recViewSaturday.setHasFixedSize(true);
         /** OInternet Conection detector. */
         cd = new ConnectionDetector(getApplicationContext());
-        nombreAsesor = "Asesor";
         /** ArrayLists. */
         sundayData = new ArrayList<Visita>();
         mondayData = new ArrayList<Visita>();
@@ -186,7 +208,61 @@ public class CalendarActivity extends AppCompatActivity implements View.OnClickL
         realmConfiguration = new RealmConfiguration.Builder(getApplicationContext()).build();
         realm = Realm.getInstance(realmConfiguration);
     }
+    /**Listeners*/
+    private void setListeners() {
 
+        materialCalendarView.setOnDateChangedListener(this);
+        materialCalendarView.setOnMonthChangedListener(this);
+        domingo.setOnClickListener(this);
+        lunes.setOnClickListener(this);
+        martes.setOnClickListener(this);
+        miercoles.setOnClickListener(this);
+        jueves.setOnClickListener(this);
+        viernes.setOnClickListener(this);
+        sabado.setOnClickListener(this);
+        spinnerAdapter();
+
+    }
+    @Override
+    public void onClick(View v) {
+        if (linearPrueba != null) {
+            linearPrueba.setBackgroundColor(getResources().getColor(R.color.white));
+        }
+        if (linearLayout != null) {
+            linearLayout.setBackgroundColor(getResources().getColor(R.color.white));
+        }
+        /** Asign backgorung color to our dates. */
+        switch (v.getId()) {
+            case R.id.linearlayaoutuno:
+                tv_Fechaindice.setText("Dom, " + getSelectedDatesString());
+                setBackgroundSunday();
+                break;
+            case R.id.linearlayaoutdos:
+                tv_Fechaindice.setText("Lun, " + getSelectedDatesString());
+                setBackgroundMonday();
+                break;
+            case R.id.linearlayaouttres:
+                tv_Fechaindice.setText("Mar, " + getSelectedDatesString());
+                setBackgroundTuesday();
+                break;
+            case R.id.linearlayaoutcuatro:
+                tv_Fechaindice.setText("Mier, " + getSelectedDatesString());
+                setBackgroundWendesnay();
+                break;
+            case R.id.linearlayaoutcinco:
+                tv_Fechaindice.setText("Jue, " + getSelectedDatesString());
+                setBackgroundThursday();
+                break;
+            case R.id.linearlayaoutseis:
+                tv_Fechaindice.setText("Vie, " + getSelectedDatesString());
+                setBackgroundFriday();
+                break;
+            case R.id.linearlayaoutsiete:
+                tv_Fechaindice.setText("Sab, " + getSelectedDatesString());
+                setBackgroundSaturday();
+                break;
+        }
+    }
     /**
      * Fill All the arrlists with null parameters.
      */
@@ -316,34 +392,10 @@ public class CalendarActivity extends AppCompatActivity implements View.OnClickL
             }
         });
     }
-
-    private void check_State(Visita visita) {
-        Log.e("visita", "visita" + visita.toString());
-        if (visita.getTipo().equals("programada")) {
-            showEditDialog();
-            Log.e("Checando el estado", "entro al programada");
-        }
-        Log.e("Checando el estado", "entro al otro");
-    }
-
-    @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-    }
-
-    /**
-     * Select the adapter for manage the calendar.
-     */
-    public void adapterForCalendar() {
-        materialCalendarView.setSelectionMode(MaterialCalendarView.SELECTION_MODE_SINGLE);
-        CalendarDay today = CalendarDay.today();
-        materialCalendarView.setDateSelected(today, true);
-    }
-
-
+    /**Internet Conection . */
     private void checkInternetConection() {
         Context context = getApplicationContext();
-        int duration = Toast.LENGTH_SHORT;
+
 
 
         /**get Internet status .**/
@@ -355,42 +407,36 @@ public class CalendarActivity extends AppCompatActivity implements View.OnClickL
 
             /**Internet Connection is Present
              // make HTTP requests .**/
-            Toast toaste = Toast.makeText(context, "Existe conexión a internet", duration);
-            toaste.show();
+            //Toast toaste = Toast.makeText(context, "Existe conexión a internet", duration);
+            //toaste.show();
         } else {
 
             /**Internet connection is not present
              // Ask user to connect to Internet .**/
-            Toast toaste = Toast.makeText(context, "No existe conexion a internet", duration);
-            toaste.show();
+            //Toast toaste = Toast.makeText(context, "No existe conexion a internet", duration);
+            //toaste.show();
         }
     }
-
-    private void setListeners() {
-
-        materialCalendarView.setOnDateChangedListener(this);
-        materialCalendarView.setOnMonthChangedListener(this);
-        domingo.setOnClickListener(this);
-        lunes.setOnClickListener(this);
-        martes.setOnClickListener(this);
-        miercoles.setOnClickListener(this);
-        jueves.setOnClickListener(this);
-        viernes.setOnClickListener(this);
-        sabado.setOnClickListener(this);
-        spinnerAdapter();
-
-    }
-
+    /**Spinner. */
     private void spinnerAdapter() {
-        spinner.setItems(nombreAsesor, getResources().getString(R.string.cerrarsesion));
+        /**SharedPreferences userDetails = getSharedPreferences(Constants.LLAVE_LOGIN,0);
+         String Uname = userDetails.getString(Constants.NOMBRE_ASESOR, "");
+         String mNombreAsesor=getResources().getString(R.string.asesor);
+         final String mFinalizarCuestionario=getResources().getString(R.string.finalizar_cuestionario);
+         final String cerrarSesion=getResources().getString(R.string.cerrarsesion);
+         mSpinner.setItems(Uname*/
+        SharedPreferences userDetails = getSharedPreferences(Constants.LLAVE_LOGIN,0);
+        String Uname = userDetails.getString(Constants.NOMBRE_ASESOR, "");
+        String nombreAsesor=getResources().getString(R.string.asesor);
+        String cerrarSesion=getResources().getString(R.string.cerrarsesion);
+        spinner.setItems(Uname, cerrarSesion);
         spinner.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener<String>() {
 
             @Override
             public void onItemSelected(MaterialSpinner view, int position, long id, String item) {
                 Snackbar.make(view, "Clicked " + item, Snackbar.LENGTH_LONG).show();
-
                 if (item.equals(getResources().getString(R.string.cerrarsesion))) {
-                    SharedPreferences sp = getSharedPreferences("Login", 0);
+                    SharedPreferences sp = getSharedPreferences(Constants.LLAVE_LOGIN, 0);
                     SharedPreferences.Editor editor = sp.edit();
                     editor.clear();
                     editor.commit();
@@ -405,50 +451,457 @@ public class CalendarActivity extends AppCompatActivity implements View.OnClickL
         });
     }
 
+    private void deleteRealmBBDD() {
+        RealmConfiguration realmConfig = new RealmConfiguration.Builder(getApplicationContext()).build();
+        Realm realm = Realm.getInstance(realmConfig);
+        realm.beginTransaction();
+        realm.delete(Encuesta.class);
+        realm.commitTransaction();
+    }
+    /**
+     *
+     *
+     * Material Calendar. */
+    public void adapterForCalendar() {
+        /**
+         * Select the adapter for manage the calendar.
+         */
+        materialCalendarView.setSelectionMode(MaterialCalendarView.SELECTION_MODE_SINGLE);
+        CalendarDay today = CalendarDay.today();
+        materialCalendarView.setDateSelected(today, true);
+    }
+    /**
+     * Check the date we elect.
+     */
+    @Override
+    public void onMonthChanged(MaterialCalendarView widget, CalendarDay date) {
+    }
+    @Override
+    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+    }
+    @Override
+    public void onDateSelected(@NonNull MaterialCalendarView widget, @Nullable CalendarDay date, boolean selected) {
+        tv_Fechaindice.setText(getSelectedDatesString());
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(date.getDate());
+        date.getDay();
+        dayOfTheWeek(cal);
+        semanaDelAño=cal.get(Calendar.WEEK_OF_YEAR);
+        onChangeWeekListener();
+    }
+    private  void onChangeWeekListener(){
+        if (semanaDinamica != semanaDelAño){
+            semanaDinamica= semanaDelAño;
+            dotProgressBar.setVisibility(View.VISIBLE);
+            getFullweek();
+        }
+        else {
+            dotProgressBar.setVisibility(View.GONE);
+        }
+        checkWeekForTheVisit();
+    }
+    private void checkWeekForTheVisit(){
+        SimpleDateFormat formatter = new SimpleDateFormat("d/M/yyyy");
+        String dateInString = "15/7/2016";
+        try {
+            java.util.Date datetest = formatter.parse(dateInString);
+            Calendar test = Calendar.getInstance();
+            test.setTime(datetest);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+    }
+    /**
+     * Return the date in String.
+     */
+    private String getSelectedDatesString() {
+        CalendarDay date = materialCalendarView.getSelectedDate();
+        cprueba = date.getCalendar();
+        materialCalendarView.getSelectedDate().getDay();
+        if (date == null) {
+            return "No Selection";
+        }
+        return new SimpleDateFormat(Constants.DATE_FORMAT).format(date.getDate()).replace("-","/");
+    }
+    private void check_State(Visita visita) {
+        Log.e("visita", "visita" + visita.toString());
+        if (visita.getTipo().equals("programada")) {
+            showEditDialog();
+            Log.e("Checando el estado", "entro al programada");
+        }
+        Log.e("Checando el estado", "entro al otro");
+    }
+
+    private void getFullweek(){
+        SimpleDateFormat formatter = new SimpleDateFormat(Constants.DATE_FORMAT);
+        String dateInString = getSelectedDatesString();
+        Calendar test = Calendar.getInstance();
+        try {
+            java.util.Date datetest = formatter.parse(dateInString);
+            test.setTime(datetest);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        switch (test.get(Calendar.DAY_OF_WEEK)){
+            case 1:
+                Log.i("domingo",""+provisionalFormat(test));
+                test.add(Calendar.DATE, 1);
+                Log.i("domingo","lunes"+provisionalFormat(test));
+                test.add(Calendar.DATE, 1);
+                Log.i("domingo","martes"+provisionalFormat(test));
+                test.add(Calendar.DATE, 1);
+                Log.i("domingo","miercoles"+provisionalFormat(test));
+                test.add(Calendar.DATE, 1);
+                Log.i("domingo","jueves"+provisionalFormat(test));
+                test.add(Calendar.DATE, 1);
+                Log.i("domingo","viernes"+provisionalFormat(test));
+                test.add(Calendar.DATE, 1);
+                Log.i("domingo","sabado"+provisionalFormat(test));
+                break;
+            case 2:
+                test.add(Calendar.DATE, -1);
+                Log.i("lunes","domingo"+provisionalFormat(test));
+                test.add(Calendar.DATE, 1);
+                Log.i("lunes",""+provisionalFormat(test));
+                test.add(Calendar.DATE, 1);
+                Log.i("lunes","martes"+provisionalFormat(test));
+                test.add(Calendar.DATE, 1);
+                Log.i("lunes","miercoles"+provisionalFormat(test));
+                test.add(Calendar.DATE, 1);
+                Log.i("lunes","jueves"+provisionalFormat(test));
+                test.add(Calendar.DATE, 1);
+                Log.i("lunes","viernes"+provisionalFormat(test));
+                test.add(Calendar.DATE, 1);
+                Log.i("lunes","sabado"+provisionalFormat(test));
+                break;
+            case 3:
+                test.add(Calendar.DATE, -2);
+                Log.i("martes","domingo"+provisionalFormat(test));
+                test.add(Calendar.DATE, 1);
+                Log.i("martes","lunes"+provisionalFormat(test));
+                test.add(Calendar.DATE, 1);
+                Log.i("martes",""+provisionalFormat(test));
+                test.add(Calendar.DATE, 1);
+                Log.i("martes","miercoles"+provisionalFormat(test));
+                test.add(Calendar.DATE, 1);
+                Log.i("martes","jueves"+provisionalFormat(test));
+                test.add(Calendar.DATE, 1);
+                Log.i("martes","viernes"+provisionalFormat(test));
+                test.add(Calendar.DATE, 1);
+                Log.i("martes","sabado"+provisionalFormat(test));
+                break;
+            case 4:
+                test.add(Calendar.DATE, -3);
+                Log.i("miercoles","domingo"+provisionalFormat(test));
+                test.add(Calendar.DATE, 1);
+                Log.i("miercoles","lunes"+provisionalFormat(test));
+                test.add(Calendar.DATE, 1);
+                Log.i("miercoles","martes"+provisionalFormat(test));
+                test.add(Calendar.DATE, 1);
+                Log.i("miercoles",""+provisionalFormat(test));
+                test.add(Calendar.DATE, 1);
+                Log.i("miercoles","jueves"+provisionalFormat(test));
+                test.add(Calendar.DATE, 1);
+                Log.i("miercoles","viernes"+provisionalFormat(test));
+                test.add(Calendar.DATE, 1);
+                Log.i("miercoles","sabado"+provisionalFormat(test));
+                break;
+            case 5:
+                test.add(Calendar.DATE, -4);
+                Log.i("jueves","domingo"+provisionalFormat(test));
+                test.add(Calendar.DATE, 1);
+                Log.i("jueves","lunes"+provisionalFormat(test));
+                test.add(Calendar.DATE, 1);
+                Log.i("jueves","martes"+provisionalFormat(test));
+                test.add(Calendar.DATE, 1);
+                Log.i("jueves","miercoles"+provisionalFormat(test));
+                test.add(Calendar.DATE, 1);
+                Log.i("jueves",""+provisionalFormat(test));
+                test.add(Calendar.DATE, 1);
+                Log.i("jueves","viernes"+provisionalFormat(test));
+                test.add(Calendar.DATE, 1);
+                Log.i("jueves","sabado"+provisionalFormat(test));
+                break;
+            case 6:
+                test.add(Calendar.DATE, -5);
+                Log.i("viernes","domingo"+provisionalFormat(test));
+                test.add(Calendar.DATE, 1);
+                Log.i("viernes","lunes"+provisionalFormat(test));
+                test.add(Calendar.DATE, 1);
+                Log.i("viernes","martes"+provisionalFormat(test));
+                test.add(Calendar.DATE, 1);
+                Log.i("viernes","miercoles"+provisionalFormat(test));
+                test.add(Calendar.DATE, 1);
+                Log.i("viernes","jueves"+provisionalFormat(test));
+                test.add(Calendar.DATE, 1);
+                Log.i("viernes",""+provisionalFormat(test));
+                test.add(Calendar.DATE, 1);
+                Log.i("viernes","sabado"+provisionalFormat(test));
+                break;
+            case 7:
+                test.add(Calendar.DATE, -6);
+                Log.i("sabado","domingo"+provisionalFormat(test));
+                test.add(Calendar.DATE, 1);
+                Log.i("sabado","lunes"+provisionalFormat(test));
+                test.add(Calendar.DATE, 1);
+                Log.i("sabado","martes"+provisionalFormat(test));
+                test.add(Calendar.DATE, 1);
+                Log.i("sabado","miercoles"+provisionalFormat(test));
+                test.add(Calendar.DATE, 1);
+                Log.i("sabado","jueves"+provisionalFormat(test));
+                test.add(Calendar.DATE, 1);
+                Log.i("sabado","viernes"+provisionalFormat(test));
+                test.add(Calendar.DATE, 1);
+                Log.i("sabado",""+provisionalFormat(test));
+                break;
+        }
+    }
+    private String provisionalFormat(Calendar calendar){
+        return calendar.get(Calendar.DAY_OF_MONTH)+"/"+calendar.get(Calendar.MONTH)+"/"+calendar.get(Calendar.YEAR);
+    }
+
+
+    /**
+     *
+     *  Agenda.
+     *
+     */
+    /**
+     * Set the dates in our weeks if we select sunday.
+     */
+    private void selectSunday(Calendar cal) {
+        tv_primernumero_semana.setText(cal.get(Calendar.DAY_OF_MONTH) + "");
+        cal.add(Calendar.DATE, 1);
+        tv_segundonumero_semana.setText(cal.get(Calendar.DAY_OF_MONTH) + "");
+        cal.add(Calendar.DATE, 1);
+        tv_tercernumero_semana.setText(cal.get(Calendar.DAY_OF_MONTH) + "");
+        cal.add(Calendar.DATE, 1);
+        tv_cuartonumero_semana.setText(cal.get(Calendar.DAY_OF_MONTH) + "");
+        cal.add(Calendar.DATE, 1);
+        tv_quintonumero_semana.setText(cal.get(Calendar.DAY_OF_MONTH) + "");
+        cal.add(Calendar.DATE, 1);
+        tv_sextonumero_semana.setText(cal.get(Calendar.DAY_OF_MONTH) + "");
+        cal.add(Calendar.DATE, 1);
+        tv_septimonumero_semana.setText(cal.get(Calendar.DAY_OF_MONTH) + "");
+    }
+
+    /**
+     * Set the dates in our weeks if we select monday.
+     */
+    private String provitionalTVDate(Calendar calendar){
+        return calendar.get(Calendar.DAY_OF_MONTH) + "";
+    }
+    private void selectMonday(Calendar cal) {
+        cal.add(Calendar.DATE, -1);
+        tv_primernumero_semana.setText(provitionalTVDate(cal));
+        cal.add(Calendar.DATE, 1);
+        tv_segundonumero_semana.setText(provitionalTVDate(cal));
+        cal.add(Calendar.DATE, 1);
+        tv_tercernumero_semana.setText(provitionalTVDate(cal));
+        cal.add(Calendar.DATE, 1);
+        tv_cuartonumero_semana.setText(provitionalTVDate(cal));
+        cal.add(Calendar.DATE, 1);
+        tv_quintonumero_semana.setText(provitionalTVDate(cal));
+        cal.add(Calendar.DATE, 1);
+        tv_sextonumero_semana.setText(provitionalTVDate(cal));
+        cal.add(Calendar.DATE, 1);
+        tv_septimonumero_semana.setText(provitionalTVDate(cal));
+    }
+
+    /**
+     * Set the dates in our weeks if we select tuesday.
+     */
+    private void selectTuesday(Calendar cal) {
+
+        cal.add(Calendar.DATE, -2);
+        tv_primernumero_semana.setText(provitionalTVDate(cal));
+        cal.add(Calendar.DATE, 1);
+        tv_segundonumero_semana.setText(provitionalTVDate(cal));
+        cal.add(Calendar.DATE, 1);
+        tv_tercernumero_semana.setText(provitionalTVDate(cal));
+        cal.add(Calendar.DATE, 1);
+        tv_cuartonumero_semana.setText(provitionalTVDate(cal));
+        cal.add(Calendar.DATE, 1);
+        tv_quintonumero_semana.setText(provitionalTVDate(cal));
+        cal.add(Calendar.DATE, 1);
+        tv_sextonumero_semana.setText(provitionalTVDate(cal));
+        cal.add(Calendar.DATE, 1);
+        tv_septimonumero_semana.setText(provitionalTVDate(cal));
+    }
+
+    /**
+     * Set the dates in our weeks if we select wednesday.
+     */
+
+    private void selectWednesday(Calendar cal) {
+        cal.add(Calendar.DATE, -3);
+        tv_primernumero_semana.setText(provitionalTVDate(cal));
+        cal.add(Calendar.DATE, 1);
+        tv_segundonumero_semana.setText(provitionalTVDate(cal));
+        cal.add(Calendar.DATE, 1);
+        tv_tercernumero_semana.setText(provitionalTVDate(cal));
+        cal.add(Calendar.DATE, 1);
+        tv_cuartonumero_semana.setText(provitionalTVDate(cal));
+        cal.add(Calendar.DATE, 1);
+        tv_quintonumero_semana.setText(provitionalTVDate(cal));
+        cal.add(Calendar.DATE, 1);
+        tv_sextonumero_semana.setText(provitionalTVDate(cal));
+        cal.add(Calendar.DATE, 1);
+        tv_septimonumero_semana.setText(provitionalTVDate(cal));
+    }
+
+    /**
+     * Set the dates in our weeks if we select thursday.
+     */
+    private void selectThursday(Calendar cal) {
+        cal.add(Calendar.DATE, -4);
+        tv_primernumero_semana.setText(provitionalTVDate(cal));
+        cal.add(Calendar.DATE, 1);
+        tv_segundonumero_semana.setText(provitionalTVDate(cal));
+        cal.add(Calendar.DATE, 1);
+        tv_tercernumero_semana.setText(provitionalTVDate(cal));
+        cal.add(Calendar.DATE, 1);
+        tv_cuartonumero_semana.setText(provitionalTVDate(cal));
+        cal.add(Calendar.DATE, 1);
+        tv_quintonumero_semana.setText(provitionalTVDate(cal));
+        cal.add(Calendar.DATE, 1);
+        tv_sextonumero_semana.setText(provitionalTVDate(cal));
+        cal.add(Calendar.DATE, 1);
+        tv_septimonumero_semana.setText(provitionalTVDate(cal));
+    }
+
+    /**
+     * Set the dates in our weeks if we select friday.
+     */
+    private void selectFriday(Calendar cal) {
+        cal.add(Calendar.DATE, -5);
+        tv_primernumero_semana.setText(provitionalTVDate(cal));
+        cal.add(Calendar.DATE, 1);
+        tv_segundonumero_semana.setText(provitionalTVDate(cal));
+        cal.add(Calendar.DATE, 1);
+        tv_tercernumero_semana.setText(provitionalTVDate(cal));
+        cal.add(Calendar.DATE, 1);
+        tv_cuartonumero_semana.setText(provitionalTVDate(cal));
+        cal.add(Calendar.DATE, 1);
+        tv_quintonumero_semana.setText(provitionalTVDate(cal));
+        cal.add(Calendar.DATE, 1);
+        tv_sextonumero_semana.setText(provitionalTVDate(cal));
+        cal.add(Calendar.DATE, 1);
+        tv_septimonumero_semana.setText(provitionalTVDate(cal));
+
+    }
+
+    /**
+     * Set the dates in our weeks if we select saturday.
+     */
+    private void selectSaturday(Calendar cal) {
+        cal.add(Calendar.DATE, -6);
+        tv_primernumero_semana.setText(provitionalTVDate(cal));
+        cal.add(Calendar.DATE, 1);
+        tv_segundonumero_semana.setText(provitionalTVDate(cal));
+        cal.add(Calendar.DATE, 1);
+        tv_tercernumero_semana.setText(provitionalTVDate(cal));
+        cal.add(Calendar.DATE, 1);
+        tv_cuartonumero_semana.setText(provitionalTVDate(cal));
+        cal.add(Calendar.DATE, 1);
+        tv_quintonumero_semana.setText(provitionalTVDate(cal));
+        cal.add(Calendar.DATE, 1);
+        tv_sextonumero_semana.setText(provitionalTVDate(cal));
+        cal.add(Calendar.DATE, 1);
+        tv_septimonumero_semana.setText(provitionalTVDate(cal));
+    }
+    private void multipleLinears(View linearLayout, View linearLayout1){
+        linearLayout.setBackgroundColor(getResources().getColor(R.color.backgroundlinears));
+        linearLayout1.setBackgroundColor(getResources().getColor(R.color.backgroundlinears));
+    }
+    private void setBackgroundSunday() {
+        linearLayout = domingo;
+        linearPrueba = lldomingo;
+        multipleLinears(linearLayout, linearPrueba);
+    }
+
+    private void setBackgroundMonday() {
+        linearLayout = lunes;
+        linearPrueba = lllunes;
+        multipleLinears(linearLayout, linearPrueba);
+    }
+
+    private void setBackgroundTuesday() {
+        linearLayout = martes;
+        linearPrueba = llmartes;
+        multipleLinears(linearLayout, linearPrueba);
+    }
+
+    private void setBackgroundWendesnay() {
+        linearLayout = miercoles;
+        linearPrueba = llmiercoles;
+        multipleLinears(linearLayout, linearPrueba);
+    }
+
+    private void setBackgroundThursday() {
+        linearLayout = jueves;
+        linearPrueba = lljueves;
+        multipleLinears(linearLayout, linearPrueba);
+    }
+
+    private void setBackgroundFriday() {
+        linearLayout = viernes;
+        linearPrueba = llviernes;
+        multipleLinears(linearLayout, linearPrueba);
+    }
+
+    private void setBackgroundSaturday() {
+        linearLayout = sabado;
+        linearPrueba = llsabado;
+        multipleLinears(linearLayout, linearPrueba);
+
+    }
     private void showEditDialog() {
         DiaologoPreguntaRealizarEncuesta editNameDialog = new DiaologoPreguntaRealizarEncuesta();
         editNameDialog.show(getFragmentManager(), "diaologo_preguntar_encuesta");
     }
-
-    @Override
-    public void onClick(View v) {
-        if (linlaya != null) {
-            linlaya.setBackgroundColor(getResources().getColor(R.color.white));
+    public void dayOfTheWeek(Calendar cal) {
+        if (linearLayout != null) {
+            linearLayout.setBackgroundColor(getResources().getColor(R.color.white));
         }
-        if (linlay != null) {
-            linlay.setBackgroundColor(getResources().getColor(R.color.white));
+        if (linearPrueba != null) {
+            linearPrueba.setBackgroundColor(getResources().getColor(R.color.white));
         }
-        /** Asign backgorung color to our dates. */
-        switch (v.getId()) {
-            case R.id.linearlayaoutuno:
-                tv_Fechaindice.setText("Dom, " + getSelectedDatesString());
+        switch (cal.get(Calendar.DAY_OF_WEEK)) {
+            case 1:
                 setBackgroundSunday();
+                tv_Fechaindice.setText("Dom, " + getSelectedDatesString());
+                selectSunday(cal);
                 break;
-
-            case R.id.linearlayaoutdos:
-                tv_Fechaindice.setText("Lun, " + getSelectedDatesString());
+            case 2:
                 setBackgroundMonday();
+                tv_Fechaindice.setText("Lun, " + getSelectedDatesString());
+                selectMonday(cal);
                 break;
-            case R.id.linearlayaouttres:
-                tv_Fechaindice.setText("Mar, " + getSelectedDatesString());
+            case 3:
                 setBackgroundTuesday();
+                tv_Fechaindice.setText("Mar, " + getSelectedDatesString());
+                selectTuesday(cal);
                 break;
-
-            case R.id.linearlayaoutcuatro:
-                tv_Fechaindice.setText("Mier, " + getSelectedDatesString());
+            case 4:
                 setBackgroundWendesnay();
+                tv_Fechaindice.setText("Mier, " + getSelectedDatesString());
+                selectWednesday(cal);
                 break;
-            case R.id.linearlayaoutcinco:
-                tv_Fechaindice.setText("Jue, " + getSelectedDatesString());
+            case 5:
                 setBackgroundThursday();
+                tv_Fechaindice.setText("Jue, " + getSelectedDatesString());
+                selectThursday(cal);
                 break;
-            case R.id.linearlayaoutseis:
-                tv_Fechaindice.setText("Vie, " + getSelectedDatesString());
+            case 6:
                 setBackgroundFriday();
+                tv_Fechaindice.setText("Vie, " + getSelectedDatesString());
+                selectFriday(cal);
                 break;
-            case R.id.linearlayaoutsiete:
-                tv_Fechaindice.setText("Sab, " + getSelectedDatesString());
+            case 7:
                 setBackgroundSaturday();
+                tv_Fechaindice.setText("Sab, " + getSelectedDatesString());
+                selectSaturday(cal);
                 break;
         }
     }
@@ -482,32 +935,6 @@ public class CalendarActivity extends AppCompatActivity implements View.OnClickL
         saturdayData.set(6, sabado);
         saturdayAdapter.notifyDataSetChanged();
     }
-
-    /**
-     * Check the date we elect.
-     */
-    @Override
-    public void onDateSelected(@NonNull MaterialCalendarView widget, @Nullable CalendarDay date, boolean selected) {
-        tv_Fechaindice.setText(getSelectedDatesString());
-        Calendar cal = Calendar.getInstance();
-        cal.setTime(date.getDate());
-        date.getDay();
-        dayOfTheWeek(cal);
-        semanaDelAño=cal.get(Calendar.WEEK_OF_YEAR);
-        onChangeWeekListener();
-    }
-
-    private String getSelectedDatesString() {
-        CalendarDay date = materialCalendarView.getSelectedDate();
-        cprueba = date.getCalendar();
-        materialCalendarView.getSelectedDate().getDay();
-        if (date == null) {
-            return "No Selection";
-        }
-        return new SimpleDateFormat(Constants.DATE_FORMAT).format(date.getDate()).replace("-","/");
-    }
-
-
 
     /**
      *
@@ -598,432 +1025,8 @@ public class CalendarActivity extends AppCompatActivity implements View.OnClickL
         return year;
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        addVisits();
-
-    }
-
-    public void dayOfTheWeek(Calendar cal) {
-        if (linlay != null) {
-            linlay.setBackgroundColor(getResources().getColor(R.color.white));
-        }
-        if (linlaya != null) {
-            linlaya.setBackgroundColor(getResources().getColor(R.color.white));
-        }
 
 
-        switch (cal.get(Calendar.DAY_OF_WEEK)) {
-            case 1:
-                setBackgroundSunday();
-                tv_Fechaindice.setText("Dom, " + getSelectedDatesString());
-                selectSunday(cal);
-
-
-                break;
-            case 2:
-                setBackgroundMonday();
-                tv_Fechaindice.setText("Lun, " + getSelectedDatesString());
-                selectMonday(cal);
-
-
-                break;
-            case 3:
-                setBackgroundTuesday();
-                tv_Fechaindice.setText("Mar, " + getSelectedDatesString());
-                selectTuesday(cal);
-                break;
-            case 4:
-                setBackgroundWendesnay();
-                tv_Fechaindice.setText("Mier, " + getSelectedDatesString());
-                selectWednesday(cal);
-                break;
-            case 5:
-                setBackgroundThursday();
-                tv_Fechaindice.setText("Jue, " + getSelectedDatesString());
-                selectThursday(cal);
-                break;
-            case 6:
-                setBackgroundFriday();
-                tv_Fechaindice.setText("Vie, " + getSelectedDatesString());
-                selectFriday(cal);
-
-                break;
-            case 7:
-                setBackgroundSaturday();
-                tv_Fechaindice.setText("Sab, " + getSelectedDatesString());
-                selectSaturday(cal);
-
-                break;
-        }
-        /***
-         *
-         * sundayAdapter.notifyItemChanged();*
-         *
-         */
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-
-        if (requestCode == 1) {
-            if (resultCode == Activity.RESULT_OK) {
-                String res = data.getStringExtra(Constants.RESULT_OF_END_QUIZ);
-                Log.e("Resultado en string", "" + res);
-                setFinalType = res;
-            }
-            if (resultCode == Activity.RESULT_CANCELED) {
-                //Write your code if there's no result
-            }
-        }
-
-    }//onActivityResult
-
-    @Override
-    public void onMonthChanged(MaterialCalendarView widget, CalendarDay date) {
-        //noinspection ConstantConditions
-
-    }
-
-
-    @Override
-    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-
-    }
-    private void getFullweek(){
-        SimpleDateFormat formatter = new SimpleDateFormat(Constants.DATE_FORMAT);
-        String dateInString = getSelectedDatesString();
-        Calendar test = Calendar.getInstance();
-        try {
-
-            java.util.Date datetest = formatter.parse(dateInString);
-            test.setTime(datetest);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-
-        switch (test.get(Calendar.DAY_OF_WEEK)){
-            case 1:
-                Log.i("domingo",""+provisionalFormat(test));
-                test.add(Calendar.DATE, 1);
-                Log.i("domingo","lunes"+provisionalFormat(test));
-                test.add(Calendar.DATE, 1);
-                Log.i("domingo","martes"+provisionalFormat(test));
-                test.add(Calendar.DATE, 1);
-                Log.i("domingo","miercoles"+provisionalFormat(test));
-                test.add(Calendar.DATE, 1);
-                Log.i("domingo","jueves"+provisionalFormat(test));
-                test.add(Calendar.DATE, 1);
-                Log.i("domingo","viernes"+provisionalFormat(test));
-                test.add(Calendar.DATE, 1);
-                Log.i("domingo","sabado"+provisionalFormat(test));
-
-                break;
-            case 2:
-                test.add(Calendar.DATE, -1);
-                Log.i("lunes","domingo"+provisionalFormat(test));
-                test.add(Calendar.DATE, 1);
-                Log.i("lunes",""+provisionalFormat(test));
-                test.add(Calendar.DATE, 1);
-                Log.i("lunes","martes"+provisionalFormat(test));
-                test.add(Calendar.DATE, 1);
-                Log.i("lunes","miercoles"+provisionalFormat(test));
-                test.add(Calendar.DATE, 1);
-                Log.i("lunes","jueves"+provisionalFormat(test));
-                test.add(Calendar.DATE, 1);
-                Log.i("lunes","viernes"+provisionalFormat(test));
-                test.add(Calendar.DATE, 1);
-                Log.i("lunes","sabado"+provisionalFormat(test));
-                break;
-            case 3:
-                test.add(Calendar.DATE, -2);
-                Log.i("martes","domingo"+provisionalFormat(test));
-                test.add(Calendar.DATE, 1);
-                Log.i("martes","lunes"+provisionalFormat(test));
-                test.add(Calendar.DATE, 1);
-                Log.i("martes",""+provisionalFormat(test));
-                test.add(Calendar.DATE, 1);
-                Log.i("martes","miercoles"+provisionalFormat(test));
-                test.add(Calendar.DATE, 1);
-                Log.i("martes","jueves"+provisionalFormat(test));
-                test.add(Calendar.DATE, 1);
-                Log.i("martes","viernes"+provisionalFormat(test));
-                test.add(Calendar.DATE, 1);
-                Log.i("martes","sabado"+provisionalFormat(test));
-                break;
-            case 4:
-                test.add(Calendar.DATE, -3);
-                Log.i("miercoles","domingo"+provisionalFormat(test));
-                test.add(Calendar.DATE, 1);
-                Log.i("miercoles","lunes"+provisionalFormat(test));
-                test.add(Calendar.DATE, 1);
-                Log.i("miercoles","martes"+provisionalFormat(test));
-                test.add(Calendar.DATE, 1);
-                Log.i("miercoles",""+provisionalFormat(test));
-                test.add(Calendar.DATE, 1);
-                Log.i("miercoles","jueves"+provisionalFormat(test));
-                test.add(Calendar.DATE, 1);
-                Log.i("miercoles","viernes"+provisionalFormat(test));
-                test.add(Calendar.DATE, 1);
-                Log.i("miercoles","sabado"+provisionalFormat(test));
-                break;
-            case 5:
-                test.add(Calendar.DATE, -4);
-                Log.i("jueves","domingo"+provisionalFormat(test));
-                test.add(Calendar.DATE, 1);
-                Log.i("jueves","lunes"+provisionalFormat(test));
-                test.add(Calendar.DATE, 1);
-                Log.i("jueves","martes"+provisionalFormat(test));
-                test.add(Calendar.DATE, 1);
-                Log.i("jueves","miercoles"+provisionalFormat(test));
-                test.add(Calendar.DATE, 1);
-                Log.i("jueves",""+provisionalFormat(test));
-                test.add(Calendar.DATE, 1);
-                Log.i("jueves","viernes"+provisionalFormat(test));
-                test.add(Calendar.DATE, 1);
-                Log.i("jueves","sabado"+provisionalFormat(test));
-
-                break;
-            case 6:
-                test.add(Calendar.DATE, -5);
-                Log.i("viernes","domingo"+provisionalFormat(test));
-                test.add(Calendar.DATE, 1);
-                Log.i("viernes","lunes"+provisionalFormat(test));
-                test.add(Calendar.DATE, 1);
-                Log.i("viernes","martes"+provisionalFormat(test));
-                test.add(Calendar.DATE, 1);
-                Log.i("viernes","miercoles"+provisionalFormat(test));
-                test.add(Calendar.DATE, 1);
-                Log.i("viernes","jueves"+provisionalFormat(test));
-                test.add(Calendar.DATE, 1);
-                Log.i("viernes",""+provisionalFormat(test));
-                test.add(Calendar.DATE, 1);
-                Log.i("viernes","sabado"+provisionalFormat(test));
-
-                break;
-            case 7:
-                test.add(Calendar.DATE, -6);
-                Log.i("sabado","domingo"+provisionalFormat(test));
-                test.add(Calendar.DATE, 1);
-                Log.i("sabado","lunes"+provisionalFormat(test));
-                test.add(Calendar.DATE, 1);
-                Log.i("sabado","martes"+provisionalFormat(test));
-                test.add(Calendar.DATE, 1);
-                Log.i("sabado","miercoles"+provisionalFormat(test));
-                test.add(Calendar.DATE, 1);
-                Log.i("sabado","jueves"+provisionalFormat(test));
-                test.add(Calendar.DATE, 1);
-                Log.i("sabado","viernes"+provisionalFormat(test));
-                test.add(Calendar.DATE, 1);
-                Log.i("sabado",""+provisionalFormat(test));
-                break;
-        }
-    }
-
-        private String provisionalFormat(Calendar calendar){
-            return calendar.get(Calendar.DAY_OF_MONTH)+"/"+calendar.get(Calendar.MONTH)+"/"+calendar.get(Calendar.YEAR);
-        }
-    /**
-     * Set the dates in our weeks if we select sunday.
-     */
-    private void selectSunday(Calendar cal) {
-        tv_primernumero_semana.setText(cal.get(Calendar.DAY_OF_MONTH) + "");
-        cal.add(Calendar.DATE, 1);
-        tv_segundonumero_semana.setText(cal.get(Calendar.DAY_OF_MONTH) + "");
-        cal.add(Calendar.DATE, 1);
-        tv_tercernumero_semana.setText(cal.get(Calendar.DAY_OF_MONTH) + "");
-        cal.add(Calendar.DATE, 1);
-        tv_cuartonumero_semana.setText(cal.get(Calendar.DAY_OF_MONTH) + "");
-        cal.add(Calendar.DATE, 1);
-        tv_quintonumero_semana.setText(cal.get(Calendar.DAY_OF_MONTH) + "");
-        cal.add(Calendar.DATE, 1);
-        tv_sextonumero_semana.setText(cal.get(Calendar.DAY_OF_MONTH) + "");
-        cal.add(Calendar.DATE, 1);
-        tv_septimonumero_semana.setText(cal.get(Calendar.DAY_OF_MONTH) + "");
-    }
-
-    /**
-     * Set the dates in our weeks if we select monday.
-     */
-    private void selectMonday(Calendar cal) {
-        cal.add(Calendar.DATE, -1);
-        tv_primernumero_semana.setText(cal.get(Calendar.DAY_OF_MONTH) + "");
-        cal.add(Calendar.DATE, 1);
-        tv_segundonumero_semana.setText(cal.get(Calendar.DAY_OF_MONTH) + "");
-        cal.add(Calendar.DATE, 1);
-        tv_tercernumero_semana.setText(cal.get(Calendar.DAY_OF_MONTH) + "");
-        cal.add(Calendar.DATE, 1);
-        tv_cuartonumero_semana.setText(cal.get(Calendar.DAY_OF_MONTH) + "");
-        cal.add(Calendar.DATE, 1);
-        tv_quintonumero_semana.setText(cal.get(Calendar.DAY_OF_MONTH) + "");
-        cal.add(Calendar.DATE, 1);
-        tv_sextonumero_semana.setText(cal.get(Calendar.DAY_OF_MONTH) + "");
-        cal.add(Calendar.DATE, 1);
-        tv_septimonumero_semana.setText(cal.get(Calendar.DAY_OF_MONTH) + "");
-    }
-
-    /**
-     * Set the dates in our weeks if we select tuesday.
-     */
-    private void selectTuesday(Calendar cal) {
-
-        cal.add(Calendar.DATE, -2);
-        tv_primernumero_semana.setText(cal.get(Calendar.DAY_OF_MONTH) + "");
-        cal.add(Calendar.DATE, 1);
-        tv_segundonumero_semana.setText(cal.get(Calendar.DAY_OF_MONTH) + "");
-        cal.add(Calendar.DATE, 1);
-        tv_tercernumero_semana.setText(cal.get(Calendar.DAY_OF_MONTH) + "");
-        cal.add(Calendar.DATE, 1);
-        tv_cuartonumero_semana.setText(cal.get(Calendar.DAY_OF_MONTH) + "");
-        cal.add(Calendar.DATE, 1);
-        tv_quintonumero_semana.setText(cal.get(Calendar.DAY_OF_MONTH) + "");
-        cal.add(Calendar.DATE, 1);
-        tv_sextonumero_semana.setText(cal.get(Calendar.DAY_OF_MONTH) + "");
-        cal.add(Calendar.DATE, 1);
-        tv_septimonumero_semana.setText(cal.get(Calendar.DAY_OF_MONTH) + "");
-    }
-
-    /**
-     * Set the dates in our weeks if we select wednesday.
-     */
-    private void selectWednesday(Calendar cal) {
-        cal.add(Calendar.DATE, -3);
-        tv_primernumero_semana.setText(cal.get(Calendar.DAY_OF_MONTH) + "");
-        cal.add(Calendar.DATE, 1);
-        tv_segundonumero_semana.setText(cal.get(Calendar.DAY_OF_MONTH) + "");
-        cal.add(Calendar.DATE, 1);
-        tv_tercernumero_semana.setText(cal.get(Calendar.DAY_OF_MONTH) + "");
-        cal.add(Calendar.DATE, 1);
-        tv_cuartonumero_semana.setText(cal.get(Calendar.DAY_OF_MONTH) + "");
-        cal.add(Calendar.DATE, 1);
-        tv_quintonumero_semana.setText(cal.get(Calendar.DAY_OF_MONTH) + "");
-        cal.add(Calendar.DATE, 1);
-        tv_sextonumero_semana.setText(cal.get(Calendar.DAY_OF_MONTH) + "");
-        cal.add(Calendar.DATE, 1);
-        tv_septimonumero_semana.setText(cal.get(Calendar.DAY_OF_MONTH) + "");
-    }
-
-    /**
-     * Set the dates in our weeks if we select thursday.
-     */
-    private void selectThursday(Calendar cal) {
-        cal.add(Calendar.DATE, -4);
-        tv_primernumero_semana.setText(cal.get(Calendar.DAY_OF_MONTH) + "");
-        cal.add(Calendar.DATE, 1);
-        tv_segundonumero_semana.setText(cal.get(Calendar.DAY_OF_MONTH) + "");
-        cal.add(Calendar.DATE, 1);
-        tv_tercernumero_semana.setText(cal.get(Calendar.DAY_OF_MONTH) + "");
-        cal.add(Calendar.DATE, 1);
-        tv_cuartonumero_semana.setText(cal.get(Calendar.DAY_OF_MONTH) + "");
-        cal.add(Calendar.DATE, 1);
-        tv_quintonumero_semana.setText(cal.get(Calendar.DAY_OF_MONTH) + "");
-        cal.add(Calendar.DATE, 1);
-        tv_sextonumero_semana.setText(cal.get(Calendar.DAY_OF_MONTH) + "");
-        cal.add(Calendar.DATE, 1);
-        tv_septimonumero_semana.setText(cal.get(Calendar.DAY_OF_MONTH) + "");
-    }
-
-    /**
-     * Set the dates in our weeks if we select friday.
-     */
-    private void selectFriday(Calendar cal) {
-        cal.add(Calendar.DATE, -5);
-        tv_primernumero_semana.setText(cal.get(Calendar.DAY_OF_MONTH) + "");
-        cal.add(Calendar.DATE, 1);
-        tv_segundonumero_semana.setText(cal.get(Calendar.DAY_OF_MONTH) + "");
-        cal.add(Calendar.DATE, 1);
-        tv_tercernumero_semana.setText(cal.get(Calendar.DAY_OF_MONTH) + "");
-        cal.add(Calendar.DATE, 1);
-        tv_cuartonumero_semana.setText(cal.get(Calendar.DAY_OF_MONTH) + "");
-        cal.add(Calendar.DATE, 1);
-        tv_quintonumero_semana.setText(cal.get(Calendar.DAY_OF_MONTH) + "");
-        cal.add(Calendar.DATE, 1);
-        tv_sextonumero_semana.setText(cal.get(Calendar.DAY_OF_MONTH) + "");
-        cal.add(Calendar.DATE, 1);
-        tv_septimonumero_semana.setText(cal.get(Calendar.DAY_OF_MONTH) + "");
-
-    }
-
-    /**
-     * Set the dates in our weeks if we select saturday.
-     */
-    private void selectSaturday(Calendar cal) {
-        cal.add(Calendar.DATE, -6);
-        tv_primernumero_semana.setText(cal.get(Calendar.DAY_OF_MONTH) + "");
-        cal.add(Calendar.DATE, 1);
-        tv_segundonumero_semana.setText(cal.get(Calendar.DAY_OF_MONTH) + "");
-        cal.add(Calendar.DATE, 1);
-        tv_tercernumero_semana.setText(cal.get(Calendar.DAY_OF_MONTH) + "");
-        cal.add(Calendar.DATE, 1);
-        tv_cuartonumero_semana.setText(cal.get(Calendar.DAY_OF_MONTH) + "");
-        cal.add(Calendar.DATE, 1);
-        tv_quintonumero_semana.setText(cal.get(Calendar.DAY_OF_MONTH) + "");
-        cal.add(Calendar.DATE, 1);
-        tv_sextonumero_semana.setText(cal.get(Calendar.DAY_OF_MONTH) + "");
-        cal.add(Calendar.DATE, 1);
-        tv_septimonumero_semana.setText(cal.get(Calendar.DAY_OF_MONTH) + "");
-
-    }
-
-    private void setBackgroundSunday() {
-        linlay = domingo;
-        linlaya = lldomingo;
-        linlay.setBackgroundColor(getResources().getColor(R.color.backgroundlinears));
-        linlaya.setBackgroundColor(getResources().getColor(R.color.backgroundlinears));
-    }
-
-    private void setBackgroundMonday() {
-        linlay = lunes;
-        linlaya = lllunes;
-        linlay.setBackgroundColor(getResources().getColor(R.color.backgroundlinears));
-        linlaya.setBackgroundColor(getResources().getColor(R.color.backgroundlinears));
-    }
-
-    private void setBackgroundTuesday() {
-        linlay = martes;
-        linlaya = llmartes;
-        linlay.setBackgroundColor(getResources().getColor(R.color.backgroundlinears));
-        linlaya.setBackgroundColor(getResources().getColor(R.color.backgroundlinears));
-    }
-
-    private void setBackgroundWendesnay() {
-        linlay = miercoles;
-        linlaya = llmiercoles;
-        linlay.setBackgroundColor(getResources().getColor(R.color.backgroundlinears));
-        linlaya.setBackgroundColor(getResources().getColor(R.color.backgroundlinears));
-    }
-
-    private void setBackgroundThursday() {
-        linlay = jueves;
-        linlaya = lljueves;
-        linlay.setBackgroundColor(getResources().getColor(R.color.backgroundlinears));
-        linlaya.setBackgroundColor(getResources().getColor(R.color.backgroundlinears));
-    }
-
-    private void setBackgroundFriday() {
-        linlay = viernes;
-        linlaya = llviernes;
-        linlay.setBackgroundColor(getResources().getColor(R.color.backgroundlinears));
-        linlaya.setBackgroundColor(getResources().getColor(R.color.backgroundlinears));
-    }
-
-    private void setBackgroundSaturday() {
-        linlay = sabado;
-        linlaya = llsabado;
-        linlay.setBackgroundColor(getResources().getColor(R.color.backgroundlinears));
-        linlaya.setBackgroundColor(getResources().getColor(R.color.backgroundlinears));
-
-    }
-
-    private void deleteRealmBBDD() {
-        RealmConfiguration realmConfig = new RealmConfiguration.Builder(getApplicationContext()).build();
-        Realm realm = Realm.getInstance(realmConfig);
-        realm.beginTransaction();
-        realm.delete(Encuesta.class);
-        realm.commitTransaction();
-
-    }
 
     @Override
     public String[] fileList() {
@@ -1031,18 +1034,7 @@ public class CalendarActivity extends AppCompatActivity implements View.OnClickL
     }
 
 
-    private void checkWeekForTheVisit(){
 
-        SimpleDateFormat formatter = new SimpleDateFormat("d/M/yyyy");
-        String dateInString = "15/7/2016";
-        try {
-            java.util.Date datetest = formatter.parse(dateInString);
-            Calendar test = Calendar.getInstance();
-            test.setTime(datetest);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-    }
 
     private void fillSunday() {
         Visita prueba = new Visita("Eder","Toluca","programada","14/7/2016",0);
@@ -1057,38 +1049,22 @@ public class CalendarActivity extends AppCompatActivity implements View.OnClickL
     }
 
     private void fillMonday() {
-
     }
 
     private void fillTuesday() {
-
     }
 
     private void fillWednesday() {
-
     }
 
     private void fillThursday() {
-
     }
 
     private void fillFriday() {
-
     }
 
     private void fillSaturday() {
+    }
 
-    }
-    private  void onChangeWeekListener(){
-        if (semanaDinamica != semanaDelAño){
-            semanaDinamica= semanaDelAño;
-            dotProgressBar.setVisibility(View.VISIBLE);
-            getFullweek();
-        }
-        else {
-            dotProgressBar.setVisibility(View.GONE);
-        }
-        checkWeekForTheVisit();
-    }
 
 }

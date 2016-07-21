@@ -42,9 +42,7 @@ public class Fg_Encuesta_Pregunta_Nueve extends Fragment implements View.OnClick
         View view = inflater.inflate(R.layout.fragment_encuesta_pregunta_nueve, container, false);
         objectInitialization(view);
         setListeneres();
-
-        System.out.println("Repuesta nueve es " + ((MainActivity) getActivity()).encuesta.getComentarioFinal() + "compruebo uno " + ((MainActivity) getActivity()).encuesta.isCubreRequerimientos());
-        return view;
+         return view;
     }
 
 

@@ -12,7 +12,6 @@ public class Util {
         return "Encuesta{" +
                 "correo='" + e.getCorreo() + '\'' +
                 ", contraseña='" + e.getContraseña() + '\'' +
-                ", cubrerequerimientos=" + e.isCubreRequerimientos() + '\'' +
                 ", elporquecubreono='" + e.getElpPorQueCubreoNo() + '\'' +
                 ", dentrodelpresupuesto=" + e.isDentrodelpresupuesto() +'\'' +
                 ", consideraselinmuebledentrodesusopcionesdecompraorenta=" + e.isConsideraselinmuebledentrodesusopcionesdecompraorenta() +'\'' +

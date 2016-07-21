@@ -23,4 +23,5 @@
     <color name="horas">#848484</color>
     <color name="rojo_Intenso">#ff0909</color>
     <color name="edittextcolor">#808285</color>
+    <color name="backgroundEditTexts">#FFF1E2</color>
 </resources>

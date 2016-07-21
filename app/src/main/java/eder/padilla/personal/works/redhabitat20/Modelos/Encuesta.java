@@ -14,8 +14,6 @@ import io.realm.annotations.PrimaryKey;
 public class Encuesta extends RealmObject {
 
 
-
-
     private String contraseña;
     private String elpPorQueCubreoNo;
     private String atencion;
@@ -23,8 +21,10 @@ public class Encuesta extends RealmObject {
     private String comentarioFinal;
     private String correo;
     private String fecha;
+    private String comentarioFinalizarAntes;
     private String comentarioHaciaElPropietario;
-    private boolean cubreRequerimientos;
+    private int    calificacionInmueble;
+    private String porQueLoCalificasAsi;
     private boolean dentrodelpresupuesto;
     private boolean consideraselinmuebledentrodesusopcionesdecompraorenta;
     private boolean recibiolainformacionquerequeria;
@@ -47,18 +47,7 @@ public class Encuesta extends RealmObject {
     public void setContraseña(String contraseña) {
         this.contraseña = contraseña;
     }
-
-
-
-    public boolean isCubreRequerimientos() {
-        return cubreRequerimientos;
-    }
-
-    public void setCubreRequerimientos(boolean cubreRequerimientos) {
-        this.cubreRequerimientos = cubreRequerimientos;
-    }
-
-    public String getElpPorQueCubreoNo() {
+  public String getElpPorQueCubreoNo() {
         return elpPorQueCubreoNo;
     }
 
@@ -147,9 +136,33 @@ public class Encuesta extends RealmObject {
         return fecha;
     }
 
+    public String getComentarioFinalizarAntes() {
+        return comentarioFinalizarAntes;
+    }
+
+    public void setComentarioFinalizarAntes(String comentarioFinalizarAntes) {
+        this.comentarioFinalizarAntes = comentarioFinalizarAntes;
+    }
+    public int getCalificacionInmueble() {
+        return calificacionInmueble;
+    }
+
+    public void setCalificacionInmueble(int calificacionInmueble) {
+        this.calificacionInmueble = calificacionInmueble;
+    }
+
+    public String getPorQueLoCalificasAsi() {
+        return porQueLoCalificasAsi;
+    }
+
+    public void setPorQueLoCalificasAsi(String porQueLoCalificasAsi) {
+        this.porQueLoCalificasAsi = porQueLoCalificasAsi;
+    }
+
     public void setFecha(String fecha) {
         this.fecha = fecha;
     }
+
     @Override
     public String toString() {
         return "Encuesta{" +
@@ -160,8 +173,10 @@ public class Encuesta extends RealmObject {
                 ", comentarioFinal='" + comentarioFinal + '\'' +
                 ", correo='" + correo + '\'' +
                 ", fecha='" + fecha + '\'' +
+                ", comentarioFinalizarAntes='" + comentarioFinalizarAntes + '\'' +
                 ", comentarioHaciaElPropietario='" + comentarioHaciaElPropietario + '\'' +
-                ", cubreRequerimientos=" + cubreRequerimientos +
+                ", calificacionInmueble=" + calificacionInmueble +
+                ", porQueLoCalificasAsi='" + porQueLoCalificasAsi + '\'' +
                 ", dentrodelpresupuesto=" + dentrodelpresupuesto +
                 ", consideraselinmuebledentrodesusopcionesdecompraorenta=" + consideraselinmuebledentrodesusopcionesdecompraorenta +
                 ", recibiolainformacionquerequeria=" + recibiolainformacionquerequeria +
@@ -170,4 +185,5 @@ public class Encuesta extends RealmObject {
                 ", idd=" + idd +
                 '}';
     }
+
 }

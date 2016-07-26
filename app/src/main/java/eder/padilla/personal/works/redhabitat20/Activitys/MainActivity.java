@@ -106,4 +106,5 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
         DialogoFinalizarAntesCuestionario editNameDialog = new DialogoFinalizarAntesCuestionario();
         editNameDialog.show(getFragmentManager(), "diaologo_preguntar_encuesta");
     }
+
 }

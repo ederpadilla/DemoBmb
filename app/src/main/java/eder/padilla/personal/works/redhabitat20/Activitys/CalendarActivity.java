@@ -8,7 +8,6 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -19,7 +18,6 @@ import android.widget.AdapterView;
 import android.widget.DatePicker;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.github.silvestrpredko.dotprogressbar.DotProgressBar;
 import com.jaredrummler.materialspinner.MaterialSpinner;
@@ -95,9 +93,7 @@ public class CalendarActivity extends AppCompatActivity implements View.OnClickL
     private int semanaDelAño;
     private int semanaDinamica;
     private DotProgressBar dotProgressBar;
-    private String semanaDomingo,semanaLunes,semanaMartes,
-                   semanaMiercoles,semanaJueves,semanaViernes,
-                   semanaSabado;
+
 
 
     @Override
@@ -108,18 +104,21 @@ public class CalendarActivity extends AppCompatActivity implements View.OnClickL
         setListeners();
         adapterForCalendar();
         Calendar c = Calendar.getInstance();
+        semanaDelAño=c.get(Calendar.WEEK_OF_YEAR);
+        semanaDinamica=semanaDelAño;
         dayOfTheWeek(c);
-        checkInternetConection();
-        tv_Fechaindice.setText(getSelectedDatesString());
         fillInAllArrayList();
+        /**checkInternetConection();*/
         setListenersToAdapters();
+        getFullweek();
+        addVisits();
         onChangeWeekListener();
+        dotProgressBar.setVisibility(View.GONE);
     }
     @Override
     public void onResume() {
         super.onResume();
-        addVisits();
-
+        //addVisits();
     }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -223,6 +222,7 @@ public class CalendarActivity extends AppCompatActivity implements View.OnClickL
         spinnerAdapter();
 
     }
+
     @Override
     public void onClick(View v) {
         if (linearPrueba != null) {
@@ -277,6 +277,26 @@ public class CalendarActivity extends AppCompatActivity implements View.OnClickL
             saturdayData.add(new Visita("", "", ""));
         }
         setAdapters();
+    }
+    private void emptyAllArrayList() {
+        Log.e("entramos","a vaciar");
+        Visita emptyVisit= new Visita("","","");
+        for (int i = 0; i < 24; i++) {
+            sundayData.set(i,emptyVisit);
+            mondayData.set(i,emptyVisit);
+            tuesdayData.set(i,emptyVisit);
+            wednesdayData.set(i,emptyVisit);
+            thursdayData.set(i,emptyVisit);
+            fridayData.set(i,emptyVisit);
+            saturdayData.set(i,emptyVisit);
+        }
+        sundayAdapter.notifyDataSetChanged();
+        mondayAdapter.notifyDataSetChanged();
+        tuesdayAdapter.notifyDataSetChanged();
+        wednesdayAdapter.notifyDataSetChanged();
+        thursdayAdapter.notifyDataSetChanged();
+        fridayAdapter.notifyDataSetChanged();
+        saturdayAdapter.notifyDataSetChanged();
     }
 
     /**
@@ -434,7 +454,7 @@ public class CalendarActivity extends AppCompatActivity implements View.OnClickL
 
             @Override
             public void onItemSelected(MaterialSpinner view, int position, long id, String item) {
-                Snackbar.make(view, "Clicked " + item, Snackbar.LENGTH_LONG).show();
+
                 if (item.equals(getResources().getString(R.string.cerrarsesion))) {
                     SharedPreferences sp = getSharedPreferences(Constants.LLAVE_LOGIN, 0);
                     SharedPreferences.Editor editor = sp.edit();
@@ -488,29 +508,24 @@ public class CalendarActivity extends AppCompatActivity implements View.OnClickL
         dayOfTheWeek(cal);
         semanaDelAño=cal.get(Calendar.WEEK_OF_YEAR);
         onChangeWeekListener();
+
     }
     private  void onChangeWeekListener(){
         if (semanaDinamica != semanaDelAño){
             semanaDinamica= semanaDelAño;
+            emptyAllArrayList();
             dotProgressBar.setVisibility(View.VISIBLE);
             getFullweek();
+            addVisits();
+            Log.e("myLog","semana diferente");
         }
         else {
             dotProgressBar.setVisibility(View.GONE);
+            Log.e("myLog","misma semana");
         }
-        checkWeekForTheVisit();
+
     }
-    private void checkWeekForTheVisit(){
-        SimpleDateFormat formatter = new SimpleDateFormat("d/M/yyyy");
-        String dateInString = "15/7/2016";
-        try {
-            java.util.Date datetest = formatter.parse(dateInString);
-            Calendar test = Calendar.getInstance();
-            test.setTime(datetest);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-    }
+
     /**
      * Return the date in String.
      */
@@ -531,128 +546,207 @@ public class CalendarActivity extends AppCompatActivity implements View.OnClickL
         }
         Log.e("Checando el estado", "entro al otro");
     }
+private int diaDelaSemana(){
+    int dia=0;
 
+    switch (stringToCalendar(getSelectedDatesString()).get(Calendar.DAY_OF_WEEK)){
+        case 1:
+            Log.e("dia: ",""+stringToCalendar(getSelectedDatesString()).get(Calendar.DAY_OF_WEEK));
+            dia=1;
+            break;
+        case 2:
+            Log.e("dia: ",""+stringToCalendar(getSelectedDatesString()).get(Calendar.DAY_OF_WEEK));
+            dia=2;
+            break;
+        case 3:
+            Log.e("dia: ",""+stringToCalendar(getSelectedDatesString()).get(Calendar.DAY_OF_WEEK));
+            dia=3;
+            break;
+        case 4:
+            Log.e("dia: ",""+stringToCalendar(getSelectedDatesString()).get(Calendar.DAY_OF_WEEK));
+            dia=4;
+            break;
+        case 5:
+            Log.e("dia: ",""+stringToCalendar(getSelectedDatesString()).get(Calendar.DAY_OF_WEEK));
+            dia=5;
+            break;
+        case 6:
+            Log.e("dia: ",""+stringToCalendar(getSelectedDatesString()).get(Calendar.DAY_OF_WEEK));
+            dia=6;
+            break;
+        case 7:
+            Log.e("dia: ",""+stringToCalendar(getSelectedDatesString()).get(Calendar.DAY_OF_WEEK));
+            dia=7;
+            break;
+    }
+    return dia;
+    }
+    private String semanaDomingo,semanaLunes,semanaMartes,
+            semanaMiercoles,semanaJueves,semanaViernes,
+            semanaSabado;
     private void getFullweek(){
-        SimpleDateFormat formatter = new SimpleDateFormat(Constants.DATE_FORMAT);
-        String dateInString = getSelectedDatesString();
-        Calendar test = Calendar.getInstance();
-        try {
-            java.util.Date datetest = formatter.parse(dateInString);
-            test.setTime(datetest);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
+        Calendar test = stringToCalendar(getSelectedDatesString());
+
         switch (test.get(Calendar.DAY_OF_WEEK)){
             case 1:
-                Log.i("domingo",""+provisionalFormat(test));
+                semanaDomingo=provisionalFormat(test);
+                Log.i("domingo",""+semanaDomingo);
                 test.add(Calendar.DATE, 1);
-                Log.i("domingo","lunes"+provisionalFormat(test));
+                semanaLunes=provisionalFormat(test);
+                Log.i("domingo","lunes "+semanaLunes);
                 test.add(Calendar.DATE, 1);
-                Log.i("domingo","martes"+provisionalFormat(test));
+                semanaMartes=provisionalFormat(test);
+                Log.i("domingo","martes "+semanaMartes);
                 test.add(Calendar.DATE, 1);
-                Log.i("domingo","miercoles"+provisionalFormat(test));
+                semanaMiercoles=provisionalFormat(test);
+                Log.i("domingo","miercoles "+semanaMiercoles);
                 test.add(Calendar.DATE, 1);
-                Log.i("domingo","jueves"+provisionalFormat(test));
+                semanaJueves=provisionalFormat(test);
+                Log.i("domingo","jueves "+semanaJueves);
                 test.add(Calendar.DATE, 1);
+                semanaViernes=provisionalFormat(test);
                 Log.i("domingo","viernes"+provisionalFormat(test));
                 test.add(Calendar.DATE, 1);
-                Log.i("domingo","sabado"+provisionalFormat(test));
+                semanaSabado=provisionalFormat(test);
+                Log.i("domingo","sabado"+semanaSabado);
                 break;
             case 2:
-                test.add(Calendar.DATE, -1);
-                Log.i("lunes","domingo"+provisionalFormat(test));
-                test.add(Calendar.DATE, 1);
-                Log.i("lunes",""+provisionalFormat(test));
-                test.add(Calendar.DATE, 1);
-                Log.i("lunes","martes"+provisionalFormat(test));
-                test.add(Calendar.DATE, 1);
-                Log.i("lunes","miercoles"+provisionalFormat(test));
-                test.add(Calendar.DATE, 1);
-                Log.i("lunes","jueves"+provisionalFormat(test));
-                test.add(Calendar.DATE, 1);
-                Log.i("lunes","viernes"+provisionalFormat(test));
-                test.add(Calendar.DATE, 1);
-                Log.i("lunes","sabado"+provisionalFormat(test));
+                test.add(Calendar.DATE,-1);
+                semanaDomingo=provisionalFormat(test);
+                Log.i("lunes","domingo "+semanaDomingo);
+                test.add(Calendar.DATE,1);
+                semanaLunes=provisionalFormat(test);
+                Log.i("lunes",""+semanaLunes);
+                test.add(Calendar.DATE,1);
+                semanaMartes=provisionalFormat(test);
+                Log.i("lunes","martes "+semanaMartes);
+                test.add(Calendar.DATE,1);
+                semanaMiercoles=provisionalFormat(test);
+                Log.i("lunes","miercoles "+semanaMiercoles);
+                test.add(Calendar.DATE,1);
+                semanaJueves=provisionalFormat(test);
+                Log.i("lunes","jueves "+semanaJueves);
+                test.add(Calendar.DATE,1);
+                semanaViernes=provisionalFormat(test);
+                Log.i("lunes","viernes "+semanaViernes);
+                test.add(Calendar.DATE,1);
+                semanaSabado=provisionalFormat(test);
+                Log.i("lunes","sabado "+semanaSabado);
                 break;
             case 3:
                 test.add(Calendar.DATE, -2);
-                Log.i("martes","domingo"+provisionalFormat(test));
+                semanaDomingo=provisionalFormat(test);
+                Log.i("martes","domingo "+semanaDomingo);
                 test.add(Calendar.DATE, 1);
-                Log.i("martes","lunes"+provisionalFormat(test));
+                semanaLunes=provisionalFormat(test);
+                Log.i("martes","lunes "+semanaLunes);
                 test.add(Calendar.DATE, 1);
-                Log.i("martes",""+provisionalFormat(test));
+                semanaMartes=provisionalFormat(test);
+                Log.i("martes",""+semanaMartes);
                 test.add(Calendar.DATE, 1);
-                Log.i("martes","miercoles"+provisionalFormat(test));
+                semanaMiercoles=provisionalFormat(test);
+                Log.i("martes","miercoles "+semanaMiercoles);
                 test.add(Calendar.DATE, 1);
-                Log.i("martes","jueves"+provisionalFormat(test));
+                semanaJueves=provisionalFormat(test);
+                Log.i("martes","jueves "+semanaJueves);
                 test.add(Calendar.DATE, 1);
-                Log.i("martes","viernes"+provisionalFormat(test));
+                semanaViernes=provisionalFormat(test);
+                Log.i("martes","viernes "+semanaViernes);
                 test.add(Calendar.DATE, 1);
-                Log.i("martes","sabado"+provisionalFormat(test));
+                semanaSabado=provisionalFormat(test);
+                Log.i("martes","sabado "+semanaSabado);
                 break;
             case 4:
-                test.add(Calendar.DATE, -3);
-                Log.i("miercoles","domingo"+provisionalFormat(test));
-                test.add(Calendar.DATE, 1);
-                Log.i("miercoles","lunes"+provisionalFormat(test));
-                test.add(Calendar.DATE, 1);
-                Log.i("miercoles","martes"+provisionalFormat(test));
-                test.add(Calendar.DATE, 1);
-                Log.i("miercoles",""+provisionalFormat(test));
-                test.add(Calendar.DATE, 1);
-                Log.i("miercoles","jueves"+provisionalFormat(test));
-                test.add(Calendar.DATE, 1);
-                Log.i("miercoles","viernes"+provisionalFormat(test));
-                test.add(Calendar.DATE, 1);
-                Log.i("miercoles","sabado"+provisionalFormat(test));
+                test.add(Calendar.DATE,-3);
+                semanaDomingo=provisionalFormat(test);
+                Log.i("miercoles","domingo "+semanaDomingo);
+                test.add(Calendar.DATE,1);
+                semanaLunes=provisionalFormat(test);
+                Log.i("miercoles","lunes "+semanaLunes);
+                test.add(Calendar.DATE,1);
+                semanaMartes=provisionalFormat(test);
+                Log.i("miercoles","martes "+semanaMartes);
+                test.add(Calendar.DATE,1);
+                semanaMiercoles=provisionalFormat(test);
+                Log.i("miercoles",""+semanaMiercoles);
+                test.add(Calendar.DATE,1);
+                semanaJueves=provisionalFormat(test);
+                Log.i("miercoles","jueves "+semanaJueves);
+                test.add(Calendar.DATE,1);
+                semanaViernes=provisionalFormat(test);
+                Log.i("miercoles","viernes "+semanaViernes);
+                test.add(Calendar.DATE,1);
+                semanaSabado=provisionalFormat(test);
+                Log.i("miercoles","sabado "+semanaSabado);
                 break;
             case 5:
                 test.add(Calendar.DATE, -4);
-                Log.i("jueves","domingo"+provisionalFormat(test));
+                semanaDomingo=provisionalFormat(test);
+                Log.i("jueves","domingo "+semanaDomingo);
                 test.add(Calendar.DATE, 1);
-                Log.i("jueves","lunes"+provisionalFormat(test));
+                semanaLunes=provisionalFormat(test);
+                Log.i("jueves","lunes "+semanaLunes);
                 test.add(Calendar.DATE, 1);
-                Log.i("jueves","martes"+provisionalFormat(test));
+                semanaMartes=provisionalFormat(test);
+                Log.i("jueves","martes "+semanaMartes);
                 test.add(Calendar.DATE, 1);
-                Log.i("jueves","miercoles"+provisionalFormat(test));
+                semanaMiercoles=provisionalFormat(test);
+                Log.i("jueves","miercoles "+semanaMiercoles);
                 test.add(Calendar.DATE, 1);
-                Log.i("jueves",""+provisionalFormat(test));
+                semanaJueves=provisionalFormat(test);
+                Log.i("jueves",""+semanaJueves);
                 test.add(Calendar.DATE, 1);
-                Log.i("jueves","viernes"+provisionalFormat(test));
+                semanaViernes=provisionalFormat(test);
+                Log.i("jueves","viernes "+semanaViernes);
                 test.add(Calendar.DATE, 1);
-                Log.i("jueves","sabado"+provisionalFormat(test));
+                semanaSabado=provisionalFormat(test);
+                Log.i("jueves","sabado "+semanaSabado);
                 break;
             case 6:
                 test.add(Calendar.DATE, -5);
-                Log.i("viernes","domingo"+provisionalFormat(test));
+                semanaDomingo=provisionalFormat(test);
+                Log.i("viernes","domingo "+semanaDomingo);
                 test.add(Calendar.DATE, 1);
-                Log.i("viernes","lunes"+provisionalFormat(test));
+                semanaLunes=provisionalFormat(test);
+                Log.i("viernes","lunes "+semanaLunes);
                 test.add(Calendar.DATE, 1);
-                Log.i("viernes","martes"+provisionalFormat(test));
+                semanaMartes=provisionalFormat(test);
+                Log.i("viernes","martes "+semanaMartes);
                 test.add(Calendar.DATE, 1);
-                Log.i("viernes","miercoles"+provisionalFormat(test));
+                semanaMiercoles=provisionalFormat(test);
+                Log.i("viernes","miercoles "+semanaMiercoles);
                 test.add(Calendar.DATE, 1);
-                Log.i("viernes","jueves"+provisionalFormat(test));
+                semanaJueves=provisionalFormat(test);
+                Log.i("viernes","jueves "+semanaJueves);
                 test.add(Calendar.DATE, 1);
-                Log.i("viernes",""+provisionalFormat(test));
+                semanaViernes=provisionalFormat(test);
+                Log.i("viernes",""+semanaViernes);
                 test.add(Calendar.DATE, 1);
-                Log.i("viernes","sabado"+provisionalFormat(test));
+                semanaSabado=provisionalFormat(test);
+                Log.i("viernes","sabado "+semanaSabado);
                 break;
             case 7:
                 test.add(Calendar.DATE, -6);
-                Log.i("sabado","domingo"+provisionalFormat(test));
+                semanaDomingo=provisionalFormat(test);
+                Log.i("sabado","domingo "+semanaDomingo);
                 test.add(Calendar.DATE, 1);
-                Log.i("sabado","lunes"+provisionalFormat(test));
+                semanaLunes=provisionalFormat(test);
+                Log.i("sabado","lunes "+semanaLunes);
                 test.add(Calendar.DATE, 1);
-                Log.i("sabado","martes"+provisionalFormat(test));
+                semanaMartes=provisionalFormat(test);
+                Log.i("sabado","martes "+semanaMartes);
                 test.add(Calendar.DATE, 1);
-                Log.i("sabado","miercoles"+provisionalFormat(test));
+                semanaMiercoles=provisionalFormat(test);
+                Log.i("sabado","miercoles "+semanaMiercoles);
                 test.add(Calendar.DATE, 1);
-                Log.i("sabado","jueves"+provisionalFormat(test));
+                semanaJueves=provisionalFormat(test);
+                Log.i("sabado","jueves "+semanaJueves);
                 test.add(Calendar.DATE, 1);
-                Log.i("sabado","viernes"+provisionalFormat(test));
+                semanaViernes=provisionalFormat(test);
+                Log.i("sabado","viernes "+semanaViernes);
                 test.add(Calendar.DATE, 1);
-                Log.i("sabado",""+provisionalFormat(test));
+                semanaSabado=provisionalFormat(test);
+                Log.i("sabado",""+semanaSabado);
                 break;
         }
     }
@@ -905,36 +999,128 @@ public class CalendarActivity extends AppCompatActivity implements View.OnClickL
                 break;
         }
     }
+    private Calendar stringToCalendar(String fecha){
+        SimpleDateFormat formatter = new SimpleDateFormat(Constants.DATE_FORMAT);
+        Calendar test = Calendar.getInstance();
+        try {
+            java.util.Date datetest = formatter.parse(fecha);
+            test.setTime(datetest);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return test;
+    }
+    private int horaAsignada (Visita visita){
+        return visita.getHora();
+    }
 
-    private void createVisit(Visita visita) {
+
+    private void addVisits() {
+        ArrayList<Visita> visitas= new ArrayList<>();
+        Visita domingo = new Visita("Jose Palacios", " Insurgentes Sur, #949 3er piso, despacho 301, Ciudad de México", "programada","24/6/2016", 0);
+        Visita lunes2 = new Visita("Alejandra Rosalva", " Insurgentes Sur, #949 3er piso, despacho 301, Ciudad de México", "finalizada","25/6/2016", 3);
+        Visita lunes = new Visita("Alejandra Rosalva", " Insurgentes Sur, #949 3er piso, despacho 301, Ciudad de México", "finalizada","25/6/2016", 1);
+        Visita alguna = new Visita("Alejandra Rosalva", " Insurgentes Sur, #949 3er piso, despacho 301, Ciudad de México", "finalizada","19/6/2016", 3);
+        Visita lunes3= new Visita("Alejandra Rosalva", " Insurgentes Sur, #949 3er piso, despacho 301, Ciudad de México", "finalizada","25/6/2016", 5);
+        Visita martes = new Visita("Luis Nuño", " Insurgentes Sur, #949 3er piso, despacho 301, Ciudad de México", "programada","26/6/2016", 5);
+        Visita miercoles = new Visita("Juan Ruvalcaba", " Insurgentes Sur, #949 3er piso, despacho 301, Ciudad de México", "finalizada","27/6/2016", 13);
+        Visita jueves = new Visita("Ken el cabron", " Insurgentes Sur, #949 3er piso, despacho 301, Ciudad de México", "programada","28/6/2016", 23);
+        Visita viernes = new Visita("Eder Padilla", " Insurgentes Sur, #949 3er piso, despacho 301, Ciudad de México", "finalizada","29/6/2016", 15);
+        Visita sabado = new Visita("Lucio Sanchez", " Insurgentes Sur, #949 3er piso, despacho 301, Ciudad de México", "programada","30/6/2016", 16);
+        visitas.add(alguna);
+        visitas.add(domingo);
+        visitas.add(lunes);
+        visitas.add(lunes2);
+        visitas.add(lunes3);
+        visitas.add(martes);
+        visitas.add(miercoles);
+        visitas.add(sabado);
+        visitas.add(jueves);
+        visitas.add(viernes);
+
+
+        for (int i = 0; i <visitas.size() ; i++) {
+            acomodarVisita(visitas.get(i));
+        }
+
+    }
+    private void acomodarVisita(Visita visita){
+
+        int diaSemana =stringToCalendar(visita.getDateOfVisit()).get(Calendar.DAY_OF_WEEK);
+        int hora = horaAsignada(visita);
+        compararSemana(visita,hora);
+     }
+    private void asignarVisita(Visita vPrueba,int diaSemana,int hora){
+        switch (diaSemana){
+            case 1:
+                sundayData.set(hora, vPrueba);
+                sundayAdapter.notifyDataSetChanged();
+                break;
+            case 2:
+                mondayData.set(hora, vPrueba);
+                mondayAdapter.notifyDataSetChanged();
+                break;
+            case 3:
+                tuesdayData.set(hora, vPrueba);
+                tuesdayAdapter.notifyDataSetChanged();
+                break;
+            case 4:
+                wednesdayData.set(hora, vPrueba);
+                wednesdayAdapter.notifyDataSetChanged();
+                break;
+            case 5:
+                thursdayData.set(hora, vPrueba);
+                thursdayAdapter.notifyDataSetChanged();
+                break;
+            case 6:
+                fridayData.set(hora, vPrueba);
+                fridayAdapter.notifyDataSetChanged();
+                break;
+            case 7:
+                saturdayData.set(hora, vPrueba);
+                saturdayAdapter.notifyDataSetChanged();
+                break;
+        }
+    } private void compararSemana(Visita vPrueba,int hora){
+
+        if(vPrueba.getDateOfVisit().equals(semanaDomingo)){
+
+            sundayData.set(hora, vPrueba);
+            sundayAdapter.notifyDataSetChanged();
+        }else if (vPrueba.getDateOfVisit().equals(semanaLunes)){
+            mondayData.set(hora, vPrueba);
+            mondayAdapter.notifyDataSetChanged();
+        }else if (vPrueba.getDateOfVisit().equals(semanaMartes)){
+            tuesdayData.set(hora, vPrueba);
+            tuesdayAdapter.notifyDataSetChanged();
+        }
+        else if (vPrueba.getDateOfVisit().equals(semanaMiercoles)){
+            wednesdayData.set(hora, vPrueba);
+            wednesdayAdapter.notifyDataSetChanged();
+        }
+        else if (vPrueba.getDateOfVisit().equals(semanaJueves)){
+            thursdayData.set(hora, vPrueba);
+            thursdayAdapter.notifyDataSetChanged();
+        }
+        else if (vPrueba.getDateOfVisit().equals(semanaViernes)){
+            fridayData.set(hora, vPrueba);
+            fridayAdapter.notifyDataSetChanged();
+        }
+        else if (vPrueba.getDateOfVisit().equals(semanaSabado)){
+            saturdayData.set(hora, vPrueba);
+            saturdayAdapter.notifyDataSetChanged();
+        }
+    }
+
+    private void crearVisita(Visita visita) {
         realm.beginTransaction();
         realm.copyToRealmOrUpdate(visita);
         realm.commitTransaction();
     }
 
-    private void addVisits() {
-        Visita domingo = new Visita("Jose Palacios", " Insurgentes Sur, #949 3er piso, despacho 301, Ciudad de México", "programada", 0);
-        Visita lunes = new Visita("Alejandra Rosalva", " Insurgentes Sur, #949 3er piso, despacho 301, Ciudad de México", "finalizada", 1);
-        Visita martes = new Visita("Luis Nuño", " Insurgentes Sur, #949 3er piso, despacho 301, Ciudad de México", "programada", 2);
-        Visita miercoles = new Visita("Juan Ruvalcaba", " Insurgentes Sur, #949 3er piso, despacho 301, Ciudad de México", "finalizada", 3);
-        Visita jueves = new Visita("Ken el cabron", " Insurgentes Sur, #949 3er piso, despacho 301, Ciudad de México", "programada", 4);
-        Visita viernes = new Visita("Eder Padilla", " Insurgentes Sur, #949 3er piso, despacho 301, Ciudad de México", "finalizada", 5);
-        Visita sabado = new Visita("Lucio Sanchez", " Insurgentes Sur, #949 3er piso, despacho 301, Ciudad de México", "programada", 6);
-        sundayData.set(0, domingo);
-        sundayAdapter.notifyDataSetChanged();
-        mondayData.set(1, lunes);
-        mondayAdapter.notifyDataSetChanged();
-        tuesdayData.set(2, martes);
-        tuesdayAdapter.notifyDataSetChanged();
-        wednesdayData.set(3, miercoles);
-        wednesdayAdapter.notifyDataSetChanged();
-        thursdayData.set(4, jueves);
-        thursdayAdapter.notifyDataSetChanged();
-        fridayData.set(5, viernes);
-        fridayAdapter.notifyDataSetChanged();
-        saturdayData.set(6, sabado);
-        saturdayAdapter.notifyDataSetChanged();
-    }
+
+
+
 
     /**
      *
@@ -1019,25 +1205,16 @@ public class CalendarActivity extends AppCompatActivity implements View.OnClickL
         }
         return mes;
     }
-
     private int yearAtIt() {
         int year = cprueba.get(Calendar.YEAR);
         return year;
     }
-
-
-
-
     @Override
     public String[] fileList() {
         return super.fileList();
     }
-
-
-
-
     private void fillSunday() {
-        Visita prueba = new Visita("Eder","Toluca","programada","14/7/2016",0);
+        Visita prueba = new Visita("Eder","Toluca","programada","26/7/2016",0);
         Log.e("fechaDelaprueba" ,""+prueba.getDateOfVisit());
         Log.e("fechaseleccionada" ,""+getSelectedDatesString());
         Log.e("visitaprueba" ,""+prueba.getDateOfVisit());
@@ -1047,24 +1224,14 @@ public class CalendarActivity extends AppCompatActivity implements View.OnClickL
             Log.i("Obtenemos","que sera en "+getTheWeekDay(tes.get(Calendar.DAY_OF_WEEK)));
         } else Log.e("Sorry","No estamos en el mismo canal");
     }
+    private void validateWeek(Visita visita){
+        if (getSelectedDatesString().equals(visita.getDateOfVisit())){
+            Log.e("Log prueba","estamos en el mismo canal");
+            Calendar tes = cprueba;
+            Log.i("Obtenemos","que sera en "+getTheWeekDay(tes.get(Calendar.DAY_OF_WEEK)));
+        } else Log.e("Sorry","No estamos en el mismo canal");
 
-    private void fillMonday() {
-    }
-
-    private void fillTuesday() {
-    }
-
-    private void fillWednesday() {
-    }
-
-    private void fillThursday() {
-    }
-
-    private void fillFriday() {
-    }
-
-    private void fillSaturday() {
     }
 
 
-}
+    }

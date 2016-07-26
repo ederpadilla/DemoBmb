@@ -45,10 +45,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_log_in);
-        mSharedPreferences=getSharedPreferences("Login", 0);
-        SharedPreferences.Editor editor=mSharedPreferences.edit();
-        editor.putString(getResources().getString(R.string.Shared_Preferences_User),"" );
-        editor.commit();
         /** Call all objects un the UI we need. **/
         objectInitialization();
         setListeners();
@@ -90,10 +86,18 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         }
     }
     private void offlineLogin(){
-        mSharedPreferences=getSharedPreferences("Login", 0);
+        /**
+         mSharedPreferences=getSharedPreferences("Login", 0);
+         SharedPreferences.Editor editor=mSharedPreferences.edit();
+         editor.putString(getResources().getString(R.string.Shared_Preferences_User),"" );
+         editor.commit();
+         mSharedPreferences=getSharedPreferences("Login", 0);*/
+
         mSharedPreferences=getSharedPreferences(Constants.LLAVE_LOGIN, 0);
         SharedPreferences.Editor editor=mSharedPreferences.edit();
         editor.putString(Constants.NOMBRE_ASESOR,"Asesor");
+        editor.putBoolean(Constants.BOOLEAN_LOG,true);
+        Log.e("el valor"," de el booleano que le damos es "+ mSharedPreferences.getBoolean(Constants.BOOLEAN_LOG,true));
         editor.commit();
         Intent myIntent = new Intent(LoginActivity.this, CalendarActivity.class);
         LoginActivity.this.startActivity(myIntent);

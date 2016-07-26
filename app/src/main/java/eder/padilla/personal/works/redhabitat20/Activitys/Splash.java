@@ -35,9 +35,9 @@ public class Splash extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
+        sharedPreferences =this.getSharedPreferences(Constants.LLAVE_LOGIN,0);
+        //Log.e("shared","lo que hay es "+sharedPreferences.getString(Constants.NOMBRE_ASESOR,""));
         StartAnimations();
-        sharedPreferences =this.getSharedPreferences("Login",0);
-
 
     }
     /** Here we star the animation. */
@@ -64,9 +64,8 @@ public class Splash extends Activity {
                     sleep(3500);
                     /** We check if there is a user log in or not. **/
                     //String unm= sharedPreferences.getString(getResources().getString(R.string.Shared_Preferences_User), null);
-                    if(sharedPreferences.contains(Constants.LLAVE_LOGIN)){
-                        Intent intent = new Intent(Splash.this,
-                                CalendarActivity.class);intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                    if(sharedPreferences.contains(Constants.NOMBRE_ASESOR)){
+                        Intent intent = new Intent(Splash.this,CalendarActivity.class);
                         startActivity(intent);
 
                     }else{

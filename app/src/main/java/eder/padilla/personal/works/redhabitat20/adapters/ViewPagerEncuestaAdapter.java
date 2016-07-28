@@ -4,14 +4,13 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import eder.padilla.personal.works.redhabitat20.fragments.fragmentsPreguntas.Fg_Encuesta_Pregunta_Cinco;
-import eder.padilla.personal.works.redhabitat20.fragments.fragmentsPreguntas.Fg_Encuesta_Pregunta_Cuatro;
-import eder.padilla.personal.works.redhabitat20.fragments.fragmentsPreguntas.Fg_Encuesta_Pregunta_Dos;
-import eder.padilla.personal.works.redhabitat20.fragments.fragmentsPreguntas.Fg_Encuesta_Pregunta_Nueve;
-import eder.padilla.personal.works.redhabitat20.fragments.fragmentsPreguntas.Fg_Encuesta_Pregunta_Ocho;
-import eder.padilla.personal.works.redhabitat20.fragments.fragmentsPreguntas.Fg_Encuesta_Pregunta_Seis;
-import eder.padilla.personal.works.redhabitat20.fragments.fragmentsPreguntas.Fg_Encuesta_Pregunta_Siete;
-import eder.padilla.personal.works.redhabitat20.fragments.fragmentsPreguntas.Fg_Encuesta_Pregunta_Tres;
+import eder.padilla.personal.works.redhabitat20.fragments.fragmentsPreguntas.Fg_Vp_Pregunta_Cuatro;
+import eder.padilla.personal.works.redhabitat20.fragments.fragmentsPreguntas.Fg_Vp_Pregunta_Tres;
+import eder.padilla.personal.works.redhabitat20.fragments.fragmentsPreguntas.Fg_ViewPager_Ocho;
+import eder.padilla.personal.works.redhabitat20.fragments.fragmentsPreguntas.Fg_ViewPager_Siete;
+import eder.padilla.personal.works.redhabitat20.fragments.fragmentsPreguntas.Fg_ViewPager_Cinco;
+import eder.padilla.personal.works.redhabitat20.fragments.fragmentsPreguntas.Fg_ViewPager_Seis;
+import eder.padilla.personal.works.redhabitat20.fragments.fragmentsPreguntas.Fg_ViewPager_Dos;
 import eder.padilla.personal.works.redhabitat20.fragments.fragmentsPreguntas.Fg_Encuesta_Pregunta_Uno;
 
 /**
@@ -27,23 +26,21 @@ public class ViewPagerEncuestaAdapter extends FragmentPagerAdapter {
     @Override
     public Fragment getItem(int pos) {
         switch(pos) {
-
             case 0: return new Fg_Encuesta_Pregunta_Uno();
-            case 1: return new Fg_Encuesta_Pregunta_Dos();
-            case 2: return new Fg_Encuesta_Pregunta_Tres();
-            case 3: return  new Fg_Encuesta_Pregunta_Cuatro();
-            case 4: return  new Fg_Encuesta_Pregunta_Cinco();
-            case 5: return  new Fg_Encuesta_Pregunta_Seis();
-            case 6: return  new Fg_Encuesta_Pregunta_Siete();
-            case 7: return  new Fg_Encuesta_Pregunta_Ocho();
-            case 8: return  new Fg_Encuesta_Pregunta_Nueve();
+            case 1: return new Fg_ViewPager_Dos();
+            case 2: return new Fg_Vp_Pregunta_Tres();
+            case 3: return new Fg_Vp_Pregunta_Cuatro();
+            case 4: return new Fg_ViewPager_Cinco();
+            case 5: return new Fg_ViewPager_Seis();
+            case 6: return new Fg_ViewPager_Siete();
+            case 7: return new Fg_ViewPager_Ocho();
 
-            default: return Fg_Encuesta_Pregunta_Nueve.newInstance();
+            default: return Fg_ViewPager_Ocho.newInstance();
         }
     }
 
     @Override
     public int getCount() {
-        return 9;
+        return 8;
     }
 }

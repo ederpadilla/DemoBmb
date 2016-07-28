@@ -11,7 +11,6 @@ import retrofit2.http.POST;
  * Created by Eder on 16/03/2016.
  */
 public interface Interfaz {
-
     @POST("/app/login")
     Call<Informacion> createModelo(@Body Asesor asesor);
 }

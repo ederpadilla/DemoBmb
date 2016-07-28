@@ -14,41 +14,45 @@ import eder.padilla.personal.works.redhabitat20.R;
 /**
  * Created by Eder on 15/03/2016.
  */
-public class Fg_Encuesta_Pregunta_Seis extends Fragment implements View.OnClickListener {
+public class Fg_Vp_Pregunta_Tres extends Fragment implements View.OnClickListener {
     private Button btnAceptar;
     private Button btnNegar;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view= inflater.inflate(R.layout.fragment_encuesta_pregunta_seis,container,false);
+        View view = inflater.inflate(R.layout.fragment_encuesta_pregunta_cuatro, container, false);
         objectInitialization(view);
         setListeners();
-        System.out.println("Repuesta seis es " + ((MainActivity) getActivity()).encuesta.isElasesoracudiodemanerapuntual());
+        System.out.println("Repuesta cuatro es " + ((MainActivity) getActivity()).encuesta.isConsideraselinmuebledentrodesusopcionesdecompraorenta());
+
         return view;
-    }
-    public void objectInitialization(View view) {
-        btnAceptar = (Button) view.findViewById(R.id.aceptar);
-        btnNegar = (Button) view.findViewById(R.id.negar);
     }
     public void setListeners(){
         btnAceptar.setOnClickListener(this);
         btnNegar.setOnClickListener(this);
     }
+
+    public void objectInitialization(View view) {
+        btnAceptar = (Button) view.findViewById(R.id.aceptar);
+        btnNegar = (Button) view.findViewById(R.id.negar);
+    }
+
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.aceptar:
                   /*Casteamos nuestro objeto y asignamos valor al campo del modelo y llamamos a
                     * la proxima pagina del viewpager*/
-                ((MainActivity) getActivity()).encuesta.setElasesoracudiodemanerapuntual(true);
-                ((MainActivity) getActivity()).viewpager.setCurrentItem(6);
+                ((MainActivity) getActivity()).encuesta.setConsideraselinmuebledentrodesusopcionesdecompraorenta(true);
+                ((MainActivity) getActivity()).viewpager.setCurrentItem(3);
                 break;
             case R.id.negar:
                   /*Casteamos nuestro objeto y asignamos valor al campo del modelo y llamamos a
                     * la proxima pagina del viewpager*/
-                ((MainActivity) getActivity()).encuesta.setElasesoracudiodemanerapuntual(false);
-                ((MainActivity) getActivity()).viewpager.setCurrentItem(6);
+                ((MainActivity) getActivity()).encuesta.setConsideraselinmuebledentrodesusopcionesdecompraorenta(false);
+                ((MainActivity) getActivity()).viewpager.setCurrentItem(3);
                 break;
+
         }
     }
-
 }

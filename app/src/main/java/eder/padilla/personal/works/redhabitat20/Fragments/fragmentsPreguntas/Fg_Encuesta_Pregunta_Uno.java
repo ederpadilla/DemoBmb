@@ -64,14 +64,18 @@ public class Fg_Encuesta_Pregunta_Uno extends Fragment implements View.OnClickLi
         {
             case R.id.bt_siguiente_preguntauno:
                 int selected_id = radio_g.getCheckedRadioButtonId();
+                if (selected_id==-1){
+                    Log.e("mylog","aqui entra"+selected_id);
+                    ((MainActivity) getActivity()).encuesta.setCalificacionInmueble(0);
+                }else{
                 radio_b = (RadioButton)radio_g.findViewById(selected_id);
-
                 calif= Integer.parseInt(radio_b.getText().toString());
                 Log.i("","calif "+calif);
                   /*Casteamos nuestro objeto y asignamos valor al campo del modelo y llamamos a
                     * la proxima pagina del viewpager*/
-                ((MainActivity) getActivity()).encuesta.setCalificacionInmueble(calif);
+                ((MainActivity) getActivity()).encuesta.setCalificacionInmueble(calif);}
                 ((MainActivity) getActivity()).encuesta.setPorQueLoCalificasAsi(et_PorqueLoCalificas.getText().toString());
+                Log.e("","et_porque_calificas "+et_PorqueLoCalificas.getText().toString());
                 ((MainActivity) getActivity()).viewpager.setCurrentItem(1);
                 break;
         }

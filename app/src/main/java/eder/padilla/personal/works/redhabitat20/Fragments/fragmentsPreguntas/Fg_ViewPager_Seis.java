@@ -15,7 +15,7 @@ import eder.padilla.personal.works.redhabitat20.R;
 /**
  * Created by Eder on 15/03/2016.
  */
-public class Fg_Encuesta_Pregunta_Siete extends Fragment implements View.OnClickListener {
+public class Fg_ViewPager_Seis extends Fragment implements View.OnClickListener {
     private ImageButton btnBuenaAtencion;
     private ImageButton btnAtencionRegular;
     private ImageButton btnMalaAtencion;
@@ -46,19 +46,19 @@ public class Fg_Encuesta_Pregunta_Siete extends Fragment implements View.OnClick
                   /*Casteamos nuestro objeto y asignamos valor al campo del modelo y llamamos a
                     * la proxima pagina del viewpager*/
                 ((MainActivity) getActivity()).encuesta.setAtencion("Buena");
-                ((MainActivity) getActivity()).viewpager.setCurrentItem(7);
+                ((MainActivity) getActivity()).viewpager.setCurrentItem(6);
                 break;
             case R.id.regular:
                   /*Casteamos nuestro objeto y asignamos valor al campo del modelo y llamamos a
                     * la proxima pagina del viewpager*/
                 ((MainActivity) getActivity()).encuesta.setAtencion("Regular");
-               ((MainActivity) getActivity()).viewpager.setCurrentItem(7);
+               ((MainActivity) getActivity()).viewpager.setCurrentItem(6);
                 break;
             case R.id.mala:
                   /*Casteamos nuestro objeto y asignamos valor al campo del modelo y llamamos a
                     * la proxima pagina del viewpager*/
                 ((MainActivity) getActivity()).encuesta.setAtencion("Mala");
-                 ((MainActivity) getActivity()).viewpager.setCurrentItem(7);
+                 ((MainActivity) getActivity()).viewpager.setCurrentItem(6);
                 break;
         }
     }

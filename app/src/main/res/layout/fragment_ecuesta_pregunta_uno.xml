@@ -44,6 +44,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/uno"
+                android:textStyle="bold"
                 android:buttonTint="@color/edittextcolor"
                 android:id="@+id/radioButton_uno"
                 android:checked="false" />
@@ -52,6 +53,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/dos"
+                android:textStyle="bold"
                 android:layout_marginLeft="25dp"
                 android:buttonTint="@color/edittextcolor"
                 android:id="@+id/radioButton_dos"
@@ -61,6 +63,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/tres"
+                android:textStyle="bold"
                 android:layout_marginLeft="25dp"
                 android:buttonTint="@color/edittextcolor"
                 android:id="@+id/radioButton_tres"
@@ -69,6 +72,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/cuatro"
+                android:textStyle="bold"
                 android:layout_marginLeft="25dp"
                 android:buttonTint="@color/edittextcolor"
                 android:id="@+id/radioButton_cuatro"
@@ -77,6 +81,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/cinco"
+                android:textStyle="bold"
                 android:layout_marginLeft="25dp"
                 android:buttonTint="@color/edittextcolor"
                 android:id="@+id/radioButton_cinco"
@@ -85,6 +90,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/seis"
+                android:textStyle="bold"
                 android:layout_marginLeft="25dp"
                 android:buttonTint="@color/edittextcolor"
                 android:id="@+id/radioButton_seis"
@@ -96,7 +102,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight=".8"
+        android:layout_weight=".7"
         android:gravity="center">
         <EditText
             android:layout_width="550dp"
@@ -112,7 +118,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight=".85"
+        android:layout_weight="1.1"
         android:gravity="center"
         android:orientation="vertical">
         <Button

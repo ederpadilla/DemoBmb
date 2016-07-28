@@ -13,7 +13,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1.1"
+            android:layout_weight="1.2"
             android:gravity="left|bottom">
             <TextView
                 android:layout_width="match_parent"
@@ -32,7 +32,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1.1"
+            android:layout_weight=".8"
             android:orientation="horizontal"
             android:gravity="center">
             <Button

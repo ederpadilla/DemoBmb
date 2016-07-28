@@ -14,6 +14,9 @@ import io.realm.annotations.PrimaryKey;
 public class Encuesta extends RealmObject {
 
 
+
+
+    private String informacionQueRecibioSobreLaPropiedad;
     private String contraseña;
     private String elpPorQueCubreoNo;
     private String atencion;
@@ -163,10 +166,18 @@ public class Encuesta extends RealmObject {
         this.fecha = fecha;
     }
 
+    public String getInformacionQueRecibioSobreLaPropiedad() {
+        return informacionQueRecibioSobreLaPropiedad;
+    }
+
+    public void setInformacionQueRecibioSobreLaPropiedad(String informacionQueRecibioSobreLaPropiedad) {
+        this.informacionQueRecibioSobreLaPropiedad = informacionQueRecibioSobreLaPropiedad;
+    }
     @Override
     public String toString() {
         return "Encuesta{" +
-                "contraseña='" + contraseña + '\'' +
+                "informacionQueRecibioSobreLaPropiedad='" + informacionQueRecibioSobreLaPropiedad + '\'' +
+                ", contraseña='" + contraseña + '\'' +
                 ", elpPorQueCubreoNo='" + elpPorQueCubreoNo + '\'' +
                 ", atencion='" + atencion + '\'' +
                 ", objecionPorLaCulDescartariaelInmueble='" + objecionPorLaCulDescartariaelInmueble + '\'' +
@@ -185,5 +196,6 @@ public class Encuesta extends RealmObject {
                 ", idd=" + idd +
                 '}';
     }
+
 
 }

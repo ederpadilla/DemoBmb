@@ -14,7 +14,7 @@ import eder.padilla.personal.works.redhabitat20.R;
 /**
  * Created by Eder on 15/03/2016.
  */
-public class Fg_Encuesta_Pregunta_Tres extends Fragment implements View.OnClickListener {
+public class Fg_ViewPager_Dos extends Fragment implements View.OnClickListener {
     private Button btnAceptar;
     private Button btnNegar;
     @Override
@@ -42,13 +42,13 @@ public class Fg_Encuesta_Pregunta_Tres extends Fragment implements View.OnClickL
                   /*Casteamos nuestro objeto y asignamos valor al campo del modelo y llamamos a
                     * la proxima pagina del viewpager*/
                 ((MainActivity) getActivity()).encuesta.setDentrodelpresupuesto(true);
-                ((MainActivity) getActivity()).viewpager.setCurrentItem(3);
+                ((MainActivity) getActivity()).viewpager.setCurrentItem(2);
                 break;
             case R.id.negar:
                   /*Casteamos nuestro objeto y asignamos valor al campo del modelo y llamamos a
                     * la proxima pagina del viewpager*/
                 ((MainActivity) getActivity()).encuesta.setDentrodelpresupuesto(false);
-                ((MainActivity) getActivity()).viewpager.setCurrentItem(3);
+                ((MainActivity) getActivity()).viewpager.setCurrentItem(2);
                 break;
         }
     }

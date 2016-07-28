@@ -93,6 +93,9 @@ public class CalendarActivity extends AppCompatActivity implements View.OnClickL
     private int semanaDelAño;
     private int semanaDinamica;
     private DotProgressBar dotProgressBar;
+    private String semanaDomingo,semanaLunes,semanaMartes,
+            semanaMiercoles,semanaJueves,semanaViernes,
+            semanaSabado;
 
 
 
@@ -543,8 +546,8 @@ public class CalendarActivity extends AppCompatActivity implements View.OnClickL
         if (visita.getTipo().equals("programada")) {
             showEditDialog();
             Log.e("Checando el estado", "entro al programada");
-        }
-        Log.e("Checando el estado", "entro al otro");
+        }else{
+        Log.e("Checando el estado", "entro al otro");}
     }
 private int diaDelaSemana(){
     int dia=0;
@@ -581,9 +584,7 @@ private int diaDelaSemana(){
     }
     return dia;
     }
-    private String semanaDomingo,semanaLunes,semanaMartes,
-            semanaMiercoles,semanaJueves,semanaViernes,
-            semanaSabado;
+
     private void getFullweek(){
         Calendar test = stringToCalendar(getSelectedDatesString());
 
@@ -753,8 +754,6 @@ private int diaDelaSemana(){
     private String provisionalFormat(Calendar calendar){
         return calendar.get(Calendar.DAY_OF_MONTH)+"/"+calendar.get(Calendar.MONTH)+"/"+calendar.get(Calendar.YEAR);
     }
-
-
     /**
      *
      *  Agenda.
@@ -1038,16 +1037,13 @@ private int diaDelaSemana(){
         visitas.add(jueves);
         visitas.add(viernes);
 
-
         for (int i = 0; i <visitas.size() ; i++) {
             acomodarVisita(visitas.get(i));
         }
 
     }
     private void acomodarVisita(Visita visita){
-
-        int diaSemana =stringToCalendar(visita.getDateOfVisit()).get(Calendar.DAY_OF_WEEK);
-        int hora = horaAsignada(visita);
+         int hora = horaAsignada(visita);
         compararSemana(visita,hora);
      }
     private void asignarVisita(Visita vPrueba,int diaSemana,int hora){
@@ -1118,120 +1114,12 @@ private int diaDelaSemana(){
         realm.commitTransaction();
     }
 
-
-
-
-
-    /**
-     *
-     *
-     *
-     *
-     * */
-    private String getTheWeekDay(int diaDeLaSemana) {
-        int dia = cprueba.get(Calendar.DAY_OF_WEEK);
-        String day = "";
-        switch (dia) {
-            case 1:
-                day = "domingo";
-                break;
-            case 2:
-                day = "lunes";
-                break;
-            case 3:
-                day = "martes";
-                break;
-            case 4:
-                day = "miercoles";
-                break;
-            case 5:
-                day = "jueves";
-                break;
-            case 6:
-                day = "viernes";
-                break;
-            case 7:
-                day = "sabado";
-                break;
-        }
-        return day;
-    }
-
-    private int dayOfMonth() {
-        int dia = cprueba.get(Calendar.DAY_OF_MONTH);
-        return dia;
-    }
-
-    private String mothAtIt() {
-        int mesprueba = cprueba.get(Calendar.MONTH);
-       String mes="";
-        switch (mesprueba) {
-            case 0:
-                mes = "ene.";
-                break;
-            case 1:
-                mes = "feb.";
-                break;
-            case 2:
-                mes = "mar.";
-                break;
-            case 3:
-                mes = "abr.";
-                break;
-            case 4:
-                mes = "may.";
-                break;
-            case 5:
-                mes = "jun.";
-                break;
-            case 6:
-                mes = "jul.";
-                break;
-            case 7:
-                mes = "ago.";
-                break;
-            case 8:
-                mes = "sep.";
-                break;
-            case 9:
-                mes = "oct.";
-                break;
-            case 10:
-                mes = "nov.";
-                break;
-            case 11:
-                mes = "dic.";
-                break;
-        }
-        return mes;
-    }
-    private int yearAtIt() {
-        int year = cprueba.get(Calendar.YEAR);
-        return year;
-    }
     @Override
     public String[] fileList() {
         return super.fileList();
     }
-    private void fillSunday() {
-        Visita prueba = new Visita("Eder","Toluca","programada","26/7/2016",0);
-        Log.e("fechaDelaprueba" ,""+prueba.getDateOfVisit());
-        Log.e("fechaseleccionada" ,""+getSelectedDatesString());
-        Log.e("visitaprueba" ,""+prueba.getDateOfVisit());
-        if (getSelectedDatesString().equals(prueba.getDateOfVisit())){
-            Log.e("Log prueba","estamos en el mismo canal");
-            Calendar tes = cprueba;
-            Log.i("Obtenemos","que sera en "+getTheWeekDay(tes.get(Calendar.DAY_OF_WEEK)));
-        } else Log.e("Sorry","No estamos en el mismo canal");
-    }
-    private void validateWeek(Visita visita){
-        if (getSelectedDatesString().equals(visita.getDateOfVisit())){
-            Log.e("Log prueba","estamos en el mismo canal");
-            Calendar tes = cprueba;
-            Log.i("Obtenemos","que sera en "+getTheWeekDay(tes.get(Calendar.DAY_OF_WEEK)));
-        } else Log.e("Sorry","No estamos en el mismo canal");
 
-    }
+
 
 
     }

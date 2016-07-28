@@ -16,7 +16,6 @@ import android.widget.TextView;
 
 import java.util.Calendar;
 
-import eder.padilla.personal.works.redhabitat20.activitys.CalendarActivity;
 import eder.padilla.personal.works.redhabitat20.activitys.MainActivity;
 import eder.padilla.personal.works.redhabitat20.fragments.dialogs.DialogoFinalEncuesta;
 import eder.padilla.personal.works.redhabitat20.fragments.dialogs.Firma_Electronica;
@@ -30,7 +29,7 @@ import io.realm.RealmConfiguration;
 /**
  * Created by Eder on 15/03/2016.
  */
-public class Fg_Encuesta_Pregunta_Nueve extends Fragment implements View.OnClickListener {
+public class Fg_ViewPager_Ocho extends Fragment implements View.OnClickListener {
     private Button btnTerminarEncuesta;
     private EditText etComentarioFinal;
     private TextView firma_digital;
@@ -46,8 +45,8 @@ public class Fg_Encuesta_Pregunta_Nueve extends Fragment implements View.OnClick
     }
 
 
-    public static Fg_Encuesta_Pregunta_Nueve newInstance() {
-        Fg_Encuesta_Pregunta_Nueve nueve_de_nueve = new Fg_Encuesta_Pregunta_Nueve();
+    public static Fg_ViewPager_Ocho newInstance() {
+        Fg_ViewPager_Ocho nueve_de_nueve = new Fg_ViewPager_Ocho();
         return nueve_de_nueve;
     }
     public void objectInitialization(View view) {

@@ -11,7 +11,7 @@ import eder.padilla.personal.works.redhabitat20.fragments.fragmentsPreguntas.Fg_
 import eder.padilla.personal.works.redhabitat20.fragments.fragmentsPreguntas.Fg_ViewPager_Cinco;
 import eder.padilla.personal.works.redhabitat20.fragments.fragmentsPreguntas.Fg_ViewPager_Seis;
 import eder.padilla.personal.works.redhabitat20.fragments.fragmentsPreguntas.Fg_ViewPager_Dos;
-import eder.padilla.personal.works.redhabitat20.fragments.fragmentsPreguntas.Fg_Encuesta_Pregunta_Uno;
+import eder.padilla.personal.works.redhabitat20.fragments.fragmentsPreguntas.Fg_ViewPager_Uno;
 
 /**
  * Created by Eder on 04/04/2016.
@@ -26,7 +26,7 @@ public class ViewPagerEncuestaAdapter extends FragmentPagerAdapter {
     @Override
     public Fragment getItem(int pos) {
         switch(pos) {
-            case 0: return new Fg_Encuesta_Pregunta_Uno();
+            case 0: return new Fg_ViewPager_Uno();
             case 1: return new Fg_ViewPager_Dos();
             case 2: return new Fg_Vp_Pregunta_Tres();
             case 3: return new Fg_Vp_Pregunta_Cuatro();

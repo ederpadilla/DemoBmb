@@ -14,17 +14,12 @@ import android.widget.RadioGroup;
 
 
 import eder.padilla.personal.works.redhabitat20.activitys.MainActivity;
-import eder.padilla.personal.works.redhabitat20.fragments.dialogs.DialogoComentarioPropietario;
-import eder.padilla.personal.works.redhabitat20.fragments.dialogs.DiaologoPreguntaRealizarEncuesta;
-import eder.padilla.personal.works.redhabitat20.modelos.Encuesta;
 import eder.padilla.personal.works.redhabitat20.R;
-import io.realm.Realm;
-import io.realm.RealmResults;
 
 /**
  * Created by Eder on 14/03/2016.
  */
-public class Fg_Encuesta_Pregunta_Uno extends Fragment implements View.OnClickListener {
+public class Fg_ViewPager_Uno extends Fragment implements View.OnClickListener {
 
 
     EditText et_PorqueLoCalificas;
@@ -51,12 +46,7 @@ public class Fg_Encuesta_Pregunta_Uno extends Fragment implements View.OnClickLi
     public void setListeners(){
         bt_siguiente.setOnClickListener(this);
     }
-    private void showEditDialog() {
-        FragmentManager fm = getFragmentManager();
-        DialogoComentarioPropietario editNameDialog = new DialogoComentarioPropietario();
-        editNameDialog.show(getActivity().getFragmentManager(),"diaologo_comentario_propietario_encuesta");
 
-    }
 
     @Override
     public void onClick(View v) {

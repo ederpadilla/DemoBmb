@@ -22,7 +22,6 @@ public class Fg_ViewPager_Dos extends Fragment implements View.OnClickListener {
         View view= inflater.inflate(R.layout.fragment_encuesta_pregunta_tres,container,false);
         objectInitialization(view);
         setListeners();
-        System.out.println("Repuesta tres es " + ((MainActivity) getActivity()).encuesta.isDentrodelpresupuesto());
 
         return view;
     }

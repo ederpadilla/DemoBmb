@@ -25,7 +25,7 @@ public class Encuesta extends RealmObject {
     private String correo;
     private String fecha;
     private String comentarioFinalizarAntes;
-    private String comentarioHaciaElPropietario;
+    private String comentarioDelAsesor;
     private int    calificacionInmueble;
     private String porQueLoCalificasAsi;
     private boolean dentrodelpresupuesto;
@@ -128,13 +128,7 @@ public class Encuesta extends RealmObject {
     public void setBytes(byte[] bytes) {
         this.bytes = bytes;
     }
-    public String getComentarioHaciaElPropietario() {
-        return comentarioHaciaElPropietario;
-    }
 
-    public void setComentarioHaciaElPropietario(String comentarioHaciaElPropietario) {
-        this.comentarioHaciaElPropietario = comentarioHaciaElPropietario;
-    }
     public String getFecha() {
         return fecha;
     }
@@ -173,6 +167,14 @@ public class Encuesta extends RealmObject {
     public void setInformacionQueRecibioSobreLaPropiedad(String informacionQueRecibioSobreLaPropiedad) {
         this.informacionQueRecibioSobreLaPropiedad = informacionQueRecibioSobreLaPropiedad;
     }
+    public String getComentarioDelAsesor() {
+        return comentarioDelAsesor;
+    }
+
+    public void setComentarioDelAsesor(String comentarioDelAsesor) {
+        this.comentarioDelAsesor = comentarioDelAsesor;
+    }
+
     @Override
     public String toString() {
         return "Encuesta{" +
@@ -185,7 +187,7 @@ public class Encuesta extends RealmObject {
                 ", correo='" + correo + '\'' +
                 ", fecha='" + fecha + '\'' +
                 ", comentarioFinalizarAntes='" + comentarioFinalizarAntes + '\'' +
-                ", comentarioHaciaElPropietario='" + comentarioHaciaElPropietario + '\'' +
+                ", comentarioDelAsesor='" + comentarioDelAsesor + '\'' +
                 ", calificacionInmueble=" + calificacionInmueble +
                 ", porQueLoCalificasAsi='" + porQueLoCalificasAsi + '\'' +
                 ", dentrodelpresupuesto=" + dentrodelpresupuesto +

@@ -15,4 +15,5 @@ public class Constants {
     public static final String NOMBRE_ASESOR="nombre del asesor";
     public static final String BOOLEAN_LOG="booleanoParaLogIn";
     public static final String LLAVE_LOGIN="LOGIN";
+    public static final String ENCUESTA_CONTESTADA="Encuesta contestada";
 }

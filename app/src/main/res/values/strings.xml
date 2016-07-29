@@ -46,7 +46,7 @@
     <!--Utilidades-->
     <string name="indice"> de 8</string>
     <!--Dialogos-->
-    <string name="comentario_al_propietario">Comentario al propietario (asesor)</string>
+    <string name="comentario_del_asesor">Comentario del asesor.</string>
     <string name="bt_aceptar_dialogos">Aceptar</string>
     <string name="pregunta_realizar_cuestionaro">Deseas realizar cuestionario</string>
     <string name="bt_cancelar_dialogos">Cancelar</string>
@@ -74,7 +74,7 @@
     <string name="error_incorrect_password">This password is incorrect</string>
     <string name="error_field_required">This field is required</string>
     <string name="permission_rationale">"Contacts permissions are needed for providing email completions." </string>
-    <string name="visitaregistradaconesxito">Tu visita fue registrada con éxito.</string>
+    <string name="visitaregistradaconexito">Tu visita fue registrada con éxito.</string>
     <string name="nomre_dela_persona">Nombre:</string>
     <string name="direccion">Dirección:</string>
 
@@ -96,6 +96,7 @@
     <string name="seis">6</string>
     <string name="poquecalificaasi">¿Por qué lo calificaría así?</string>
     <string name="pregunta_cuatro_info">La información que recibió respecto a la propiedad fue:</string>
+    <string name="gracias">¡GRACIAS!</string>
 
 
 </resources>

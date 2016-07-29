@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="100dp"
+    android:layout_height="550dp"
+    >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:orientation="horizontal"
+        android:gravity="center">
+        <ImageView
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:src="@mipmap/visitaok"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="310dp"
+        android:background="#ffffff"
+        android:orientation="vertical"
+        android:weightSum="3"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight=".9"
+            android:orientation="vertical"
+            android:weightSum="3">
+            <TextView
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingTop="10dp"
+                android:text="@string/gracias"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:textSize="20sp" />
+            <TextView
+                android:paddingTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight=".9"
+                android:text="@string/visitaregistradaconexito"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:textSize="15sp" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1.1"
+                android:textAlignment="textStart"
+                android:paddingStart="20dp"
+                android:text="@string/comentario_del_asesor"
+                android:textColor="@color/black"
+                android:textSize="15sp" />
+
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:padding="20dp">
+           <EditText
+               android:layout_width="match_parent"
+               android:layout_height="match_parent"
+               android:hint="Texto"
+               android:id="@+id/et_comentario_del_asesor"
+               android:paddingStart="10dp"
+               android:background="@color/backgroundEditTexts"/>
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:gravity="center_vertical|center_horizontal">
+            <Button
+                android:layout_width="120dp"
+                android:layout_height="30dp"
+                android:id="@+id/bt_dialogo_cancelar_comentario_del_asesor"
+                android:text="@string/bt_cancelar_dialogos"
+                android:background="@drawable/my_button_bg"
+                />
+            <Button
+                android:layout_width="120dp"
+                android:layout_height="30dp"
+                android:layout_marginLeft="25dp"
+                android:id="@+id/bt_guardar_comentario_asesor"
+                android:text="@string/bt_guardar"
+                style="@style/Btns_questions"
+                android:background="@color/peach"/>
+
+        </LinearLayout>
+
+
+
+
+
+    </LinearLayout>
+
+
+</LinearLayout>

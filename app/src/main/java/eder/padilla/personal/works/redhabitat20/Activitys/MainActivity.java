@@ -15,10 +15,7 @@ import com.jaredrummler.materialspinner.MaterialSpinner;
 
 
 import eder.padilla.personal.works.redhabitat20.adapters.ViewPagerEncuestaAdapter;
-import eder.padilla.personal.works.redhabitat20.fragments.dialogs.DialogoComentarioPropietario;
-import eder.padilla.personal.works.redhabitat20.fragments.dialogs.DialogoFinalEncuesta;
 import eder.padilla.personal.works.redhabitat20.fragments.dialogs.DialogoFinalizarAntesCuestionario;
-import eder.padilla.personal.works.redhabitat20.fragments.dialogs.DiaologoPreguntaRealizarEncuesta;
 import eder.padilla.personal.works.redhabitat20.modelos.Encuesta;
 import eder.padilla.personal.works.redhabitat20.R;
 import eder.padilla.personal.works.redhabitat20.util.Constants;

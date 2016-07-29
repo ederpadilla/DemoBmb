@@ -1,11 +1,8 @@
 package eder.padilla.personal.works.redhabitat20.fragments.fragmentsPreguntas;
 
-import android.app.Activity;
 import android.app.FragmentManager;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,11 +14,8 @@ import android.widget.TextView;
 import java.util.Calendar;
 
 import eder.padilla.personal.works.redhabitat20.activitys.MainActivity;
-import eder.padilla.personal.works.redhabitat20.fragments.dialogs.DialogoFinalEncuesta;
+import eder.padilla.personal.works.redhabitat20.fragments.dialogs.Dialogo_Comentario_Del_Asesor;
 import eder.padilla.personal.works.redhabitat20.fragments.dialogs.Firma_Electronica;
-import eder.padilla.personal.works.redhabitat20.util.Constants;
-import eder.padilla.personal.works.redhabitat20.util.Util;
-import eder.padilla.personal.works.redhabitat20.modelos.Encuesta;
 import eder.padilla.personal.works.redhabitat20.R;
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
@@ -70,20 +64,12 @@ public class Fg_ViewPager_Ocho extends Fragment implements View.OnClickListener 
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.final1:
-                String f=c.get(Calendar.DAY_OF_YEAR)+" / "+c.get(Calendar.MONTH)+" / "+c.get(Calendar.YEAR);
+                String f=c.get(Calendar.DAY_OF_MONTH)+"/"+(c.get(Calendar.MONTH)+1)+"/"+c.get(Calendar.YEAR);
                   /**Casteamos nuestro objeto y asignamos valor al campo del modelo y llamamos a
                     * la proxima pagina del viewpager*/
                 ((MainActivity) getActivity()).encuesta.setComentarioFinal(etComentarioFinal.getText().toString());
                 ((MainActivity) getActivity()).encuesta.setFecha(f);
-                createEncuestaRespondida(((MainActivity) getActivity()).encuesta);
-                Encuesta a = ((MainActivity)getActivity()).encuesta;
-                System.out.println("El objeto es " + Util.toStringEncuesta(a));
                 dialogoFinal();
-                Intent returnIntent = new Intent();
-                returnIntent.putExtra(Constants.RESULT_OF_END_QUIZ,"finalizada");
-                Log.i("ponemos en el extra",""+returnIntent.getExtras());
-                getActivity().setResult(Activity.RESULT_OK,returnIntent);
-                getActivity().finish();
                 break;
             case R.id.firmadigital:
                 signatureRequest();
@@ -91,14 +77,9 @@ public class Fg_ViewPager_Ocho extends Fragment implements View.OnClickListener 
         }
     }
     public void dialogoFinal() {
-        FragmentManager fm2 = getActivity().getFragmentManager();
-        DialogoFinalEncuesta editNameDialog = new DialogoFinalEncuesta();
+        android.support.v4.app.FragmentManager fm2 = getFragmentManager();
+        Dialogo_Comentario_Del_Asesor editNameDialog = new Dialogo_Comentario_Del_Asesor();
         editNameDialog.show(fm2,"Hi");
-        editNameDialog.dismiss();
     }
-    public void createEncuestaRespondida(Encuesta encuesta) {
-        realm.beginTransaction();
-        realm.copyToRealmOrUpdate(encuesta);
-        realm.commitTransaction();
-    }
+
 }

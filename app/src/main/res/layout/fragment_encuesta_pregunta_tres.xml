@@ -44,7 +44,7 @@
         <Button
             android:layout_width="210dp"
             android:layout_height="wrap_content"
-            android:text="@string/Aceptar"
+            android:text="@string/Afirmar"
             style="@style/Btns_questions"
             android:background="@color/salmon_orange"
             android:id="@+id/aceptar"/>

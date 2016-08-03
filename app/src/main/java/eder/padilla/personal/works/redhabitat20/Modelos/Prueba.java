@@ -5,20 +5,12 @@ import com.google.gson.annotations.SerializedName;
 import java.util.Arrays;
 
 import eder.padilla.personal.works.redhabitat20.util.Constants;
-import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
 
 /**
- * Created by Eder on 31/03/2016.
+ * Created by Eder on 03/08/2016.
  */
-/**
- * Clase que define el modelo que se guardara y que se enviara
- */
-public class Encuesta extends RealmObject {
-
-
-
-
+public class Prueba {
     @SerializedName(Constants.WEBSERVICE_FIRSTQUESTION)
     private int    calificacionInmueble;
     @SerializedName(Constants.WEBSERVICE_COMENNT)
@@ -163,11 +155,9 @@ public class Encuesta extends RealmObject {
     public void setComentarioDelAsesor(String comentarioDelAsesor) {
         this.comentarioDelAsesor = comentarioDelAsesor;
     }
-
-
     @Override
     public String toString() {
-        return "Encuesta{" +
+        return "Prueba{" +
                 "calificacionInmueble=" + calificacionInmueble +
                 ", porQueLoCalificasAsi='" + porQueLoCalificasAsi + '\'' +
                 ", dentrodelpresupuesto=" + dentrodelpresupuesto +

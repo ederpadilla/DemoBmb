@@ -21,10 +21,11 @@ import com.github.silvestrpredko.dotprogressbar.DotProgressBar;
 import org.json.JSONObject;
 
 import eder.padilla.personal.works.redhabitat20.R;
-import eder.padilla.personal.works.redhabitat20.interfaces.Interfaz;
+import eder.padilla.personal.works.redhabitat20.interfaces.InterfazPeticiones;
 import eder.padilla.personal.works.redhabitat20.modelos.Asesor;
 import eder.padilla.personal.works.redhabitat20.modelos.Informacion;
 import eder.padilla.personal.works.redhabitat20.util.Constants;
+import eder.padilla.personal.works.redhabitat20.util.ServiceGenerator;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -48,6 +49,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         /** Call all objects un the UI we need. **/
         objectInitialization();
         setListeners();
+        dotProgressBar.setVisibility(View.GONE);
     }
 
 
@@ -70,52 +72,40 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         dotProgressBar.setVisibility(View.GONE);
     }
 
+
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             /** Try the log in . */
             case R.id.btn_signup:
                 submitForm();
-                /** Star the request to server and the progress bar appear. **/
+                /** Star the request to server and the progress bar appear.**/
                 dotProgressBar.setVisibility(View.VISIBLE);
                 btnSignUp.setVisibility(View.GONE);
-                //tryLogIn();
-                offlineLogin();
+                login();
+                //offlineLogin();
                 break;
 
         }
     }
     private void offlineLogin(){
-        /**
-         mSharedPreferences=getSharedPreferences("Login", 0);
-         SharedPreferences.Editor editor=mSharedPreferences.edit();
-         editor.putString(getResources().getString(R.string.Shared_Preferences_User),"" );
-         editor.commit();
-         mSharedPreferences=getSharedPreferences("Login", 0);*/
-
         mSharedPreferences=getSharedPreferences(Constants.LLAVE_LOGIN, 0);
         SharedPreferences.Editor editor=mSharedPreferences.edit();
         editor.putString(Constants.NOMBRE_ASESOR,"Asesor");
-        editor.putBoolean(Constants.BOOLEAN_LOG,true);
-        Log.e("el valor"," de el booleano que le damos es "+ mSharedPreferences.getBoolean(Constants.BOOLEAN_LOG,true));
+        editor.putString(Constants.TOKEN_FINAL,"tokenoffline");
         editor.commit();
         Intent myIntent = new Intent(LoginActivity.this, CalendarActivity.class);
         LoginActivity.this.startActivity(myIntent);
         finish();
     }
 
-    private void tryLogIn() {
-        /** Calle the URL where we gona made the peticions. */
-        String BASE_URL = Constants.BASE_URL;
 
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-        Interfaz apiService =
-                retrofit.create(Interfaz.class);
+
+
+    private void login(){
+    InterfazPeticiones interfazPeticiones= ServiceGenerator.createService(InterfazPeticiones.class);
         Asesor user = new Asesor(inputEmail.getText().toString(), inputPassword.getText().toString());
-        Call<Informacion> call = apiService.createModelo(user);
+        Call<Informacion> call = interfazPeticiones.mandarUsuario(user);
         call.enqueue(new Callback<Informacion>() {
             @Override
             public void onResponse(Call<Informacion> call, Response<Informacion> response) {
@@ -132,7 +122,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     case 200:
 
                         dotProgressBar.setVisibility(View.GONE);
-                        System.out.println("El token es "+user.getToken());
+
+
                         Log.e("Status es: ",user.getStatus());
 
                         if(user.getToken()==(null)){
@@ -141,11 +132,14 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                             mSharedPreferences=getSharedPreferences(Constants.LLAVE_LOGIN, 0);
                             SharedPreferences.Editor editor=mSharedPreferences.edit();
                             editor.putString(Constants.NOMBRE_ASESOR,user.getName());
+                            final String tokenFinal= "Bearer "+user.getToken();
+                            editor.putString(Constants.TOKEN_FINAL,tokenFinal);
                             editor.commit();
+                            Log.i("token final para mandar"," "+tokenFinal);
                             Intent myIntent = new Intent(LoginActivity.this, CalendarActivity.class);
                             LoginActivity.this.startActivity(myIntent);
-                        finish();}
-                    break;
+                            finish();}
+                        break;
                     case 400:
                         dotProgressBar.setVisibility(View.GONE);
                         btnSignUp.setVisibility(View.VISIBLE);
@@ -178,11 +172,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                         break;
 
                 }
-
-
-
             }
-            /** Si el servidor falla. */
+
             @Override
             public void onFailure(Call<Informacion> call, Throwable t) {
                 dotProgressBar.setVisibility(View.GONE);
@@ -194,11 +185,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 Toast toast = Toast.makeText(context, getResources().getString(R.string.error_server), duration);
                 toast.show();
 
-
             }
         });
-
     }
+
 
     private void submitForm() {
 

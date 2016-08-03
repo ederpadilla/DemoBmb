@@ -3,27 +3,36 @@ package eder.padilla.personal.works.redhabitat20.fragments.dialogs;
 import android.app.Activity;
 
 
-import android.app.Dialog;
-import android.content.DialogInterface;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
-import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
+
+import org.json.JSONObject;
+
+import java.util.List;
 
 import eder.padilla.personal.works.redhabitat20.R;
 import eder.padilla.personal.works.redhabitat20.activitys.MainActivity;
+import eder.padilla.personal.works.redhabitat20.interfaces.InterfazPeticiones;
 import eder.padilla.personal.works.redhabitat20.modelos.Encuesta;
+import eder.padilla.personal.works.redhabitat20.modelos.Prueba;
 import eder.padilla.personal.works.redhabitat20.util.Constants;
-import eder.padilla.personal.works.redhabitat20.util.Util;
+import eder.padilla.personal.works.redhabitat20.util.ServiceGenerator;
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
 import io.realm.RealmResults;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * Created by Eder on 28/07/2016.
@@ -36,19 +45,15 @@ public class Dialogo_Comentario_Del_Asesor extends DialogFragment implements Vie
     private Realm realm;
     RealmConfiguration realmConfiguration;
 
+
     @Override
-    public Dialog onCreateDialog(Bundle savedInstanceState) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        // Get the layout inflater
-        LayoutInflater inflater = getActivity().getLayoutInflater();
-        View view = inflater.inflate(R.layout.dialogo_gracias_visita_regustrada, null, false);
-        // Inflate and set the layout for the dialog
-        // Pass null as the parent view because its going in the dialog layout
-        builder.setView(view);
-        // Add action buttons
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        /** Inflamos nuestra vista */
+        View view = inflater.inflate(R.layout.dialogo_gracias_visita_regustrada, container);
         objectInitialization(view);
         setListeners();
-        return builder.create();
+        return view;
     }
 
 
@@ -74,18 +79,19 @@ public class Dialogo_Comentario_Del_Asesor extends DialogFragment implements Vie
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-           case R.id.bt_guardar_comentario_asesor:
+            case R.id.bt_guardar_comentario_asesor:
                 ((MainActivity) getActivity()).encuesta.setIdd(allEncuestas.size() + 1);
                 ((MainActivity) getActivity()).encuesta.setComentarioDelAsesor(met_Comentario_del_Asesor.getText().toString());
                 createEncuestaRespondida(((MainActivity) getActivity()).encuesta);
                 Encuesta encuesta_contestada = ((MainActivity) getActivity()).encuesta;
-                System.out.println("El objeto es " + encuesta_contestada.toString());
+                realm.beginTransaction();
+                ((MainActivity) getActivity()).visita.setTipo(Constants.VISITA_TIPO_FINALIZADA);
+                realm.copyToRealmOrUpdate(((MainActivity) getActivity()).visita);
+                realm.commitTransaction();
+                enviarEncuesta();
                 Intent returnIntent = new Intent();
-                returnIntent.putExtra(Constants.RESULT_OF_END_QUIZ, "finalizada");
-                Log.i("ponemos en el extra", "" + returnIntent.getExtras());
                 getActivity().setResult(Activity.RESULT_OK, returnIntent);
                 getActivity().finish();
-
                 dismiss();
                 break;
             case R.id.bt_dialogo_cancelar_comentario_del_asesor:
@@ -98,6 +104,69 @@ public class Dialogo_Comentario_Del_Asesor extends DialogFragment implements Vie
         realm.beginTransaction();
         realm.copyToRealmOrUpdate(encuesta);
         realm.commitTransaction();
+    }
+
+    List<Encuesta> realmEncuesta;
+
+    public void enviarEncuesta() {
+        InterfazPeticiones interfazPeticiones = ServiceGenerator.createService(InterfazPeticiones.class);
+        Prueba prueba = new Prueba();
+        Encuesta encuesta1 = ((MainActivity) getActivity()).encuesta;
+        prueba.setDeseoOfertas(encuesta1.isDeseoOfertas());
+        prueba.setAtencion(encuesta1.getAtencion());
+        prueba.setBytes(encuesta1.getBytes());
+        prueba.setCalificacionInmueble(encuesta1.getCalificacionInmueble());
+        prueba.setComentarioDelAsesor(encuesta1.getComentarioDelAsesor());
+        prueba.setComentarioFinal(encuesta1.getComentarioFinal());
+        prueba.setComentarioFinalizarAntes(encuesta1.getComentarioFinalizarAntes());
+        prueba.setConsideraselinmuebledentrodesusopcionesdecompraorenta(encuesta1.isConsideraselinmuebledentrodesusopcionesdecompraorenta());
+        prueba.setDentrodelpresupuesto(encuesta1.isDentrodelpresupuesto());
+
+        Log.i("Encuesta", ((MainActivity) getActivity()).encuesta.toString());
+
+        final Call<ResponseBody> call = interfazPeticiones.mandarEncuestas(((MainActivity) getActivity()).token,((MainActivity) getActivity()).encuesta);
+
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> encuestas, Response<ResponseBody> response) {
+
+                int statusCode = response.code();
+                Context context = getActivity().getApplicationContext();
+
+                JSONObject jsonObject = new JSONObject();
+
+
+                //Encuesta user = response.body();
+                //Log.i("User ","Response body"+user.toString());
+                //realm.beginTransaction();
+                //realm.copyToRealmOrUpdate(response.body());
+                //realm.commitTransaction();
+//                System.out.println("El jonson es: "+response.body().toString());
+                Log.e("login", "entre a onresponse");
+                switch (statusCode) {
+                    case 200:
+
+                        break;
+                    case 400:
+                        break;
+                    case 401:
+                        break;
+                    case 403:
+                        break;
+                    case 404:
+                        break;
+                    case 500:
+                        break;
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                Log.e("login", "entre a onfailure");
+                int duration = Toast.LENGTH_SHORT;
+            }
+        });
     }
 
 }

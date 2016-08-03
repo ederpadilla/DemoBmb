@@ -12,6 +12,7 @@ import java.util.ArrayList;
 
 import eder.padilla.personal.works.redhabitat20.R;
 import eder.padilla.personal.works.redhabitat20.modelos.Visita;
+import eder.padilla.personal.works.redhabitat20.util.Constants;
 
 /**
  * This class will select the behavior of our recycler views.
@@ -90,9 +91,9 @@ public class AdaptadorVisitas
         public void bindTitular(Visita visita) {
             txtTitulo.setText(visita.getNombre());
             txtSubtitulo.setText(visita.getDireccion());
-            if (visita.getTipo().trim().equalsIgnoreCase("programada")) {
+            if (visita.getTipo().trim().equalsIgnoreCase(Constants.VISITA_TIPO_PROGRAMADA)) {
                 mContainer.setBackgroundColor(mContainer.getResources().getColor(R.color.visita_programada));
-            } else if (visita.getTipo().trim().equalsIgnoreCase("finalizada")) {
+            } else if (visita.getTipo().trim().equalsIgnoreCase(Constants.VISITA_TIPO_FINALIZADA)) {
                 mContainer.setBackgroundColor(mContainer.getResources().getColor(R.color.visitas_finalizadas));
             } else {
                 mContainer.setBackgroundColor(mContainer.getResources().getColor(R.color.white));

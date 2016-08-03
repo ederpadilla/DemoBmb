@@ -46,7 +46,7 @@
             android:layout_width="210dp"
             style="@style/Btns_questions"
             android:layout_height="wrap_content"
-            android:text="@string/Aceptar"
+            android:text="@string/Afirmar"
             android:background="@color/salmon_orange"
             android:id="@+id/aceptar"/>
     </LinearLayout>

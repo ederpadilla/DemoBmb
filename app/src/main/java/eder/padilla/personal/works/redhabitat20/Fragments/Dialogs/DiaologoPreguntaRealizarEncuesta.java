@@ -3,6 +3,7 @@ package eder.padilla.personal.works.redhabitat20.fragments.dialogs;
 import android.app.DialogFragment;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,7 @@ import android.widget.Button;
 import eder.padilla.personal.works.redhabitat20.R;
 import eder.padilla.personal.works.redhabitat20.activitys.MainActivity;
 import eder.padilla.personal.works.redhabitat20.modelos.Encuesta;
+import eder.padilla.personal.works.redhabitat20.util.Constants;
 import io.realm.Realm;
 import io.realm.RealmResults;
 
@@ -21,13 +23,15 @@ import io.realm.RealmResults;
 public class DiaologoPreguntaRealizarEncuesta extends DialogFragment implements View.OnClickListener {
     private Button mbt_RealizarEncuesta;
     private Button mbt_NoRealizarEncuesta;
-
+    int idd;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         /** Inflamos nuestra vista */
         View view = inflater.inflate(R.layout.dialogo_pregunta_realizar_encuesta, container);
         getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
+        idd=getArguments().getInt(Constants.ID_VIEW_VISITA);
+        Log.e("intent recibido","es "+idd);
         objectInitialization(view);
         setListeners();
         return view;
@@ -53,8 +57,11 @@ public class DiaologoPreguntaRealizarEncuesta extends DialogFragment implements 
     public void onClick(View v) {
         switch(v.getId()){
             case R.id.bt_dialogo_aceptar_encuesta:
+
                 dismiss();
                 Intent myIntent = new Intent(getActivity(), MainActivity.class);
+                myIntent.putExtra(Constants.ID_VIEW_VISITA,idd);
+                Log.e("myLog","idd dialogo"+idd);
                 getActivity().startActivityForResult(myIntent,1);
                 break;
             case R.id.bt__dialogo_cancelar_encuesta:

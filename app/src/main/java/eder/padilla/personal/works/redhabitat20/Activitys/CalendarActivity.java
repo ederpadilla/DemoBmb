@@ -19,13 +19,13 @@ import android.widget.DatePicker;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.github.silvestrpredko.dotprogressbar.DotProgressBar;
 import com.jaredrummler.materialspinner.MaterialSpinner;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
 import com.prolificinteractive.materialcalendarview.OnDateSelectedListener;
 import com.prolificinteractive.materialcalendarview.OnMonthChangedListener;
 
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -34,13 +34,21 @@ import java.util.Calendar;
 import eder.padilla.personal.works.redhabitat20.R;
 import eder.padilla.personal.works.redhabitat20.adapters.AdaptadorVisitas;
 import eder.padilla.personal.works.redhabitat20.fragments.dialogs.DiaologoPreguntaRealizarEncuesta;
+import eder.padilla.personal.works.redhabitat20.interfaces.InterfazPeticiones;
 import eder.padilla.personal.works.redhabitat20.modelos.Encuesta;
 import eder.padilla.personal.works.redhabitat20.modelos.Visita;
 import eder.padilla.personal.works.redhabitat20.util.ConnectionDetector;
 import eder.padilla.personal.works.redhabitat20.util.Constants;
 import eder.padilla.personal.works.redhabitat20.util.DividerItemDecoration;
+import eder.padilla.personal.works.redhabitat20.util.ServiceGenerator;
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
+import io.realm.RealmList;
+import io.realm.RealmResults;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * Created by Eder on 12/04/2016.
@@ -92,11 +100,11 @@ public class CalendarActivity extends AppCompatActivity implements View.OnClickL
     private RealmConfiguration realmConfiguration;
     private int semanaDelAño;
     private int semanaDinamica;
-    private DotProgressBar dotProgressBar;
     private String semanaDomingo,semanaLunes,semanaMartes,
             semanaMiercoles,semanaJueves,semanaViernes,
             semanaSabado;
-
+    Bundle bundle;
+    SharedPreferences userDetails;
 
 
     @Override
@@ -116,21 +124,63 @@ public class CalendarActivity extends AppCompatActivity implements View.OnClickL
         getFullweek();
         addVisits();
         onChangeWeekListener();
-        dotProgressBar.setVisibility(View.GONE);
+        String token = userDetails.getString(Constants.TOKEN_FINAL, "");
+        Log.i("calendaractivity"," token es "+token);
+
+
+
+
+    }
+    public void tokenOfsahred(){
+        String token = userDetails.getString(Constants.TOKEN_FINAL, "");
+        Log.i("calendaractivity"," token es "+token);
+        InterfazPeticiones interfazPeticiones= ServiceGenerator.createService(InterfazPeticiones.class);
+        interfazPeticiones.obtenerVisitasdelBack(getSelectedDatesString(),token).enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                Log.i("responsebody",""+response.code());
+                try {
+                    Log.i("OnResponse ",response.body().string());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                Log.e("entra a ","onFailiure");
+
+            }
+        });
     }
     @Override
     public void onResume() {
         super.onResume();
+        Log.e("entra a"," On Resume");
+        sundayAdapter.notifyDataSetChanged();
+        mondayAdapter.notifyDataSetChanged();
+        tuesdayAdapter.notifyDataSetChanged();
+        wednesdayAdapter.notifyDataSetChanged();
+        thursdayAdapter.notifyDataSetChanged();
+        fridayAdapter.notifyDataSetChanged();
+        saturdayAdapter.notifyDataSetChanged();
         //addVisits();
     }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-
         if (requestCode == 1) {
             if (resultCode == Activity.RESULT_OK) {
                 String res = data.getStringExtra(Constants.RESULT_OF_END_QUIZ);
-                Log.e("Resultado en string", "" + res);
                 setFinalType = res;
+                emptyAllArrayList();
+
+
+                RealmResults<Visita> allVisits = realm.where(Visita.class).findAll();
+                for (int i = 0; i <allVisits.size() ; i++) {
+                    acomodarVisita(allVisits.get(i));
+                }
+
+
             }
             if (resultCode == Activity.RESULT_CANCELED) {
                 //Write your code if there's no result
@@ -201,11 +251,6 @@ public class CalendarActivity extends AppCompatActivity implements View.OnClickL
         thursdayData = new ArrayList<Visita>();
         fridayData = new ArrayList<Visita>();
         saturdayData = new ArrayList<Visita>();
-        /**Dot progress bar*/
-        dotProgressBar=(DotProgressBar) findViewById(R.id.dot_progress_barcalendar);
-        dotProgressBar.setStartColor(getResources().getColor(R.color.peach));
-        dotProgressBar.setEndColor(getResources().getColor(R.color.salmon_orange));
-        dotProgressBar.setVisibility(View.GONE);
         /**Realm*/
         realmConfiguration = new RealmConfiguration.Builder(getApplicationContext()).build();
         realm = Realm.getInstance(realmConfiguration);
@@ -282,7 +327,6 @@ public class CalendarActivity extends AppCompatActivity implements View.OnClickL
         setAdapters();
     }
     private void emptyAllArrayList() {
-        Log.e("entramos","a vaciar");
         Visita emptyVisit= new Visita("","","");
         for (int i = 0; i < 24; i++) {
             sundayData.set(i,emptyVisit);
@@ -442,13 +486,8 @@ public class CalendarActivity extends AppCompatActivity implements View.OnClickL
     }
     /**Spinner. */
     private void spinnerAdapter() {
-        /**SharedPreferences userDetails = getSharedPreferences(Constants.LLAVE_LOGIN,0);
-         String Uname = userDetails.getString(Constants.NOMBRE_ASESOR, "");
-         String mNombreAsesor=getResources().getString(R.string.asesor);
-         final String mFinalizarCuestionario=getResources().getString(R.string.finalizar_cuestionario);
-         final String cerrarSesion=getResources().getString(R.string.cerrarsesion);
-         mSpinner.setItems(Uname*/
-        SharedPreferences userDetails = getSharedPreferences(Constants.LLAVE_LOGIN,0);
+
+        userDetails = getSharedPreferences(Constants.LLAVE_LOGIN,0);
         String Uname = userDetails.getString(Constants.NOMBRE_ASESOR, "");
         String nombreAsesor=getResources().getString(R.string.asesor);
         String cerrarSesion=getResources().getString(R.string.cerrarsesion);
@@ -511,19 +550,18 @@ public class CalendarActivity extends AppCompatActivity implements View.OnClickL
         dayOfTheWeek(cal);
         semanaDelAño=cal.get(Calendar.WEEK_OF_YEAR);
         onChangeWeekListener();
+        Log.e("ondateSelcted"," "+getSelectedDatesString());
 
     }
     private  void onChangeWeekListener(){
         if (semanaDinamica != semanaDelAño){
             semanaDinamica= semanaDelAño;
             emptyAllArrayList();
-            dotProgressBar.setVisibility(View.VISIBLE);
             getFullweek();
             addVisits();
             Log.e("myLog","semana diferente");
         }
         else {
-            dotProgressBar.setVisibility(View.GONE);
             Log.e("myLog","misma semana");
         }
 
@@ -543,47 +581,16 @@ public class CalendarActivity extends AppCompatActivity implements View.OnClickL
     }
     private void check_State(Visita visita) {
         Log.e("visita", "visita" + visita.toString());
-        if (visita.getTipo().equals("programada")) {
+        if (visita.getTipo().equals(Constants.VISITA_TIPO_PROGRAMADA)) {
+            bundle = new Bundle();
+            bundle.putInt(Constants.ID_VIEW_VISITA,visita.getIdd());
+            Log.i("myLog","visita que mandamos"+visita.getIdd());
             showEditDialog();
             Log.e("Checando el estado", "entro al programada");
         }else{
         Log.e("Checando el estado", "entro al otro");}
     }
-private int diaDelaSemana(){
-    int dia=0;
 
-    switch (stringToCalendar(getSelectedDatesString()).get(Calendar.DAY_OF_WEEK)){
-        case 1:
-            Log.e("dia: ",""+stringToCalendar(getSelectedDatesString()).get(Calendar.DAY_OF_WEEK));
-            dia=1;
-            break;
-        case 2:
-            Log.e("dia: ",""+stringToCalendar(getSelectedDatesString()).get(Calendar.DAY_OF_WEEK));
-            dia=2;
-            break;
-        case 3:
-            Log.e("dia: ",""+stringToCalendar(getSelectedDatesString()).get(Calendar.DAY_OF_WEEK));
-            dia=3;
-            break;
-        case 4:
-            Log.e("dia: ",""+stringToCalendar(getSelectedDatesString()).get(Calendar.DAY_OF_WEEK));
-            dia=4;
-            break;
-        case 5:
-            Log.e("dia: ",""+stringToCalendar(getSelectedDatesString()).get(Calendar.DAY_OF_WEEK));
-            dia=5;
-            break;
-        case 6:
-            Log.e("dia: ",""+stringToCalendar(getSelectedDatesString()).get(Calendar.DAY_OF_WEEK));
-            dia=6;
-            break;
-        case 7:
-            Log.e("dia: ",""+stringToCalendar(getSelectedDatesString()).get(Calendar.DAY_OF_WEEK));
-            dia=7;
-            break;
-    }
-    return dia;
-    }
 
     private void getFullweek(){
         Calendar test = stringToCalendar(getSelectedDatesString());
@@ -950,8 +957,9 @@ private int diaDelaSemana(){
 
     }
     private void showEditDialog() {
-        DiaologoPreguntaRealizarEncuesta editNameDialog = new DiaologoPreguntaRealizarEncuesta();
-        editNameDialog.show(getFragmentManager(), "diaologo_preguntar_encuesta");
+        DiaologoPreguntaRealizarEncuesta diaologoPreguntaRealizarEncuesta = new DiaologoPreguntaRealizarEncuesta();
+         diaologoPreguntaRealizarEncuesta.setArguments(bundle);
+         diaologoPreguntaRealizarEncuesta.show(getFragmentManager(), "diaologo_preguntar_encuesta");
     }
     public void dayOfTheWeek(Calendar cal) {
         if (linearLayout != null) {
@@ -1015,17 +1023,20 @@ private int diaDelaSemana(){
 
 
     private void addVisits() {
-        ArrayList<Visita> visitas= new ArrayList<>();
-        Visita domingo = new Visita("Jose Palacios", " Insurgentes Sur, #949 3er piso, despacho 301, Ciudad de México", "programada","24/6/2016", 0);
-        Visita lunes2 = new Visita("Alejandra Rosalva", " Insurgentes Sur, #949 3er piso, despacho 301, Ciudad de México", "finalizada","25/6/2016", 3);
-        Visita lunes = new Visita("Alejandra Rosalva", " Insurgentes Sur, #949 3er piso, despacho 301, Ciudad de México", "finalizada","25/6/2016", 1);
-        Visita alguna = new Visita("Alejandra Rosalva", " Insurgentes Sur, #949 3er piso, despacho 301, Ciudad de México", "finalizada","19/6/2016", 3);
-        Visita lunes3= new Visita("Alejandra Rosalva", " Insurgentes Sur, #949 3er piso, despacho 301, Ciudad de México", "finalizada","25/6/2016", 5);
-        Visita martes = new Visita("Luis Nuño", " Insurgentes Sur, #949 3er piso, despacho 301, Ciudad de México", "programada","26/6/2016", 5);
-        Visita miercoles = new Visita("Juan Ruvalcaba", " Insurgentes Sur, #949 3er piso, despacho 301, Ciudad de México", "finalizada","27/6/2016", 13);
-        Visita jueves = new Visita("Ken el cabron", " Insurgentes Sur, #949 3er piso, despacho 301, Ciudad de México", "programada","28/6/2016", 23);
-        Visita viernes = new Visita("Eder Padilla", " Insurgentes Sur, #949 3er piso, despacho 301, Ciudad de México", "finalizada","29/6/2016", 15);
-        Visita sabado = new Visita("Lucio Sanchez", " Insurgentes Sur, #949 3er piso, despacho 301, Ciudad de México", "programada","30/6/2016", 16);
+        RealmList<Visita> visitas= new RealmList<>();
+
+        Visita domingo = new Visita("Jose Palacios", " Insurgentes Sur, #949 3er piso, despacho 301, Ciudad de México", Constants.VISITA_TIPO_PROGRAMADA,"24/6/2016",0,1);
+        Visita lunes2 = new Visita("Alejandra Rosalva", " Insurgentes Sur, #949 3er piso, despacho 301, Ciudad de México", Constants.VISITA_TIPO_FINALIZADA,"25/6/2016",3,2);
+        Visita lunes = new Visita("Alejandra Rosalva", " Insurgentes Sur, #949 3er piso, despacho 301, Ciudad de México", Constants.VISITA_TIPO_FINALIZADA,"25/6/2016",1,3);
+        Visita alguna = new Visita("Alejandra Rosalva", " Insurgentes Sur, #949 3er piso, despacho 301, Ciudad de México", Constants.VISITA_TIPO_PROGRAMADA,"19/6/2016",3,4);
+        Visita lunes3= new Visita("Alejandra Rosalva", " Insurgentes Sur, #949 3er piso, despacho 301, Ciudad de México",Constants.VISITA_TIPO_FINALIZADA,"25/6/2016",5,5);
+        Visita martes = new Visita("Luis Nuño", " Insurgentes Sur, #949 3er piso, despacho 301, Ciudad de México", Constants.VISITA_TIPO_PROGRAMADA,"26/6/2016",5,6);
+        Visita miercoles = new Visita("Juan Ruvalcaba", " Insurgentes Sur, #949 3er piso, despacho 301, Ciudad de México", Constants.VISITA_TIPO_FINALIZADA,"27/6/2016",13,7);
+        Visita jueves = new Visita("Ken el cabron", " Insurgentes Sur, #949 3er piso, despacho 301, Ciudad de México",Constants.VISITA_TIPO_PROGRAMADA,"28/6/2016",23,8);
+        Visita viernes = new Visita("Eder Padilla", " Insurgentes Sur, #949 3er piso, despacho 301, Ciudad de México", Constants.VISITA_TIPO_FINALIZADA,"29/6/2016",15,9);
+        Visita sabado = new Visita("Lucio Sanchez", " Insurgentes Sur, #949 3er piso, despacho 301, Ciudad de México", Constants.VISITA_TIPO_PROGRAMADA,"30/6/2016",16,10);
+        Visita diacuatro= new Visita("Puto Ricardo","Vive en la verga",Constants.VISITA_TIPO_PROGRAMADA,"4/6/2016",1);
+        visitas.add(diacuatro);
         visitas.add(alguna);
         visitas.add(domingo);
         visitas.add(lunes);
@@ -1040,7 +1051,7 @@ private int diaDelaSemana(){
         for (int i = 0; i <visitas.size() ; i++) {
             acomodarVisita(visitas.get(i));
         }
-
+        crearVisitas(visitas);
     }
     private void acomodarVisita(Visita visita){
          int hora = horaAsignada(visita);
@@ -1108,7 +1119,8 @@ private int diaDelaSemana(){
         }
     }
 
-    private void crearVisita(Visita visita) {
+
+    private void crearVisitas(RealmList<Visita> visita) {
         realm.beginTransaction();
         realm.copyToRealmOrUpdate(visita);
         realm.commitTransaction();

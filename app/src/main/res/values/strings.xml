@@ -37,7 +37,7 @@
     <string name="pregunta_nueve">Desea dejar un comentario.</string>
     <string name="finalizar_cuestionario">Finalizar cuestionario</string>
     <!--Botones de preguntas-->
-    <string name="Aceptar">Si</string>
+    <string name="Afirmar">Si</string>
     <string name="Negar">No</string>
     <string name="siguiente">Siguiente</string>
     <string name="buena">BUENA</string>
@@ -97,6 +97,7 @@
     <string name="poquecalificaasi">¿Por qué lo calificaría así?</string>
     <string name="pregunta_cuatro_info">La información que recibió respecto a la propiedad fue:</string>
     <string name="gracias">¡GRACIAS!</string>
+    <string name="deseo_recibir_ofertas">Deseo recibir ofertas</string>
 
 
 </resources>

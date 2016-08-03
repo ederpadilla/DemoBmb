@@ -3,10 +3,12 @@ package eder.padilla.personal.works.redhabitat20.fragments.fragmentsPreguntas;
 import android.app.FragmentManager;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -27,9 +29,10 @@ public class Fg_ViewPager_Ocho extends Fragment implements View.OnClickListener 
     private Button btnTerminarEncuesta;
     private EditText etComentarioFinal;
     private TextView firma_digital;
-    Calendar c = Calendar.getInstance();
+    private CheckBox checkBox;
     Realm realm;
     RealmConfiguration config;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_encuesta_pregunta_nueve, container, false);
@@ -47,6 +50,7 @@ public class Fg_ViewPager_Ocho extends Fragment implements View.OnClickListener 
         etComentarioFinal = (EditText) view.findViewById(R.id.comentariofinalNueve);
         btnTerminarEncuesta = (Button) view.findViewById(R.id.final1);
         firma_digital=(TextView)view.findViewById(R.id.firmadigital);
+        checkBox=(CheckBox)view.findViewById(R.id.checkbox_recibir_notificaciones);
         config= new RealmConfiguration.Builder(getContext()).build();
         realm = Realm.getInstance(config);
     }
@@ -64,11 +68,12 @@ public class Fg_ViewPager_Ocho extends Fragment implements View.OnClickListener 
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.final1:
-                String f=c.get(Calendar.DAY_OF_MONTH)+"/"+(c.get(Calendar.MONTH)+1)+"/"+c.get(Calendar.YEAR);
                   /**Casteamos nuestro objeto y asignamos valor al campo del modelo y llamamos a
                     * la proxima pagina del viewpager*/
+                if(checkBox.isChecked()){
+                    ((MainActivity) getActivity()).encuesta.setDeseoOfertas(true);
+                }else{((MainActivity) getActivity()).encuesta.setDeseoOfertas(false);}
                 ((MainActivity) getActivity()).encuesta.setComentarioFinal(etComentarioFinal.getText().toString());
-                ((MainActivity) getActivity()).encuesta.setFecha(f);
                 dialogoFinal();
                 break;
             case R.id.firmadigital:

@@ -1,6 +1,5 @@
 package eder.padilla.personal.works.redhabitat20.fragments.fragmentsPreguntas;
 
-
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -14,23 +13,22 @@ import eder.padilla.personal.works.redhabitat20.R;
 
 
 /**
- * Created by Eder on 14/03/2016.
+ * Created by Eder on 15/03/2016.
  */
-public class Fg_Encuesta_Pregunta_Dos extends Fragment implements View.OnClickListener {
+public class Fg_ViewPager_Siete extends Fragment implements View.OnClickListener {
     private Button btnSiguiente;
-    private EditText et_respuestadelPorqueCubreoNo;
+    private EditText etObjecionparaDescartar;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view= inflater.inflate(R.layout.fragment_encuesta_pregunta_dos, container, false);
+        View view= inflater.inflate(R.layout.fragment_encuesta_pregunta_ocho,container,false);
         objectInitialization(view);
         setListeners();
-        System.out.println("Repuesta dos es " + ((MainActivity) getActivity()).encuesta.getElpPorQueCubreoNo());
+        System.out.println("Repuesta ocho es " + ((MainActivity) getActivity()).encuesta.getObjecionPorLaCulDescartariaelInmueble());
         return view;
     }
-    public void objectInitialization(View view){
-        et_respuestadelPorqueCubreoNo =(EditText)view.findViewById(R.id.comentario);
+    public void objectInitialization(View view) {
+        etObjecionparaDescartar =(EditText)view.findViewById(R.id.descartar);
         btnSiguiente =(Button)view.findViewById(R.id.siguiente);
-
     }
     public void setListeners(){
         btnSiguiente.setOnClickListener(this);
@@ -42,8 +40,8 @@ public class Fg_Encuesta_Pregunta_Dos extends Fragment implements View.OnClickLi
             case R.id.siguiente:
                   /*Casteamos nuestro objeto y asignamos valor al campo del modelo y llamamos a
                     * la proxima pagina del viewpager*/
-                ((MainActivity) getActivity()).encuesta.setElpPorQueCubreoNo(et_respuestadelPorqueCubreoNo.getText().toString());
-                ((MainActivity) getActivity()).viewpager.setCurrentItem(2);
+                ((MainActivity) getActivity()).encuesta.setObjecionPorLaCulDescartariaelInmueble(etObjecionparaDescartar.getText().toString());
+                ((MainActivity) getActivity()).viewpager.setCurrentItem(7);
                 break;
         }
     }

@@ -39,15 +39,6 @@
     android:layout_weight="1"
     android:orientation="horizontal"
     android:gravity="right">
-    <com.github.silvestrpredko.dotprogressbar.DotProgressBar
-        android:id="@+id/dot_progress_barcalendar"
-        android:layout_width="150dp"
-        android:layout_height="200dp"
-        custom:amount="5"
-        custom:duration="@android:integer/config_mediumAnimTime"
-        custom:endColor="@color/salmon_orange"
-        custom:startColor="@color/peach"
-        />
     <LinearLayout
         android:layout_width="190dp"
         android:layout_height="wrap_content"

@@ -36,6 +36,10 @@ public class Constants {
     public static final String WEBSERVICE_SEVENTHQUESTION="seventh_question";
     public static final String WEBSERVICE_EIGHTHQUESTION=" eighth_question";
     public static final String WEBSERVICE_IDDVISIT="eighth_question";
-    public static final String WEBSERVICES_WISHOFFERS="ofertas";
+    public static final String WEBSERVICES_WISHOFFERS="subscribe";
+    public static final String WEBSERVICES_ADVISERCOMMENT="adviser_comment";
+    public static final String WEBSERVICES_SIGNATURE="signature";
+    public static final String WEBSERVICES_BREAKQUESTION ="break_reason";
+
 
 }

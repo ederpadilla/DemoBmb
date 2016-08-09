@@ -2,9 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="eder.padilla.personal.works.redhabitat20">
 
-
-    <uses-permission android:name="android.permission.INTERNET" />
     <!-- Network State Permissions -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
@@ -37,6 +37,18 @@
             android:name=".activitys.MainActivity"
             android:screenOrientation="landscape"
             android:windowSoftInputMode="stateHidden" />
+        <receiver android:name=".util.MyReceiver">
+
+            <intent-filter>
+                <action android:name="android.net.wifi.WIFI_STATE_CHANGED"/>
+                <action android:name="android.net.wifi.STATE_CHANGE"/>
+            </intent-filter>
+
+        </receiver>
+        <service
+            android:name=".util.SendService"
+            android:exported="false"/>
+
 
         <!--
  ATTENTION: This was auto-generated to add Google Play services to your project for

@@ -28,6 +28,7 @@ import eder.padilla.personal.works.redhabitat20.util.Constants;
 import eder.padilla.personal.works.redhabitat20.util.ServiceGenerator;
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
+import io.realm.RealmList;
 import io.realm.RealmResults;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -110,21 +111,9 @@ public class Dialogo_Comentario_Del_Asesor extends DialogFragment implements Vie
 
     public void enviarEncuesta() {
         InterfazPeticiones interfazPeticiones = ServiceGenerator.createService(InterfazPeticiones.class);
-      //  Prueba prueba = new Prueba();
-      //  Encuesta encuesta1 = ((MainActivity) getActivity()).encuesta;
-      //  prueba.setDeseoOfertas(encuesta1.isDeseoOfertas());
-      //  prueba.setAtencion(encuesta1.getAtencion());
-      //  prueba.setBytes(encuesta1.getBytes());
-      //  prueba.setCalificacionInmueble(encuesta1.getCalificacionInmueble());
-      //  prueba.setComentarioDelAsesor(encuesta1.getComentarioDelAsesor());
-      //  prueba.setComentarioFinal(encuesta1.getComentarioFinal());
-      //  prueba.setComentarioFinalizarAntes(encuesta1.getComentarioFinalizarAntes());
-      //  prueba.setConsideraselinmuebledentrodesusopcionesdecompraorenta(encuesta1.isConsideraselinmuebledentrodesusopcionesdecompraorenta());
-      //  prueba.setDentrodelpresupuesto(encuesta1.isDentrodelpresupuesto());
 
-      //  Log.i("Encuesta", ((MainActivity) getActivity()).encuesta.toString());
 
-        final Call<ResponseBody> call = interfazPeticiones.mandarEncuestas(((MainActivity) getActivity()).token,((MainActivity) getActivity()).encuesta);
+        final Call<ResponseBody> call = interfazPeticiones.mandarEncuestas(((MainActivity) getActivity()).token,new RealmList<Encuesta>());
 
         call.enqueue(new Callback<ResponseBody>() {
             @Override

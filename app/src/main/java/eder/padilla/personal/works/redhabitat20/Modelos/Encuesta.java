@@ -42,11 +42,11 @@ public class Encuesta extends RealmObject {
     @SerializedName(Constants.WEBSERVICE_IDDVISIT)
     @PrimaryKey
     private int idd;
-    @SerializedName("coment")
+    @SerializedName(Constants.WEBSERVICES_ADVISERCOMMENT)
     private String comentarioDelAsesor;
-    @SerializedName("comentariofinal")
+    @SerializedName(Constants.WEBSERVICES_BREAKQUESTION)
     private String comentarioFinalizarAntes;
-    @SerializedName("firma")
+    @SerializedName(Constants.WEBSERVICES_SIGNATURE)
     private byte[]bytes;
 
 

@@ -119,7 +119,7 @@ public class CalendarActivity extends AppCompatActivity implements View.OnClickL
         semanaDinamica=semanaDelAño;
         dayOfTheWeek(c);
         fillInAllArrayList();
-        /**checkInternetConection();*/
+        checkInternetConection();
         setListenersToAdapters();
         getFullweek();
         addVisits();
